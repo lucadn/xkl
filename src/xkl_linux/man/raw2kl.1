@@ -1,0 +1,49 @@
+.TH RAW2KL 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+raw2kl \- convert a headerless binary file to Klatt (.wav) audio file
+.SH SYNOPSIS
+.B raw2kl [-h | --help] [-swap] <infile> <outfile>
+.SH DESCRIPTION
+.PP
+.B raw2kl
+converts a raw, binary data file, infile, to a Klatt (.wav) audio
+file, outfile.  The infile is a headerless data file containing single
+channel, shorts (signed 16-bit).  
+
+If after running raw2kl, the waveform looks strange, then you could
+have a byte-swapping problem.  Therefore, try running raw2kl with the
+-swap option.
+
+The .wav extension is optional on the file names.
+
+With no arguments, the program prints out the usage message.
+
+.SS OPTIONS
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+.I "\-swap"
+Swap the bytes in the file before storing them into the Klatt wav file.
+
+.SH EXAMPLES
+raw2kl quiet.bin quiet.wav
+raw2kl -swap waveform_from_SGI.bin waveform.wav
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)

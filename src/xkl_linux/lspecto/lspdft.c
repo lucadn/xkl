@@ -1,0 +1,187 @@
+/* $Log: lspdft.c,v $
+ * Revision 1.2  1998/06/06 21:05:16  krishna
+ * Added RCS header.
+ * */
+
+
+#include <math.h>
+#include "lspdft.h"
+/*      DFT.C         D.H. Klatt */
+
+/*      Compute npts2-point dft magnitude spectrum (after M.R. Portnoff) */
+
+/*        Input: npts1 fixed-point waveform samples in "iwave[1,...,npts1]"
+                  and a floating-point window in "win[1,...,npts1]"
+
+		  If npts1 > npts2, fold waveform re npts2
+CHANGE 2-Jan-87:  For first difference preemphasis, set fdifsw = 1  END OUT
+		  For first difference preemphasis, set fdifcoef = {0,...,100}
+		   where 0 is no preemphasis, and 100 is exact first difference.
+		  For no windowing and no preemphasis, fdifcoef = -1 */
+
+/*        Output: npts2/2 floating-point spectral magnitude-squared
+                  samples returned in floating array dftmag[0,...,npts2/2-1]
+		  (npts2 must be a power of 2, and npts1 must be even) */
+
+
+
+float X2PI = 6.283185307;
+float xrsum;	/* Sum of mag sw. of spectral components */
+
+void dft(short *iwave, float *win,float *dftmag,int npts1,int npts2,int fdifcoef)
+     {
+
+        static float *xr,*xi,xtemp;
+        static int nstage,npts,mn,nskip,nsize,nbut,nhalf,tstage;
+        static float theta,c,s,wr,wi,tempr,dsumr,dsumi,scale,xre,xro;
+        static float xie,xio;
+        float xri,xii,xfdifcoef;
+        static int i1,i,j,k,n,nrem,itest,isum;
+
+/*    Multiply waveform by window and place alternate samples
+      in xr and xi */
+        npts = npts1 >> 1;
+	npts2 = npts2 >> 1;
+        xr = dftmag;
+        xi = dftmag + npts2;
+	i1 = 0;
+	xfdifcoef = 0.01 * (float) fdifcoef;
+        for (i=0; i<npts2; i++) {
+	    xr[i] = 0.;
+	    xi[i] = 0.;
+	}
+        for (i=0; i<npts; i++) {
+            j = i + i;
+            k = j + 1;
+
+            if (fdifcoef >= 0) {
+/*	      Use first difference preemphasis and window function */
+                xri = (float) (iwave[j] - (xfdifcoef * (float) iwave[j-1]));
+                xii = (float) (iwave[k] - (xfdifcoef * (float) iwave[j]));
+	        xr[i1] += xri * win[j];
+	        xi[i1] += xii * win[k];
+            }
+	    else if (fdifcoef == -1) {
+/*	      No first-difference preemphasis, window contains lpc coefs */
+		xr[i1] += win[j];
+		xi[i1] += win[k];
+	    }
+            else {
+/*	      No first difference preemphasis, use window function */
+                xri = iwave[j];
+                xii = iwave[k];
+	        xr[i1] += xri * win[j];
+	        xi[i1] += xii * win[k];
+            }
+
+	    i1++;
+	    if (i1 >= npts2)    i1 = 0;
+        }
+
+/*    Bit-reverse input sequence */
+        i = 1;
+        n = npts2 >> 1;
+        while (i < (npts2-1)) {
+                j = n;
+                if (i < j) {
+                    xtemp = xr[j];
+                    xr[j] = xr[i];
+                    xr[i] = xtemp;
+                    xtemp = xi[j];
+                    xi[j] = xi[i];
+                    xi[i] = xtemp;
+                }
+                nrem = n;
+                itest = npts2;
+                isum = -npts2;
+                while (nrem >= 0) {
+                    isum = isum + itest;
+                    itest = itest >> 1;
+                    nrem = nrem - itest;
+                }
+                n = n + itest - isum;
+                i = i + 1;
+        }
+/*    End of bit-reversal algorithm */
+
+
+/*    Begin FFT */
+        nstage = 0;
+        nskip = 1;
+        while (nskip < npts2) {
+loop:       nstage++;
+            tstage = nstage;/* scope problem with -O, d.h.*/
+            nsize = nskip;
+            nskip = nskip << 1;
+/*        The following loop does butterflies which do not
+          require complex arith */
+            for (i=0; i<npts2; i=i+nskip) {
+                j = i + nsize;
+                xtemp = xr[j];
+                xr[j] = xr[i] - xr[j];
+                xr[i] = xr[i] + xtemp;
+                xtemp = xi[j];
+                xi[j] = xi[i] - xi[j];
+                xi[i] = xi[i] + xtemp;
+            }
+            if (tstage < 2)    goto loop;
+            theta = X2PI / nskip;
+            c = cos(theta);
+            s = sin(theta);
+            wr = 1.0;
+            wi = 0.0;
+
+/*    Do remaining butterflies */
+            for (nbut=2; nbut<=nsize; nbut++) {
+                tempr = wr;
+                wr = (wr*c) + (wi*s);
+                wi = (wi*c) - (tempr*s);
+                for (i=nbut-1; i<npts2; i=i+nskip) {
+                    j = i + nsize;
+                    dsumr = (xr[j]*wr) - (xi[j]*wi);
+                    dsumi = (xi[j]*wr) + (xr[j]*wi);
+                    xr[j] = xr[i] - dsumr;
+                    xi[j] = xi[i] - dsumi;
+                    xr[i] = xr[i] + dsumr;
+                    xi[i] = xi[i] + dsumi;
+                }
+            }
+        }
+
+/*    Set coeficients for scrambled real input */
+        scale = 0.5;
+        wr = 1.0;
+        wi = 0.0;
+        nhalf = npts2 >> 1;
+        tempr = xr[0];
+        xr[0] = tempr + xi[0];
+        xi[0] = tempr - xi[0];
+        theta = X2PI / (npts2+npts2);
+        c = cos(theta);
+        s = sin(theta);
+        for (n=1; n<nhalf; n++) {
+            tempr = wr;
+            wr = (wr*c) + (wi*s);
+            wi = (wi*c) - (tempr*s);
+            mn = npts2 - n;
+            xre = (xr[n] + xr[mn]) * scale;
+            xro = (xr[n] - xr[mn]) * scale;
+            xie = (xi[n] + xi[mn]) * scale;
+            xio = (xi[n] - xi[mn]) * scale;
+            dsumr = (wr*xie) + (wi*xro);
+            dsumi = (wi*xie) - (wr*xro);
+            xr[n] = xre + dsumr;
+            xi[n] = xio + dsumi;
+            xr[mn] = xre - dsumr;
+            xi[mn] = dsumi - xio;
+        }
+
+/*    Take magnitude squared */
+        xi[0] = 0.;
+        xrsum = 0.;
+        for (i=0; i<npts2; i++) {
+            xr[i] = 0.000000001 * ((xr[i] * xr[i]) + (xi[i] * xi[i]));
+            xrsum = xrsum + xr[i];
+        }
+}
+

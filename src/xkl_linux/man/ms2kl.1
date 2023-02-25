@@ -1,0 +1,40 @@
+.TH MS2KL 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+ms2kl \- convert a Microsoft (.wav) audio file to a Klatt (.wav) audio file
+.SH SYNOPSIS
+.B ms2kl [-h | --help] <infile> <outfile>
+.SH DESCRIPTION
+.PP
+.B ms2kl
+convert a Microsoft (.wav) audio file, infile, to a Klatt (.wav) audio
+file, outfile.
+
+With no arguments, the program prints out the usage message.
+
+.SS OPTIONS
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+
+.SH EXAMPLES
+ms2kl quiet.mswav quiet.wav
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR kl2mat (1),
+.BR mat2kl (1)
+

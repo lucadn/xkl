@@ -1,0 +1,223 @@
+head	1.6;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.6
+date	2001.01.23.17.52.40;	author hanson;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2000.04.20.05.35.55;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.06.06.05.20.41;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.04.15.20.50.51;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.04.15.18.21.05;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.40.07;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.6
+log
+@In declaration of MSWavHeaderStruct changed variables of type
+long to type int.
+Added variable fname to declaration of function readMSWavHeader.
+@
+text
+@#ifndef _WAVIO_H_
+#define _WAVIO_H_
+/* $Log: wavio.h,v $
+ * Revision 1.5  2000/04/20 05:35:55  krishna
+ * Added MS wav and AIFF read/write functions.
+ *
+ * Revision 1.4  1998/06/06 05:20:41  krishna
+ * Added RCS header.
+ * */
+
+#define WAVE_VERSION 2     /* Version of .wav format */
+
+#define READ  "r"     /* Read flag for openWav */
+#define WRITE "w"     /* Write flag for openWav */
+#define APPEND "w+"   /* Append flag for openWav */
+
+#ifndef ERROR
+#define ERROR -1
+#endif
+
+#ifdef sgi
+#define SWAP 1
+#else
+#define SWAP 0
+#endif
+
+typedef struct {
+  char riffString[4];
+  int riffChunkLength;
+  char waveString[4];
+  char fmtString[4];
+  int fmtChunkLength;
+  short waveFormat;
+  short numChannels;
+  int samplingRate;
+  int numBytesPerSecond;
+  short blockAlign;
+  short bitsPerSample;
+  char dataString[4];
+  int dataLength;
+} MSWavHeaderStruct;
+
+typedef struct {
+  char formString[4];
+  long formChunkLength;
+  char aiffString[4];
+  char commString[4];
+  long commChunkLength;
+  short numChannels;
+  long numFrames;
+  short numBits;
+  double samplingRate;
+  char ssndString[4];
+  long ssndChunkLength;
+  long offset;
+  long blockSize;
+} AIFFHeaderStruct;
+
+void checkWavName(char *filename);
+
+short *getWavWaveform(char *fname, float *samplingRate, int *numSamples, 
+		      int swap);
+int putWavWaveform(char *fname, short *wave, float samplingRate, 
+		    int numSamples, int swap);
+
+int openWav(char *fname, FILE **fp, char *readWriteFlag);
+int closeWav(FILE *fp);
+
+int readWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+		   int *version, int swap);
+int readMSWavHeader(FILE *fp, char* fname, float *samplingRate, int *numSamples, 
+		   int *channels, int *bytesPerSample, int swap);
+int readAIFFHeader(FILE *fp, float *samplingRate, int *numSamples, 
+		   int *numChannels, int *bytesPerSample, int swap);
+
+
+int writeWavHeader(FILE *fp, float samplingRate, int numSamples, int swap);
+int writeMSWavHeader(FILE *fp, float samplingRate, int numSamples, 
+		   int numChannels, int bytesPerSample, int swap);
+int writeAIFFHeader(FILE *fp, float samplingRate, int numSamples, 
+		   int numChannels, int bytesPerSample, int swap);
+
+
+int readWav(FILE *fp, short *wav, int numSamples, int swap);
+int writeWav(FILE *fp, short *wav, int numSamples, int swap);
+
+
+int swapInt(int value);
+short swapShort(short value);
+
+#endif
+@
+
+
+1.5
+log
+@Added MS wav and AIFF read/write functions.
+@
+text
+@d4 3
+d29 1
+a29 1
+  long riffChunkLength;
+d32 1
+a32 1
+  long fmtChunkLength;
+d35 2
+a36 2
+  long samplingRate;
+  long numBytesPerSecond;
+d40 1
+a40 1
+  long dataLength;
+d71 1
+a71 1
+int readMSWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+@
+
+
+1.4
+log
+@Added RCS header.
+@
+text
+@d1 6
+a6 1
+/* $Log$ */
+d24 32
+d68 5
+a72 1
+int readWav(FILE *fp, short *wav, int numSamples, int swap);
+d75 7
+d84 1
+d86 3
+@
+
+
+1.3
+log
+@Added checkWavName prototype, and a check to see if ERROR is defined.
+@
+text
+@d1 1
+@
+
+
+1.2
+log
+@Added global define for ERROR.
+@
+text
+@d8 1
+d10 1
+d18 2
+d25 2
+a26 2
+void openWav(char *fname, FILE **fp, char *readWriteFlag);
+void closeWav(FILE *fp);
+d28 1
+a28 1
+void readWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+d32 1
+a32 1
+void writeWavHeader(FILE *fp, float samplingRate, int numSamples, int swap);
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d8 1
+@

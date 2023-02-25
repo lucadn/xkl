@@ -1,0 +1,159 @@
+head	1.7;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.7
+date	98.06.09.00.33.16;	author krishna;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	98.06.07.22.19.03;	author krishna;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	98.06.06.05.07.16;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.04.15.19.50.37;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.04.13.23.28.17;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.02.03.05.08.28;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.01.15.02;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.7
+log
+@Added remainingArgs, which checks for args starting with a "-" in
+argv.  Changed ERROR to -9999.
+@
+text
+@/* $Log: getargs.h,v $
+ * Revision 1.6  1998/06/07 22:19:03  krishna
+ * Changed prototype -- made argc into *argc so can return remaining
+ * number for arguments.
+ *
+ * Revision 1.5  1998/06/06 05:07:16  krishna
+ * Added RCS header.
+ * */
+
+int IsArg(char *str, int *argc, char *argv[]);
+int checkIntArg(char *name, int *argc, char **argv, int default_value);
+float checkFloatArg(char *name, int *argc, char **argv, float default_value);
+char *RemainingArgs(int argc, char *argv[]);
+
+#ifndef TRUE
+#define TRUE 1
+#define FALSE 0
+#endif
+
+#ifndef ERROR
+#define ERROR -9999
+#endif
+@
+
+
+1.6
+log
+@Changed prototype -- made argc into *argc so can return remaining
+number for arguments.
+@
+text
+@d2 4
+d11 3
+a13 4
+float checkFloatArg(char *name, int *argc, char **argv, int *position, 
+		 float default_value);
+int checkIntArg(char *name, int *argc, char **argv, int *position, 
+	       int default_value);
+d21 1
+a21 1
+#define ERROR -1
+@
+
+
+1.5
+log
+@Added RCS header.
+@
+text
+@d1 4
+a4 1
+/* $Log$ */
+d6 2
+a7 2
+int IsArg(char *str, int argc, char *argv[]);
+float checkFloatArg(char *name, int argc, char **argv, int *position, 
+d9 1
+a9 1
+int checkIntArg(char *name, int argc, char **argv, int *position, 
+@
+
+
+1.4
+log
+@Changed value of ERROR and checked to see if it is already defined.
+@
+text
+@d1 1
+@
+
+
+1.3
+log
+@Moved ERROR outside of ifndef.
+@
+text
+@d12 4
+a15 1
+#define ERROR -9999
+@
+
+
+1.2
+log
+@Changed default to default_value in prototypes since 'default' is a
+keyword.  Also, added the booleans TRUE, FALSE, and ERROR.
+@
+text
+@d11 1
+a12 1
+#endif
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d4 1
+a4 1
+		 float default);
+d6 7
+a12 1
+	       int default);
+@

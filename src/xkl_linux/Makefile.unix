@@ -1,0 +1,4 @@
+# Unix (alpha) -specific XKL variables
+
+XINCS_ARCH =
+XLIBS_ARCH =

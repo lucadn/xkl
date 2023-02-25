@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en] (X11; I; Linux 2.0.35 i586) [Netscape]">
+</HEAD>
+<BODY>
+
+<CENTER><FONT SIZE=+4>Documentation for the Speech Group</FONT></CENTER>
+<FONT SIZE=+4></FONT>
+<P>[KKG:&nbsp;Need to add section on byte-swapping.&nbsp; Something to
+the effect of:
+<P>If you convert a waveform from ESPS or Mac to Klwav (.wav) format, and
+the waveform looks like garbage, you
+<BR>could have made either of the following mistakes: a) you forgot to
+use 'binary' mode when ftp'ing the file from
+<BR>one machine to another; b) you forgot to use the -swap option when
+converting the file.
+<P>small-endian&nbsp;&nbsp; &lt;-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+big-endian
+<BR>SGI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INTEL&nbsp;PC
+<BR>MAC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DEC
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SGI
+<BR>]
+<P>The Speech Group has several pieces of software that you can use for
+analyzing and synthesizing speech, doing math and scientific calculations,
+text processing, and graphics on UNIX systems.
+<H2>
+Speech tools:</H2>
+
+<UL>
+<LI>
+xkl</LI>
+
+<UL>
+<LI>
+This is the principal speech analysis and synthesis program, allowing real-time
+analysis of waveforms, spectrograms, and a wide variety of spectra.&nbsp;
+Uses Klwav files.</LI>
+</UL>
+
+<LI>
+syn</LI>
+
+<UL>
+<LI>
+Command-line version of the Klatt formant speech synthesis program, driven
+by 63 acoustic phonetic parameters -- the synthesis engine in several commercial
+products, including DECtalk and Sensimetrics HLSyn.&nbsp;&nbsp; Saves synthesized
+speech as a Klwav file.&nbsp; Algorithm details can be found in J. Acoust.
+Soc. Am. 67(3), 1980, and J. Acoust. Soc. Am. 87(2), 1990.</LI>
+</UL>
+
+<LI>
+lspecto</LI>
+
+<UL>
+<LI>
+A batch-style program for producing postscript plots of the waveform, spectrogram,
+formants, and pitch. Also capable of producing a synthesizer doc file,
+to make speech copying easier.</LI>
+</UL>
+</UL>
+
+<UL>
+<LI>
+concat</LI>
+
+<UL>
+<LI>
+Concatenate two or more Klwav files into one Klwav file.</LI>
+</UL>
+
+<LI>
+klgain</LI>
+
+<UL>
+<LI>
+Scale Klwav audio file.</LI>
+</UL>
+
+<LI>
+klinfo</LI>
+
+<UL>
+<LI>
+Find out information (e.g. sampling rate) about a Klwav file.</LI>
+</UL>
+
+<LI>
+klplay</LI>
+
+<UL>
+<LI>
+Command-line program to play a Klwav file.</LI>
+</UL>
+
+<LI>
+klrecord</LI>
+
+<UL>
+<LI>
+&nbsp;Command-line program to record a Klwav file.</LI>
+</UL>
+
+<LI>
+raw2kl and kl2raw</LI>
+
+<UL>
+<LI>
+Convert a raw (binary, 16-bit, linear) data to a Klwav file.&nbsp; Both
+take a "-swap" option for doing byte-swapping.</LI>
+</UL>
+
+<LI>
+mat2kl.m and kl2mat.m</LI>
+
+<UL>
+<LI>
+Routines you can use in matlab to convert between Matlab and Klwav files.</LI>
+</UL>
+
+<LI>
+mac2kl and kl2mac</LI>
+
+<UL>
+<LI>
+Command-line programs to convert between a Mac audio file (AIFF) and Klwav
+files.&nbsp; mac2kl is useful when you transfer files that you recorded
+on the Mac and want to use them in xkl.&nbsp; Similarly, if you want to
+use Klwav files for playing sounds on the Mac (e.g. perceptual experiments
+using Psyscope) , you can use kl2mac.</LI>
+</UL>
+
+<LI>
+ms2kl and kl2ms</LI>
+
+<UL>
+<LI>
+Command-line programs to convert between Microsoft (RIFF) .wav files and
+Klwav (.wav)&nbsp;files.</LI>
+</UL>
+
+<LI>
+sd2kl and kl2sd</LI>
+
+<UL>
+<LI>
+Command-line programs to convert between ESPS (SD) .sd files and Klwav
+(.wav) files.&nbsp;&nbsp; Both take a "-swap" option for doing byte-swapping.</LI>
+</UL>
+
+<LI>
+sox</LI>
+
+<UL>
+<LI>
+Conversion utility.&nbsp; Sox translates sound files from one format to
+another, possibly doing adding a sound effect or sampling rate conversion.</LI>
+</UL>
+
+<LI>
+matlab</LI>
+
+<UL>
+<LI>
+Matlab is a matrix-crunching language with powerful graphics capabilities.</LI>
+</UL>
+
+<LI>
+xwaves/esps</LI>
+
+<UL>
+<LI>
+xwaves is an interactive program for display and manipulation of time-series
+data.&nbsp; It lets you, among other things, browse through lengthy signals,
+select portions to examine features in detail, cut and paste segments of
+the signal, do interactive spectral analysis and signal&nbsp; annotation,
+play back signals, compute and display speech formant frequencies and pitch
+contours, and perform other editing and display operations.&nbsp; Operations
+can be selected from menus with the mouse, activated by single keystrokes
+at the keyboard, or invoked through commands in an interpreted language.</LI>
+
+<LI>
+ESPS are command-line programs and C functions and procedures for performing
+various speech analyses.</LI>
+</UL>
+</UL>
+
+<H4>
+Math/Scientific tools:</H4>
+
+<UL>
+<LI>
+matlab</LI>
+
+<LI>
+gnuplot</LI>
+</UL>
+
+<H4>
+Text processing:</H4>
+
+<UL>
+<LI>
+Latex (available on all machines)</LI>
+</UL>
+
+<H4>
+Graphics:</H4>
+
+<UL>
+<LI>
+pstoedit (available on septum, palate, formant)</LI>
+
+<UL>
+<LI>
+This program allows conversion of a Postscript image (e.g. a spectrum created
+in xkl) to an editable format hat can be used by xfig.</LI>
+
+<LI>
+Usage:&nbsp;&nbsp;&nbsp; pstoedit&nbsp; -f fig&nbsp; spectrum.ps&nbsp;
+spectrum.fig</LI>
+</UL>
+
+<LI>
+xfig</LI>
+
+<UL>
+<LI>
+This is a menu-driven tool that allows the user to draw and manipulate
+objects, similar to MacDraw and IslandDraw.</LI>
+</UL>
+</UL>
+
+</BODY>
+</HTML>

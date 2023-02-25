@@ -1,0 +1,46 @@
+.TH CONCAT 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+concat \- concatenates two or more Klatt (.wav) audio files
+.SH SYNOPSIS
+.B concat [-h | --help] <wav1> <wav2> [...] <outfile>
+.SH DESCRIPTION
+.PP
+.B concat
+concatenates two or more Klatt (.wav) audio files, e.g. <wav1>,
+<wav2>, into a single Klatt audio file, <outfile>.
+
+The .wav extension is optional on the file names.
+
+Files must have the same sampling rate. If a file has a different
+sampling rate from the first audio file, it is excluded from the
+concatenation and a warning message is printed out.
+
+.SS OPTIONS
+With no arguments, the program prints out the usage message.
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+
+.SH EXAMPLES
+concat ba li bali
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1), 
+.BR kl2mat (1),
+.BR mat2kl (1)

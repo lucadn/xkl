@@ -1,0 +1,37 @@
+.TH KL2MAT 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+kl2mat.m \- read a Klatt (.wav) audio file into Matlab
+.SH SYNOPSIS
+.B [wav, Fs] = kl2mat(filename)
+.SH DESCRIPTION
+.PP
+.B kl2mat.m
+is a Matlab script that will read in a Klatt (.wav) file, filename,
+into Matlab.  The script returns the sampling frequency, Fs, in Hz,
+and the waveform, wav.
+
+.SS OPTIONS
+.TP
+
+.SH EXAMPLES
+matlab> [audio, Fs] = kl2mat('ba.wav');
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR mat2kl (1)
+
