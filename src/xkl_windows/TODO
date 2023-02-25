@@ -1,0 +1,198 @@
+======================================================================
+				TO DO
+======================================================================
+
+- ask seth to create mail alias xkl, xkldev so people can send bug
+  reports, etc., via email
+
+- Makefiles
+  - verify that it is consistent across subdirectories
+  - verify that method works for all dirs across all platforms
+
+- Doc
+  - Add man page for xkl, lspecto, syn
+  - [Helen] Finish HTML page describing what different programs do, and 
+    how to use them (software.html)
+
+- General
+  - *** Do byte swapping in a smart manner (SWAP).  Always write in certain 
+    format (e.g. big endian (same as Network order)), but decide when to
+    do byte-swapping based on architecture:
+      short i = 1;
+      bigendian = (*((unsigned char*) (&i)) == 1);
+      if (!bigendian) swapShort(wave);
+  - ** Add LinuxPPC as a platform (need to install on a Mac)
+  - Prettify code and make more readable for:
+    xklsyn.h, xspec_util.h, xkl.c, xklspec.c, xspec_util.c, 
+    syn.c, synparwav.c, syngrid.c, synscrip.c
+  - Make xkl, lspecto, syn code more modular
+    - Get rid of most globals, e.g. warning popup dialogs
+  - Make windowing and fft functions common, e.g. lspecto and xkl use
+    the same functions rather than having their own versions
+
+- Recording
+  - recording works, but has no real user interface
+    - recording popup window, with user controls, etc.
+
+- Postscript output
+  - *** need to have eps as an option, for postscript that can be edited, 
+    e.g., using Illustrator (these files will be limited to one page)
+  - Make postscript output go through single function(s) for
+    consistency -- create postscript routines in common
+
+- syn (LOW priority)
+  - Clean up of syn code, e.g. remove copystring, mergestring
+  - Incorporate getargs -- argument processing
+  - smarter reading of .doc files -- not based on spaces
+  - Fix the need for an extra carriage return under Linux (other 
+	platforms?)
+
+- lspecto
+  - Needs major cleanup of code
+  - Incorporate getargs -- argument processing
+
+- xkl
+  - *** Don't save .gram files when calculating spectrograms
+  - *** colormap and background for spectrogram and spectrum (?) (xinfo.c and
+    xinfo.h) - blue background on certain displays
+  - *** residual synthesis problems:
+    - After synthesizing a file, prompts for .doc file name, but should
+      just use root of .wav file and tack .doc on to it.
+    - After synthesizing, crashes when user chooses "use current display"
+    - incorporate 'klsynah', which includes parameters aht (first difference
+      in %) and ahm (modulation of AH in %)
+    - Sure there are many other bugs, but hasn't been stable enough to
+      find them
+  - *** change DFT size so can have 44 kHz with 25.6 ms window
+    - Increase D to 2048.  Look into error message for num points 
+      greater than 2048.
+  - ** Saving waveform or .ps files: allow user to choose
+    the directory (as we can for loading files). It should be the
+    same directory that was last used for saving that kind of file, 
+    not for loading (we may want to load from one directory, but write to 
+    another, or write particular kinds of files to different directories)
+  - * 's' command: need to be able to view two superimposed smoothed spectra 
+    from two different files.
+  - * Change 'A' to work across waveforms. Change interface to use a 
+    list of times.
+  - * Spectra for k, a, A: don't put in smoothed spectra
+  - * Incorporation of some lspecto functions into xkl, e.g. view formant or 
+    pitch tracks on the screen, lined up under the waveform, or superimposed 
+    on the spectrogram.  
+  - * Import label files from ToBI.
+  - * Add ability to change spectrogram parameters in xkl (currently have
+    to change xkldefs.dat file and recalculate spectrogram)
+  - * ``lock''ing waveforms: remaining issues.
+    - In time menu change ``lock ... (NA)'' to ``Lock waveforms''; ditto 
+      for ``Unlock''.
+    - Might want the spectra of the locked waveforms to be automatically 
+      overlaid. We could have the option of just normal spectrum displays 
+      or overlays of the spectra of the locked waveforms at the current 
+      time. Do we want the overlays in the current windows, or do we want a 
+      new window to come up specifically for the overlaid spectra?
+    - If only two waveforms are open, those two should be locked
+      by default (i.e. no need to prompt user with popup menu)
+    - When there are more than two, it would be nice to be able to choose 
+      them from the keyboard, using numbers (e.g. see how the 'n' command 
+      works. One choice should be to select all of the waveforms.
+    - Some kind of indicator that a waveform is locked would be nice
+      (maybe something in the titlebar).
+    - Right now 'L' locks and 'U' unlocks; maybe we could use just
+      'L' as a toggle.
+    - When taking measures from a spectrum or waveform, maybe the
+      data from all of the locked waveforms should be presented.
+  - synthesizer front-end could use big overhaul in future
+  - When saving files, e.g. 'save w->e', the default filename is not
+    'selected' in the popup window, so it's not so convenient if the user 
+    wants to use a different name.
+  - Ability to undo the most recent addition to a .ps file
+  - Add "Save as" in xkl (so can, e.g., save Klatt .wav file as MS wav)
+  - Use param struct for all menus, spectrum parameters
+  - Change help.h.
+  - variable size spectrograms (i.e. windows can be resized)
+  - when click in spectrum window, it says   
+    lala spectrum:	625 Hz	59.5 dB
+    previous:		625 Hz	45.5 dB
+    even though previous corresponds to DFT. So, change previous to
+    appropriate signal type.
+  - In C command, move S, w, D (?? not sure what this one is about)
+  - Modify how xkl reads in files based on size of file -- if file is
+    huge (e.g. 20MB), then read portion of file and display only that
+    section, and as user advances in file, goto disk and get more
+    data.
+  - Add ability to read in .aiff and MS .wav formats
+  - Add ability to change Gain within w->e (similar to klgain).
+  - Add ability to do remote play
+  - add check for environment variable, e.g. XKL_HOME, which would
+    contain the default files for a user (e.g. spectrogram or spectrum).
+  - Change DATE and VERSION in xspec_util.h (for every release)
+  - The ``write spectrum file'' (W) command only writes the smoothed
+    spectrum (specto) values.  Instead we would like to get the values for
+    whatever type of spectrum is displayed in the spectrum window, including
+    DFT point, frequency, and amplitude values.  There are currently
+    two commands that print some of this information to the screen. 'O'
+    gives DFT point, frequency, and bandwidth.  'V' gives DFT point
+    and amplitude, but only of the smoothed spectra, NOT of the DFT.
+    The screen displays can be copied to a file and then processed to get
+    the information that we want.  However, we still wouldn't have the DFT
+    amplitudes.
+  - Changes are needed to the journal file (better format and more
+    meaningful headings).
+  - Some users would like to have window 1 rescaled based on
+    the amplitude of the waveform portion that it holds (as happens in
+    klspec).  However, other users don't like that feature, so we
+    would like it be optional in xkl, with the default being that
+    rescaling is off
+  - history file, recording all commands and any feedback
+  - iconize all windows simultaneously
+  - A command to restore (all?) windows to their original size and location.
+  - Make size of {\bf f} and {\bf b} commands variable
+  - We might want some way to save a record of parameter values used
+    for a session.  The current method of saving parameters to files that
+    can be reloaded doesn't label the parameters.  (Could incorporate 
+    into .wav format, i.e. save last set of parameters used for a
+    waveform in its header).
+  - x command to set duration in time of windows 1 and 0.
+  - X command to set low/high frequency of spectrum window.
+  - [Helen] Documentation: hard copy (see Dennis's in old_klatt_files), 
+    web pages, some kind of help function in xkl
+
+- waveio
+  - verify code to read and save MS .wav format, and .aiff format
+    - Note: has already been coded in wavio.c, but has not been tested
+      or implemented in any of the programs.
+
+- utils ( *** see below)
+  - write C program klconvert to convert to/from Klatt wav format to
+    aiff, MS wav, ulaw. Should use internal read/write routines vs. 
+    using sox.
+    - *** Should replace ms2kl, kl2ms, kl2mac, mac2kl scripts which 
+      currently use sox
+    - Create kl2mu and mu2kl (and man pages, and html file)
+  - Remove sgikl2sd (???)
+  - have ability to record from a DAT player into a Kl .wav format
+  - have ability to play waveform segment, e.g. klplay -r .004:.01 a
+  - for klplay and klrecord, check sampling rate and tell user if
+    not same as requested
+  - Add swap flag to kl2raw, raw2kl, sd2kl, kl2sd
+
+- Wave audio
+  - change play and record on SGI to use iocntl calls
+  - have alternative for playing 16bit on 8bit audio
+
+- Other klatt-tool-related projects
+  - *** port (new)maketape to unix/linux (or to Mac if we can have seamless 
+    access to Unix partitions).
+  - Revamp of process; maybe include SR conversion, other kinds of filters, 
+    better filter
+  - KlattTalk
+  - Harsyn
+  - Transf
+  - Maeda program
+
+- xkl-web (This was Vishal's pet project; can be ignored for now)
+  - ps fonts do not seem to translate using ghostscript-- 
+  - allow command-line entering for type of
+       output desired- spectrum, spectro,etc.
+  - interface with perl scripts in xkl/web/www directory.
+

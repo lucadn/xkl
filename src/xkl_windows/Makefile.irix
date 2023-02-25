@@ -1,0 +1,5 @@
+# IRIX:
+#
+# XINCS_ARCH =
+XLIBS_ARCH = -lXext  -lPW
+CC = gcc

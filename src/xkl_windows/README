@@ -1,0 +1,72 @@
+======================================================================
+
+The programs and scripts consist of the following:
+
+PROGS:  xkl
+	lspecto
+	syn
+	concat, raw2kl, kl2raw, klinfo, klgain, klplay, klrecord
+
+SCRIPTS: kl2sd, sd2kl, kl2sd, mac2kl, kl2mac, kl2ms, ms2kl
+MATLAB:  mat2kl, kl2mat
+
+======================================================================
+			
+BUILD:
+------
+
+1) Edit the Makefile.vars file, and specify the user defined variables
+in the Makefile, uncomment out the library info based on the platform.
+
+2b) To build individual programs only, go into the directory of
+interest (e.g. cd lspecto), and do 'make; make install'.
+
+OR
+
+2a) To build all programs, in the top level xkl directory, type
+
+unix> make
+unix> make install
+
+3) To install man pages, type
+
+unix> make install.man
+
+
+NOTES FOR BUILDING XKL:
+-----------------------
+
+- xkl requires Motif.
+- The Makefile should work as is if you have X11 and Motif installed
+  in the appropriate directories: 
+
+/usr/X11/include   or /usr/include/X11
+/usr/X11/lib	   or /usr/lib/X11
+
+If you run into problems with 'make' when creating xkl, you have
+several options:
+
+1) If imake (especially the Motif component) is installed correctly,
+then you can try 'xmkmf -a' in the xkl subdirectory.
+2) Modify the Makefile in the xkl subdirectory in the section
+corresponding to your platform.
+3) Use Makefile.sav as the makefile:
+
+unix> make -f Makefile.sav
+unix> make -f Makefile.sav install
+
+NOTES ABOUT SCRIPTS:
+--------------------
+
+Some of the scripts require additional programs.
+
+sd2kl, kl2sd, deckl2sd, kl2sd require the ESPS program bhd.
+kl2mac, mac2kl, kl2ms, ms2kl require sox (http://www.spies.com/Sox).
+sox version 12.14 is known to work with these scripts.
+
+======================================================================
+
+BUGS:
+Send bug reports to xkldev@palate.mit.edu.
+7/17/98
+
