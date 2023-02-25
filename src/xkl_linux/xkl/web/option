@@ -1,0 +1,1934 @@
+../xkl.c:    spectro->swap = swap;
+../xkl.c:    spectro->spectrogram = dogram;
+../xkl.c:    spectro->devwidth = devwidth;
+../xkl.c:    spectro->devheight = devheight;
+../xkl.c:    spectro->wchar = wchar;
+../xkl.c:    spectro->hchar = hchar;
+../xkl.c:     if (i == GRAM && !spectro->spectrogram) { /* no spectrogram window */ }
+../xkl.c:	if(spectro->normstate[i]) { /* not iconified */
+../xkl.c:	   XSync(XtDisplay(spectro->toplevel[i]),False);
+../xkl.c:	   XSync(XtDisplay(spectro->toplevel[i]),False);
+../xkl.c:	   XSync(XtDisplay(spectro->toplevel[i]),False);
+../xkl.c:	   XSync(XtDisplay(spectro->toplevel[i]),False);
+../xkl.c:	   XRaiseWindow(XtDisplay(spectro->toplevel[i]),
+../xkl.c:			XtWindow(spectro->toplevel[i]));
+../xkl.c:     if(i == GRAM && !spectro->spectrogram) { /*no spectrogram window*/ }
+../xkl.c:	if(spectro->normstate[i]) {        /* not iconified */
+../xkl.c:	   XSetInputFocus(XtDisplay(spectro->toplevel[i]),
+../xkl.c:			  XtWindow(spectro->toplevel[i]),
+../xkl.c:      if(spectro->draww[index] == w)  break;
+../xkl.c:       if (spectro->iwave) {
+../xkl.c:	   spectro->oldindex = spectro->saveindex;
+../xkl.c:	   spectro->oldtime = spectro->savetime;
+../xkl.c:	   if (spectro->localtimemax) 	   /**** ERIKA ****/
+../xkl.c:	   if( spectro->oldindex != spectro->saveindex){
+../xkl.c:	       update(spectro->info[i],spectro,i);
+../xkl.c:	   if (spectro->spectrum) {
+../xkl.c:			spectro->wavename,spectro->specfreq, spectro->specamp);
+../xkl.c:	       if(spectro->savspecamp != -1.0){
+../xkl.c:			 spectro->savspecfreq,spectro->savspecamp);
+../xkl.c:       XSetInputFocus(XtDisplay(spectro->toplevel[index]),
+../xkl.c:		      XtWindow(spectro->toplevel[index]),
+../xkl.c:       XSetInputFocus(XtDisplay(spectro->toplevel[index]),
+../xkl.c:		      XtWindow(spectro->toplevel[index]),
+../xkl.c:    if (spectro->menu_bar[window] == XtParent(XtParent(w))) break;
+../xkl.c: buttons = spectro->buttons[window];
+../xkl.c:   XtSetArg(args[n], XmNtitle, spectro->wavename); n++;
+../xkl.c:   strcpy(str, spectro->wavename);
+../xkl.c:   sprintf(temp,"%d",(int)spectro->savetime);
+../xkl.c:   XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:   XtSetArg(args[0],XmNvalue,spectro->wavename);
+../xkl.c:   XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:   if(spectro->endmarker > spectro->startmarker){
+../xkl.c:    spectro->sampsplay = spectro->endmarker - spectro->startmarker + 1;
+../xkl.c:    spectro->startplay = &spectro->iwave[spectro->startmarker];
+../xkl.c:   XtSetArg(args[0],XmNvalue,spectro->wavename);
+../xkl.c:   XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:   spectro->wwav = 1;
+../xkl.c:   if(spectro->endmarker > spectro->startmarker){
+../xkl.c:    spectro->sampsplay = spectro->endmarker - spectro->startmarker + 1;
+../xkl.c:    spectro->startplay = &spectro->iwave[spectro->startmarker]; 
+../xkl.c:   sprintf(str,"%s.data",spectro->wavename);
+../xkl.c:   XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c: if(window == SPECTRUM && !spectro->spectrum && !spectro->savspectrum){
+../xkl.c:     spectro->ps_window =  -1;
+../xkl.c:     XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:   spectro->ps_window = window;
+../xkl.c:  if(window == SPECTRUM && !spectro->spectrum && !spectro->savspectrum){
+../xkl.c:       spectro->ps_window =  -1;
+../xkl.c:       XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:  if(spectro->option == 's' || spectro->option == 'S'||
+../xkl.c:     spectro->option == 'c' || spectro->option == 'T'||
+../xkl.c:     spectro->option == 'j') {
+../xkl.c:    if (!XtIsManaged(XtParent(XtParent(spectro->fbw_text))))
+../xkl.c:      XtPopup(XtParent(XtParent(spectro->fbw_text)),XtGrabNone);
+../xkl.c:   if (spectro->spectrum) {
+../xkl.c:     if(!XtIsManaged(XtParent(XtParent(spectro->fbw_text))))
+../xkl.c:       XtPopup(XtParent(XtParent(spectro->fbw_text)),XtGrabNone);
+../xkl.c:      sprintf(str,"%s.jnl",spectro->wavename);
+../xkl.c:       XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:   spectro->wavename,spectro->option,
+../xkl.c:   spectro->specfreq,spectro->specamp,
+../xkl.c:   spectro->savspecfreq,spectro->savspecamp,
+../xkl.c:   spectro->savetime,
+../xkl.c:   (int)(spectro->iwave[spectro->saveindex] 
+../xkl.c:   sprintf(str,"%s.wav",spectro->wavename);
+../xkl.c:   if (spectro->iwave == NULL) { return; }
+../xkl.c:   if (spectro->endmarker > spectro->startmarker) {
+../xkl.c:      ms = (float)(spectro->endmarker - spectro->startmarker) / 
+../xkl.c:	 spectro->spers * 1000.0;
+../xkl.c:      sprintf(str, "%s: w->e = %.1fms.\n", spectro->wavename, ms);
+../xkl.c:   else sprintf(str, "%s: e <= w",spectro->wavename);
+../xkl.c:   if (spectro->iwave == NULL) return;  /* no waveform displayed */
+../xkl.c:   sprintf(str,"%s:\t%.1fms\t%d\n", spectro->wavename, spectro->savetime,
+../xkl.c:	   (int)(spectro->iwave[spectro->saveindex] / 32767.0 * 9997.56 ));
+../xkl.c:   if(spectro->menu_bar[window] == XtParent(XtParent(w))) break;
+../xkl.c: buttons = spectro->buttons[window];
+../xkl.c:   spectro->oldindex = spectro->saveindex;
+../xkl.c:   spectro->oldtime = spectro->savetime;
+../xkl.c:   spectro->savetime = spectro->savetime - 10;
+../xkl.c:   spectro->saveindex = spectro->savetime * spectro->spers / 1000.0 + .5;
+../xkl.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xkl.c:   if( spectro->oldindex != spectro->saveindex){
+../xkl.c:	   update(spectro->info[i], spectro, i);
+../xkl.c:   spectro->oldindex = spectro->saveindex;
+../xkl.c:   spectro->oldtime = spectro->savetime;
+../xkl.c:   spectro->savetime = spectro->savetime + 10;
+../xkl.c:   spectro->saveindex = spectro->savetime * spectro->spers / 1000.0 + .5;
+../xkl.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xkl.c:   if( spectro->oldindex != spectro->saveindex){
+../xkl.c:	   update(spectro->info[i], spectro, i);
+../xkl.c:   spectro->oldindex = spectro->saveindex;
+../xkl.c:   spectro->oldtime = spectro->savetime;
+../xkl.c:   spectro->savetime = spectro->savetime - 50;
+../xkl.c:   spectro->saveindex = spectro->savetime * spectro->spers / 1000.0 + .5;
+../xkl.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xkl.c:   if( spectro->oldindex != spectro->saveindex){
+../xkl.c:	   update(spectro->info[i], spectro, i);
+../xkl.c:   spectro->oldindex = spectro->saveindex;
+../xkl.c:   spectro->oldtime = spectro->savetime;
+../xkl.c:   spectro->savetime = spectro->savetime + 50;
+../xkl.c:   spectro->saveindex = spectro->savetime * spectro->spers / 1000.0 + .5;
+../xkl.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xkl.c:   if( spectro->oldindex != spectro->saveindex){
+../xkl.c:	   update(spectro->info[i], spectro, i);
+../xkl.c:   sprintf(str,"%.1f",spectro->savetime);
+../xkl.c:   XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:   spectro->oldstart = spectro->startmarker;
+../xkl.c:   spectro->startmarker = spectro->saveindex;
+../xkl.c:   if( spectro->oldstart != spectro->startmarker){
+../xkl.c:	  draw_cursor(spectro,i,spectro->info[i]);
+../xkl.c:   spectro->oldend = spectro->endmarker;
+../xkl.c:   spectro->endmarker = spectro->saveindex;
+../xkl.c:   if( spectro->oldend != spectro->endmarker){
+../xkl.c:	  draw_cursor(spectro,i,spectro->info[i]);
+../xkl.c:   spectro->oldstart = spectro->startmarker;
+../xkl.c:   spectro->startmarker = 0;
+../xkl.c:   if( spectro->oldstart != spectro->startmarker){
+../xkl.c:	  draw_cursor(spectro,i,spectro->info[i]);
+../xkl.c:   spectro->oldend = spectro->endmarker;
+../xkl.c:   spectro->endmarker = spectro->totsamp;
+../xkl.c:   if( spectro->oldend != spectro->endmarker){
+../xkl.c:	  draw_cursor(spectro,i,spectro->info[i]);
+../xkl.c:   spectro->oldstart = spectro->startmarker;
+../xkl.c:   spectro->startmarker = 0;
+../xkl.c:   spectro->oldend = spectro->endmarker;
+../xkl.c:   spectro->endmarker = spectro->totsamp;
+../xkl.c:   if((spectro->oldstart != spectro->startmarker) || 
+../xkl.c:      (spectro->oldend != spectro->endmarker)) {
+../xkl.c:	  draw_cursor(spectro,i,spectro->info[i]);
+../xkl.c:   spectro->oldindex = spectro->saveindex;
+../xkl.c:   spectro->oldtime = spectro->savetime;
+../xkl.c:   spectro->saveindex = spectro->startmarker;
+../xkl.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000;
+../xkl.c:   if( spectro->oldindex != spectro->saveindex){
+../xkl.c:	   update(spectro->info[i], spectro, i);
+../xkl.c:   spectro->oldindex = spectro->saveindex;
+../xkl.c:   spectro->oldtime = spectro->savetime;
+../xkl.c:   spectro->saveindex = spectro->endmarker;
+../xkl.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xkl.c:   if( spectro->oldindex != spectro->saveindex){
+../xkl.c:	  update(spectro->info[i],spectro,i);
+../xkl.c:     if(spectro->endmarker > spectro->startmarker ){
+../xkl.c:       if(spectro->saveindex > spectro->endmarker &&
+../xkl.c:	  spectro->saveindex < spectro->startmarker ){
+../xkl.c:     spectro->startindex[window] = spectro->startmarker;
+../xkl.c:     spectro->startime[window] = spectro->startindex[window] / 
+../xkl.c:				 spectro->spers * 1000;
+../xkl.c:     spectro->sampsused[window] =  spectro->endmarker - spectro->startmarker;
+../xkl.c:     wave_pixmap(spectro->info[window],spectro,1,window,NULL);
+../xkl.c:     update(spectro->info[window],spectro,window);
+../xkl.c:     spectro->oldindex = spectro->saveindex;
+../xkl.c:     spectro->oldtime = spectro->savetime;
+../xkl.c:     spectro->startindex[window] = spectro->startmarker;
+../xkl.c:     spectro->startime[window] = spectro->startindex[window] / 
+../xkl.c:				 spectro->spers * 1000;
+../xkl.c:     spectro->sampsused[window] =  spectro->endmarker - spectro->startmarker;
+../xkl.c:     spectro->saveindex = spectro->sampsused[window] / 2 +
+../xkl.c:	  spectro->startindex[window] ;
+../xkl.c:     spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0; 
+../xkl.c:     wave_pixmap(spectro->info[window],spectro,1,window,NULL);
+../xkl.c:     update(spectro->info[window],spectro,window);
+../xkl.c:	       update(spectro->info[i],spectro,i);
+../xkl.c:   spectro->localtimemax = !spectro->localtimemax;
+../xkl.c:   if (spectro->localtimemax) {
+../xkl.c:     if(spectro->menu_bar[window] == XtParent(XtParent(w))) break;
+../xkl.c: buttons = spectro->buttons[window];
+../xkl.c:   if (spectro->option != 'd') {
+../xkl.c:     spectro->option = 'd';
+../xkl.c:     update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xkl.c:   if (spectro->option != 's') {
+../xkl.c:       spectro->history = 0;
+../xkl.c:       spectro->option = 's';
+../xkl.c:       update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xkl.c:   if (spectro->option != 'S') {
+../xkl.c:     spectro->option = 'S';
+../xkl.c:     update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xkl.c:   if (spectro->option != 'c') {
+../xkl.c:     spectro->option = 'c';
+../xkl.c:     spectro->history = 0;
+../xkl.c:     update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xkl.c:   if (spectro->option != 'j') {
+../xkl.c:     spectro->option = 'j';
+../xkl.c:     update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xkl.c:   if (spectro->option != 'T') {
+../xkl.c:     spectro->option = 'T';
+../xkl.c:     update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xkl.c:   if (spectro->option != 'l') {
+../xkl.c:     spectro->option = 'l';
+../xkl.c:     update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xkl.c:   if(spectro->option != 'a' && spectro->option != 'A' &&
+../xkl.c:      spectro->option != 'k') 
+../xkl.c:	   spectro->savoption = spectro->option;
+../xkl.c:   spectro->option = 'a';
+../xkl.c:   spectro->avgcount = 0; 
+../xkl.c:   sprintf(str,"%.1f",spectro->savetime);
+../xkl.c:   XtSetArg(args[0],XmNtitle,spectro->wavename);
+../xkl.c:   if(spectro->option != 'a' && spectro->option != 'A' &&
+../xkl.c:      spectro->option != 'k') 
+../xkl.c:   spectro->savoption = spectro->option;
+../xkl.c:   spectro->option = 'A';
+../xkl.c:   spectro->avgcount = 0;
+../xkl.c:   sprintf(str,"%.1f",spectro->savetime);
+../xkl.c:   XtSetArg(args[0],XmNtitle,spectro->wavename);
+../xkl.c:   if (spectro->option != 'a' && spectro->option != 'A' &&
+../xkl.c:      spectro->option != 'k') spectro->savoption = spectro->option;
+../xkl.c:   spectro->option = 'k';
+../xkl.c:   XtSetArg(args[0],XmNtitle,spectro->wavename);
+../xkl.c:	  spectro->param_active = 1;
+../xkl.c:	 spectro->param_active = 0; 
+../xkl.c:  if(!spectro->spectrogram) { addgram(spectro); }
+../xkl.c:   if(spectro->spectrogram){
+../xkl.c:     spectro->maxmag += 2;
+../xkl.c:     spectro->minmag += 2;
+../xkl.c:   if(spectro->spectrogram){
+../xkl.c:    spectro->maxmag += -2;
+../xkl.c:    spectro->minmag += -2;
+../xkl.c: if(spectro->spectrogram){
+../xkl.c:    sprintf(str,"%.1f",spectro->specms);
+../xkl.c:    XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:   if(spectro->spectrogram) {
+../xkl.c:     spectro->savemsdelta = spectro->msdelta;
+../xkl.c:     spectro->savewinms = spectro->winms; 
+../xkl.c:    XDestroyImage(spectro->xim);
+../xkl.c:    spectro->xim = NULL;
+../xkl.c:    /* assume for now that this deallocates spectro->pix */   
+../xkl.c:      update(spectro->info[GRAM],spectro,GRAM); 
+../xkl.c:   spectro->localfreqmax = !spectro->localfreqmax;
+../xkl.c:   if (spectro->localfreqmax)
+../xkl.c:    if (spectro->menu_bar[window] == XtParent(XtParent(w))) break;
+../xkl.c:  buttons = spectro->buttons[window];
+../xkl.c:   spectro->segmode = 1;
+../xkl.c:   spectro->segmode = 0;
+../xkl.c:    * Note: paramlist is one more that spectro->params, e = DONE.
+../xkl.c:    * Note: paramlist is one more that spectro->params, e = DONE.
+../xkl.c:	if(spectro->draww[i] == w) break;
+../xkl.c:      info = spectro->info[i]; 
+../xkl.c:	spectro->xr[i] = width;
+../xkl.c:	spectro->yb[i] = height;
+../xkl.c:	  width = spectro->xr[GRAM];
+../xkl.c:	  height = spectro->yb[GRAM]; 
+../xkl.c:   info = spectro->info[GRAM];
+../xkl.c:   if(spectro->xr[GRAM] <= MINSIZE)
+../xkl.c:       width = spectro->xr[GRAM];
+../xkl.c:   XtGetValues(spectro->toplevel[GRAM] ,args,n);
+../xkl.c:       gramh != spectro->yb[GRAM]+spectro->menu_height){
+../xkl.c:     XResizeWindow(XtDisplay(spectro->toplevel[GRAM]),
+../xkl.c:		   XtWindow(spectro->toplevel[GRAM]),width,
+../xkl.c:		   spectro->yb[GRAM] + spectro->menu_height );
+../xkl.c:/* note paramlist is one more than spectro->params, because
+../xkl.c:	sprintf(temp,"%s  %.1f",paramlist[i],spectro->hamm_in_ms[i]);
+../xkl.c:	    sprintf(temp,"%s  %d",paramlist[i],spectro->params[i]);
+../xkl.c:       spectro->hamm_in_ms[sb_param.index] = newfloat;
+../xkl.c:       spectro->params[sb_param.index] = 
+../xkl.c:	      newfloat * spectro->spers / 1000.00 + .5;
+../xkl.c:	spectro->params[sb_param.index] > spectro->params[SD] ){
+../xkl.c:		 {spectro->params[SD] = 32;}
+../xkl.c:		 {spectro->params[SD] = 64;} 
+../xkl.c:		 {spectro->params[SD] = 128;} 
+../xkl.c:	     {spectro->params[SD] = 256;} 
+../xkl.c:	     {spectro->params[SD] = 512;} 
+../xkl.c:	     {spectro->params[SD] = 1024;} 
+../xkl.c:	     {spectro->params[SD] = 2048;} 
+../xkl.c:	     {spectro->params[SD] = 4096;} 
+../xkl.c:	     {spectro->params[SD] = 4096;} 
+../xkl.c:	  newvalue >= spectro->params[WD])
+../xkl.c:		 {spectro->params[sb_param.index] = newvalue;}
+../xkl.c:	 spectro->params[sb_param.index] = newvalue;
+../xkl.c: XSync(XtDisplay(oldspectro->toplevel[0]),False);
+../xkl.c: XSync(XtDisplay(oldspectro->toplevel[0]),False);
+../xkl.c: XSync(XtDisplay(oldspectro->toplevel[0]),False);
+../xkl.c: XSync(XtDisplay(oldspectro->toplevel[0]),False);
+../xkl.c:  spectro->spectrogram = 1;
+../xkl.c:  spectro->swap = swap;
+../xkl.c:  spectro->devwidth = 1024;
+../xkl.c:  spectro->devheight = 768;
+../xkl.c:  spectro->hchar = 13;
+../xkl.c:  spectro->wchar = 13;
+../xkl.c:  rate = spectro->spers;
+../xkl.c:  play(spectro->startplay, &rate, spectro->sampsplay, spectro->swap);
+../xkl.c:  if (spectro->spers != rate) {
+../xkl.c:    sprintf(tmp, "Playing %s at %d!\n", (spectro->segmode == 1) ? 
+../xkl.c:   spectro->wwav = 2;
+../xkl.c:   XtSetArg(args[0],XmNvalue,spectro->wavename);
+../xkl.c:   XtSetArg(args[n],XmNtitle,spectro->wavename); n++;
+../xkl.c:  rate = spectro->spers;
+../xkl.c:  spectro->iwave = record(&rate, (int) recParams[REC_DUR].value, 
+../xkl.c:			 &nsamps, spectro->swap);
+../xkl.c:  spectro->spers = rate;
+../xkl.c:  spectro->sampsplay = nsamps;
+../xkl.c:  spectro->wwav = 2;
+../xkl.c:  XtSetArg(args[0], XmNvalue, spectro->wavename);
+../xkl.c:  XtSetArg(args[n], XmNtitle, spectro->wavename); n++;
+../xkl.c:      strcpy(spectro->tmp_name, ps_name);
+../xkl.c:     strcpy(spectro->tmp_name,ps_name);
+../xkl.c:      PSfull_fp = fopen(spectro->tmp_name, "w");
+../xkl.c:      PS4_fp = fopen(spectro->tmp_name, "w");
+../xkl.c:   sprintf(mess,"Opened %s postscript file: %s.\n",text, spectro->tmp_name);
+../xkl.c:   if(spectro->ps_window == GRAM) {
+../xkl.c:   else if (spectro->ps_window == SPECTRUM) {
+../xkl.c:      printwav(spectro,spectro->ps_window, fp);
+../xkl.c:	   type, spectro->tmp_name);
+../xkl.c:	  XtSetValues(spectro->buttons[i][count], args, 1);
+../xkl.c:	  XtSetValues(spectro->buttons[i][count], args, 1);
+../xkl.c:   spectro->avgtimes[spectro->avgcount] = (int)(atof(t_str) + .5);
+../xkl.c:   spectro->avgcount++;
+../xkl.c:   if(spectro->avgcount ==  AVGLIMIT){
+../xkl.c:     spectro->avgcount--;
+../xkl.c:   sprintf(str,"time %d",spectro->avgcount + 1);
+../xkl.c:  if(spectro->avgcount >= 1) {
+../xkl.c:    spectro->avgcount --;
+../xkl.c:  if (spectro->avgcount == 1){
+../xkl.c:    spectro->avgtimes[1] = (int)(atof(str) + .5); 
+../xkl.c:  else if(spectro->avgcount == 0){
+../xkl.c:    spectro->avgtimes[0] = (int)(atof(str) + .5);
+../xkl.c:    spectro->avgcount++;
+../xkl.c:/* read a file of spectro->params  that has been stored */
+../xkl.c:     numparams = XtNumber(spectro->params);
+../xkl.c:       if(!fscanf(fp,"%f\n",&spectro->hamm_in_ms[i])){
+../xkl.c:       spectro->params[i] = 
+../xkl.c:            spectro->hamm_in_ms[i]  * spectro->spers / 1000.00 + .5;
+../xkl.c:         if(!fscanf(fp,"%d\n",&spectro->params[i])){
+../xkl.c:      numparams = XtNumber(spectro->params);
+../xkl.c:           {fprintf(fp,"%f \n",spectro->hamm_in_ms[i]); }
+../xkl.c:           {fprintf(fp,"%d \n",spectro->params[i]); }
+../xkl.c:   strcpy(spectro->tmp_name,fname);
+../xkl.c:  fp = fopen(spectro->tmp_name,"w");
+../xkl.c:  numparams = XtNumber(spectro->params);
+../xkl.c:    fprintf(fp,"%f \n",spectro->hamm_in_ms[i]); 
+../xkl.c:    fprintf(fp,"%d \n",spectro->params[i]); 
+../xkl.c:  sprintf(mess,"wrote: %s\n",spectro->tmp_name);
+../xkl.c:	  spectro->wavename, spectro->savetime);
+../xkl.c:	  (float)spectro->sizwin/spectro->spers * 1000.0);
+../xkl.c:  if (spectro->option == 's' || spectro->option == 'S' ||
+../xkl.c:     spectro->option == 'l' || spectro->option == 'j'||
+../xkl.c:     spectro->option == 'c' || spectro->option == 'T'){
+../xkl.c:    for (n = 0; n < spectro->nforfreq; n++) {
+../xkl.c:      if(spectro->forfreq[n]< 0)
+../xkl.c:	sprintf(temp, "\t\t\t*%d\t%d\n",-spectro->forfreq[n],
+../xkl.c:		(int)(spectro->foramp[n]/10) );
+../xkl.c:	sprintf(temp, "\t\t\t%d\t%d\n",spectro->forfreq[n],
+../xkl.c:		(int)(spectro->foramp[n]/10) );       
+../xkl.c:  n3 = (spectro->lenfltr+2)/3;
+../xkl.c:    sprintf(temp,"\t%3d\t%4.1f  ", n+1, (float) spectro->fltr[n]/10.0);
+../xkl.c:    sprintf(temp,"\t%3d\t%4.1f  ", n+n3+1, (float) spectro->fltr[n+n3]/10.0);
+../xkl.c:    if ((n+n3+n3) < spectro->lenfltr) {
+../xkl.c:	      (float)spectro->fltr[n+n3+n3]/10.0);
+../xkl.c:  XtSetValues(spectro->fbw_text,args, n);
+../xkl.c:    spectro->wvfactor[window] = newfloat;
+../xkl.c:     wave_pixmap(spectro->info[window],spectro,1,window,NULL);
+../xkl.c:     update(spectro->info[window],spectro,window);
+../xkl.c:   "%s:y-axis scale factor = %.1f\n",spectro->wavename,spectro->wvfactor[1]);
+../xkl.c:/*synthesize  or record ,  spectro->wwav = 1,2or3 respectively*/
+../xkl.c:   strcpy(spectro->segname, str);  
+../xkl.c:   if( !(fp = fopen(spectro->segname,"r")) || nowarn ){
+../xkl.c:     if((fp = fopen(spectro->segname,"w")) ){
+../xkl.c:       switch(spectro->wwav) {
+../xkl.c:	  writeWavHeader(fp, spectro->spers, spectro->sampsplay, 
+../xkl.c:			 spectro->swap);
+../xkl.c:	  writeWav(fp, spectro->startplay, spectro->sampsplay, 
+../xkl.c:			 spectro->swap);
+../xkl.c:	  strcpy(firstname,spectro->segname);
+../xkl.c:      sprintf(str,"wrote %s\n",spectro->segname);
+../xkl.c:      if((fp = fopen(spectro->segname,"r")) ){
+../xkl.c:	if(spectro->iwave == NULL){
+../xkl.c:	  strcpy(spectro->wavefile,spectro->segname);
+../xkl.c:	sprintf(str,"can't read %s\n",spectro->segname);
+../xkl.c:       sprintf(str,"can't open %s\n",spectro->segname);
+../xkl.c:     sprintf(str,"OVERWRITE %s ??",spectro->segname);
+../xkl.c:  switch(spectro->wwav){
+../xkl.c:       putWavWaveform(spectro->segname, spectro->startplay, 
+../xkl.c:		      spectro->spers, spectro->sampsplay, spectro->swap);
+../xkl.c:       /* strip .wav from spectro->segname */
+../xkl.c:       strcpy(temp,spectro->segname);
+../xkl.c:       if ((fp = fopen(spectro->segname,"w")) ){
+../xkl.c:	 strcpy(firstname,spectro->segname);
+../xkl.c:       sprintf(str,"wrote %s\n",spectro->segname);
+../xkl.c:       strcpy(str,spectro->segname);
+../xkl.c:       if((fp = fopen(spectro->segname,"r")) ){
+../xkl.c:             if(spectro->iwave == NULL){
+../xkl.c:                   strcpy(spectro->wavefile,spectro->segname);
+../xkl.c:       sprintf(str,"can't read %s\n",spectro->segname);
+../xkl.c:   strcpy(temp,spectro->segname);
+../xkl.c:	 strcpy(allspectros.list[i]->wavefile,spectro->segname);
+../xkl.c:	    XtSetValues(spectro->buttons[i][count],args,1);
+../xkl.c:    XtSetValues(spectro->toplevel[1],args,1);
+../xkl.c:    spectro->normstate[1] = 0;
+../xkl.c:    XtSetValues(spectro->toplevel[SPECTRUM],args,1);
+../xkl.c:    spectro->normstate[SPECTRUM] = 0;
+../xkl.c:    XtSetValues(spectro->toplevel[1],args,1);
+../xkl.c:    spectro->normstate[1] = 1;
+../xkl.c:    XtSetValues(spectro->toplevel[SPECTRUM],args,1);
+../xkl.c:    spectro->normstate[SPECTRUM] = 1;
+../xkl.c:	  if( (!spectro->spectrogram) && 
+../xkl.c:	    XtSetValues(spectro->buttons[i][count],args,1);
+../xkl.c:	    XtSetValues(spectro->buttons[i][count],args,1);         
+../xkl.c:   sprintf(str,"Use Current or New display for %s ??",spectro->segname);
+../xkl.c:   strcpy(spectro->wavefile,spectro->segname);
+../xkl.c:   strcpy(spectro->wavefile,oldspectro->segname);
+../xkl.c:   LoadNewWaveform(spectro,spectro->segname);
+../xkl.c:      strcpy(spectro->tmp_name,fname);
+../xkl.c:  D_fp = fopen(spectro->tmp_name,"w");
+../xkl.c:  sprintf(mess,"Opened journal file: %s.\n",spectro->tmp_name);
+../xkl.c:    if (spectro->menu_bar[window] == XtParent(XtParent(w))) break;
+../xkl.c: buttons = spectro->buttons[window];
+../xkl.c:   spectro->wwav = 3; /*shares .wav overwrite check function */
+../xkl.c:  y2 = synyb - spectro->hchar;
+../xkl.c:  x2 = synxr - 4 * spectro->wchar;
+../xkl.c:  x = xoffset(spectro) - spectro->axisdist;
+../xkl.c:  xmax = x2 - x - spectro->axisdist ;
+../xkl.c:  ymax = y2 - y - spectro->axisdist - 1;
+../xkl.c:  y1 =  y2 - spectro->axisdist - 1;
+../xkl.c:  x =  synxr - 3 * spectro->wchar + 1; /* far left of window */
+../xkl.c:   x =  synxr - 3 * spectro->wchar;
+../xkl.c:   y = 2 * spectro->hchar ;
+../xkl.c:    y += 2 * spectro->hchar;
+../xkl.c:   tstep = (float)spectro->hchar * 1.5 * (float)graphmax / (float)ymax ;
+../xkl.c:     x = x2 - spectro->axisdist; 
+../xkl.c:     y0 = synyb - spectro->hchar - spectro->axisdist - 1;
+../xkl.c:     yt = y + spectro->hchar/ 2.0;
+../xkl.c:     xt = x - (spectro->wchar * strlen(str));
+../xkl.c:    yt = y + spectro->hchar/ 2.0; 
+../xkl.c:      tstep = (float)spectro->wchar *  (float)strlen(str) * totms / xmax ;
+../xkl.c:y =  synyb - spectro->hchar - 1;
+../xkl.c:y2 = synyb - spectro->hchar - 
+../xkl.c:    spectro->axisdist - 1 + spectro->tickspace;
+../xkl.c:    xt = x - spectro->wchar * strlen(str)  / 2 + 3;
+../xkl.c:    if(xt + spectro->wchar * strlen(str) / 2 + 5 <
+../xkl.c:         synxr - spectro->wchar * 3){
+../xkl.c:    sprintf(t_str,"%.1f",spectro->hamm_in_ms[sb_param.index]);
+../xkl.c:    sprintf(t_str,"%d",spectro->params[sb_param.index]);
+../xklspec.c:/* NOTE: see paramlist in xkl.c for information about the spectro->params array*/
+../xklspec.c:    if(postfp == PS4_fp) ps_scale = spectro->Gscale;
+../xklspec.c:    else ps_scale = spectro->gscale;
+../xklspec.c:  /*grdyb = spectro->yb[SPECTRUM] - spectro->hchar;*/
+../xklspec.c:  grdyb = spectro->yb[SPECTRUM] - 2 * spectro->hchar;
+../xklspec.c:    grdyb = spectro->yb[SPECTRUM] - 2 * 
+../xklspec.c:      (float)spectro->hchar * ps_scale;
+../xklspec.c:  grdox = spectro->xr[SPECTRUM] * SPEC_OX;
+../xklspec.c:  grdxr = spectro->xr[SPECTRUM] * SPEC_XR;
+../xklspec.c:     spectro->xr[SPECTRUM],spectro->yb[SPECTRUM]); 
+../xklspec.c:   yps = spectro->yb[3];/* filp y for postscript*/
+../xklspec.c:  fprintf(postfp,"%d %d translate 90 rotate\n",spectro->xr[3],0);
+../xklspec.c:    (int) (spectro->yb[SPECTRUM] * .5 ) - 5 * 
+../xklspec.c:    (int)((float)spectro->wchar * ps_scale),
+../xklspec.c:    spectro->xr[3] - (grdox - (int)((float)spectro->wchar * ps_scale * 4)),
+../xklspec.c:    (int)(grdox + (grdxr - grdox) / 2   - spectro->wchar * 4 * ps_scale),
+../xklspec.c:   yps - spectro->yb[SPECTRUM] + 1, "FREQ (kHz)");
+../xklspec.c:   (int)grdox - 4 * spectro->wchar,grdoy + spectro->hchar,"dB",
+../xklspec.c:      grdox + (grdxr- grdox)/2 - (spectro->wchar * 4 ),
+../xklspec.c:      spectro->yb[SPECTRUM] - 1,"FREQ (kHz)",
+../xklspec.c:    fmax = spectro->spers/2000.0;
+../xklspec.c:    xinc = (float)(grdxr - grdox)/(spectro->spers/2000.0);
+../xklspec.c:             x - spectro->wchar / 2, 
+../xklspec.c:             (int)(yps - (spectro->yb[SPECTRUM] - 
+../xklspec.c:        (float)spectro->hchar * ps_scale)) + 1 ,str);
+../xklspec.c:          x - spectro->wchar / 2,
+../xklspec.c:          spectro->yb[SPECTRUM] - spectro->hchar - 1,str,strlen(str));
+../xklspec.c:     x = grdox - 3 * spectro->wchar;
+../xklspec.c:               x, yps -  y - spectro->hchar / 2, str);
+../xklspec.c:          x , y + spectro->hchar / 2, str, strlen(str));
+../xklspec.c:    info = spectro->info[SPECTRUM];
+../xklspec.c:    spectro->specfreq = -1;
+../xklspec.c:    spectro->specamp = -1.0;
+../xklspec.c:    spectro->savspecfreq = -1;
+../xklspec.c:    spectro->savspecamp = -1.0;
+../xklspec.c:    if(spectro->option == 'a' || spectro->option == 'A' ||
+../xklspec.c:       spectro->option == 'k' ){
+../xklspec.c:                  spectro->option = spectro->savoption;
+../xklspec.c:                  spectro->history = 0; 
+../xklspec.c:   /* spectro->fltr is calculated if cursor is not to close to end of file*/
+../xklspec.c:   /* look at the top of xkl.c for info on spectro->params[] */
+../xklspec.c:    if(spectro->option == 'd'){
+../xklspec.c:    spectro->sizwin = spectro->params[WD];
+../xklspec.c:    spectro->sizfft = spectro->params[SD];
+../xklspec.c:    spectro->type_spec = DFT_MAG;
+../xklspec.c:    spectro->nsdftmag = (spectro->sizfft >> 1);
+../xklspec.c:    firstsamp = spectro->saveindex - (spectro->sizwin >> 1);
+../xklspec.c:    if(spectro->sizwin <= spectro->sizfft){
+../xklspec.c:     if(firstsamp >= 0 && firstsamp <= spectro->totsamp - 1){
+../xklspec.c:        spectro->spectrum = 1;
+../xklspec.c:        quickspec(spectro,&spectro->iwave[firstsamp]);
+../xklspec.c:     else { spectro->spectrum = 0;
+../xklspec.c:      spectro->spectrum = 0;
+../xklspec.c:      }/*spectro->sizwin > spectro->sizfft*/
+../xklspec.c:    else if(spectro->option == 's'){
+../xklspec.c:      if(spectro->history) copysav(spectro);
+../xklspec.c:      dofltr(spectro,SPECTROGRAM,spectro->params[WS]);
+../xklspec.c:   else if(spectro->option == 'S'){
+../xklspec.c:    savdft(spectro,spectro->params[WS]);/*make sizwin the same*/
+../xklspec.c:    dofltr(spectro,SPECTROGRAM,spectro->params[WS]);
+../xklspec.c:    else if(spectro->option == 'c'){
+../xklspec.c:      if(spectro->history){
+../xklspec.c:    dofltr(spectro,CRIT_BAND,spectro->params[WC]);
+../xklspec.c:   else if(spectro->option == 'j'){
+../xklspec.c:    savdft(spectro,spectro->params[WC]);
+../xklspec.c:    dofltr(spectro,CRIT_BAND,spectro->params[WC]);
+../xklspec.c:   else if(spectro->option == 'T'){
+../xklspec.c:   dofltr(spectro,CRIT_BAND,spectro->params[WC]);
+../xklspec.c:    if(spectro->spectrum){
+../xklspec.c:     for(i = 0; i < spectro->lenfltr; i++)
+../xklspec.c:           spectro->savfltr[i] = 0;
+../xklspec.c:     tilt(&spectro->fltr[13],24,&spectro->savfltr[13]);
+../xklspec.c:      spectro->savspectrum = 1;
+../xklspec.c:      spectro->lensavfltr = spectro->lenfltr;
+../xklspec.c:      spectro->savspectrum = spectro->spectrum;
+../xklspec.c:      spectro->savsizwin = spectro->sizwin;
+../xklspec.c:      spectro->savspers = spectro->spers;
+../xklspec.c:      strcpy(spectro->savname , spectro->wavename);
+../xklspec.c:   else {spectro->savspectrum = 0;}
+../xklspec.c:   else if(spectro->option == 'l'){
+../xklspec.c:    savdft(spectro,spectro->params[WL]);
+../xklspec.c:    dofltr(spectro,LPC_SPECT,spectro->params[WL]);
+../xklspec.c:   spectro->fd = spectro->params[FD]; 
+../xklspec.c:      spectro->lensavfltr = spectro->lenfltr;
+../xklspec.c:      spectro->savspectrum = spectro->spectrum;
+../xklspec.c:      spectro->savsizwin = spectro->sizwin;
+../xklspec.c:      spectro->savspers = spectro->spers;
+../xklspec.c:      spectro->savfd = spectro->fd;
+../xklspec.c:      strcpy(spectro->savname , spectro->wavename);
+../xklspec.c:      for( i = 0; i <= spectro->lensavfltr; i++){
+../xklspec.c:         spectro->savfltr[i] = spectro->fltr[i];
+../xklspec.c:         if(spectro->option == 'c')
+../xklspec.c:	   spectro->savnfr[i] = spectro->nfr[i];
+../xklspec.c:    spectro->sizwin = winsize;
+../xklspec.c:    spectro->sizfft = 256;
+../xklspec.c:    if(spectro->sizwin > spectro->sizfft)
+../xklspec.c:        spectro->sizfft = 512;
+../xklspec.c:    spectro->type_spec = type;
+../xklspec.c:    spectro->nsdftmag = spectro->sizfft / 2;
+../xklspec.c:    firstsamp = spectro->saveindex - spectro->sizwin / 2;
+../xklspec.c:    if(spectro->sizwin <= spectro->sizfft){
+../xklspec.c:     if(firstsamp >= 0 && firstsamp <= spectro->totsamp - 1){
+../xklspec.c:        spectro->spectrum = 1;
+../xklspec.c:        quickspec(spectro,&spectro->iwave[firstsamp]);
+../xklspec.c:        spectro->spectrum = 0; 
+../xklspec.c:      spectro->spectrum = 0;
+../xklspec.c:      }/*spectro->sizwin > spectro->sizfft*/
+../xklspec.c:    spectro->sizwin = winsize;
+../xklspec.c:    spectro->sizfft = 256;
+../xklspec.c:    if(spectro->sizwin > spectro->sizfft)
+../xklspec.c:        spectro->sizfft = 512;    
+../xklspec.c:    spectro->type_spec = DFT_MAG;
+../xklspec.c:    spectro->nsdftmag = spectro->sizfft / 2;
+../xklspec.c:    firstsamp = spectro->saveindex - spectro->sizwin / 2;
+../xklspec.c:    if(spectro->sizwin <= spectro->sizfft){
+../xklspec.c:     if(firstsamp >= 0 && firstsamp <= spectro->totsamp - 1){
+../xklspec.c:        quickspec(spectro,&spectro->iwave[firstsamp]);
+../xklspec.c:        spectro->lensavfltr = spectro->lenfltr;
+../xklspec.c:        spectro->savspectrum = 1;
+../xklspec.c:        spectro->savsizwin = spectro->sizwin;
+../xklspec.c:        spectro->savspers = spectro->spers;
+../xklspec.c:        strcpy(spectro->savname , spectro->wavename);
+../xklspec.c:        /* Rms is in [spectro->lensavfltr] */
+../xklspec.c:        for( i = 0; i <= spectro->lensavfltr; i++)
+../xklspec.c:              spectro->savfltr[i] = spectro->fltr[i]; 
+../xklspec.c:        spectro->savspectrum = 0;
+../xklspec.c:      spectro->savspectrum = 0;
+../xklspec.c:      }/*spectro->sizwin > spectro->sizfft*/
+../xklspec.c:  if (spectro->iwave == NULL) return;
+../xklspec.c:       ps_scale = spectro->Gscale;
+../xklspec.c:       ps_scale = spectro->gscale;
+../xklspec.c:  if(spectro->option == 's' || spectro->option == 'S' ){
+../xklspec.c:  else if(spectro->option == 'c' || spectro->option == 'j' ||
+../xklspec.c:          spectro->option == 't' || spectro->option == 'T'){
+../xklspec.c:  else if(spectro->option == 'l'){
+../xklspec.c:  info = spectro->info[SPECTRUM];  /*clear*/
+../xklspec.c:  spectrum_pixmap(spectro->info[SPECTRUM],spectro,postfp);
+../xklspec.c:  if(spectro->option == 'd' ||
+../xklspec.c:     ((spectro->option == 'c' || spectro->option == 's') &&
+../xklspec.c:              !spectro->history )     ){
+../xklspec.c:       /* just draw spectro->fltr */
+../xklspec.c:  grdyb = (float)spectro->yb[SPECTRUM] - 2 * spectro->hchar - 1;
+../xklspec.c:     grdyb = (float)spectro->yb[SPECTRUM] - 
+../xklspec.c:                   (float)spectro->hchar * 2.0 * ps_scale - 1;
+../xklspec.c:  grdox = (float)spectro->xr[SPECTRUM] * SPEC_OX;
+../xklspec.c:  grdxr = (float)spectro->xr[SPECTRUM] * SPEC_XR;
+../xklspec.c:     halfsrate = spectro->spers / 2.0; 
+../xklspec.c:     yps = (float)spectro->hchar + 1 + 5.0 * yinc + .5;
+../xklspec.c:       yps = (float)spectro->hchar * ps_scale + 1 + 5.0 * yinc + .5;
+../xklspec.c:   if(postfp != NULL && (spectro->spectrum || spectro->savspectrum) ){
+../xklspec.c:      ytext = grdyb - 4 * (float)spectro->hchar * ps_scale;
+../xklspec.c:      sprintf(str1,"%.1fms",spectro->savetime);
+../xklspec.c:      sprintf(str2,"SF = %d Hz",(int)spectro->spers);
+../xklspec.c:      sprintf(str3,"FD = %d",spectro->fd);
+../xklspec.c:      sprintf(str4,"SG = %d", spectro->params[SG]);
+../xklspec.c:	      ((titleLoc + 2*spectro->hchar) * ps_scale), 
+../xklspec.c:	      ((titleLoc + spectro->hchar) * ps_scale), 
+../xklspec.c:	      spectro->wavefile);
+../xklspec.c:if (spectro->spectrum) {    /* draw based on spectro->option */
+../xklspec.c:     xinc = halfsrate / spectro->lenfltr;
+../xklspec.c:     for(i = 0; i < spectro->lenfltr; i++){
+../xklspec.c:       if(spectro->option == 'c' || spectro->option == 'j'||
+../xklspec.c:          spectro->option == 'T' || spectro->option == 'l')
+../xklspec.c:          x = spectro->nfr[i];
+../xklspec.c:       spectro->xfltr[i] = x / halfsrate * (grdxr - grdox) ;
+../xklspec.c:      points[i].x = spectro->xfltr[i] + .5 + grdox;
+../xklspec.c:      spectro->yfltr[i] = (float)spectro->fltr[i]/10.0 * yinc;
+../xklspec.c:      points[i].y = y0 - spectro->yfltr[i] + .5;
+../xklspec.c:	      spectro->xfltr[0] + grdox, spectro->yfltr[0] + yps + 12);
+../xklspec.c:      for(i = 1; i < spectro->lenfltr - 1; i++)
+../xklspec.c:		 spectro->xfltr[i] + grdox,spectro->yfltr[i] + yps + 12);
+../xklspec.c:		 info->gc, points,spectro->lenfltr,CoordModeOrigin);
+../xklspec.c:  winms = (float)spectro->sizwin/spectro->spers * 1000.0;
+../xklspec.c:     if(spectro->option == 'd' || spectro->option == 'a' ||
+../xklspec.c:	spectro->option == 'A' || spectro->option == 'k') {
+../xklspec.c:	ytext =  grdoy + 2 * spectro->hchar;
+../xklspec.c:	   ytext =  grdoy + 2 * (float)spectro->hchar * ps_scale;
+../xklspec.c:	if (spectro->option == 'd') {
+../xklspec.c:		   getf0(spectro->fltr,spectro->sizfft,(int)spectro->spers));
+../xklspec.c:	   sprintf(str4,"Rms = %d dB",spectro->fltr[spectro->lenfltr]/10); 
+../xklspec.c:	if (spectro->option == 'k' || spectro->option == 'a' ||
+../xklspec.c:	    spectro->option == 'A') {
+../xklspec.c:	   sprintf(str3,"start %d",spectro->avgtimes[0]);
+../xklspec.c:	   sprintf(str4,"end %d",spectro->avgtimes[1]);
+../xklspec.c:	   if (spectro->option == 'A') {
+../xklspec.c:	   else if (spectro->option == 'k') strcpy(str1,"Avg DFT-spect (kn)");
+../xklspec.c:	   else if (spectro->option == 'a') strcpy(str1,"Avg DFT-spect (a)");
+../xklspec.c:       if(spectro->option == 'A'){
+../xklspec.c:       ytext = grdoy + 3 * (float)spectro->hchar * ps_scale; 
+../xklspec.c:          for(i = 0; i <= spectro->avgcount; i++){
+../xklspec.c:          ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:          sprintf(str3,"time%d: %d",i+1,spectro->avgtimes[i]);
+../xklspec.c:         (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,str3); 
+../xklspec.c:      ytext = grdoy + 3 * spectro->hchar; 
+../xklspec.c:       if(spectro->option == 'A'){
+../xklspec.c:         for(i = 0; i <= spectro->avgcount; i++){
+../xklspec.c:          ytext += spectro->hchar;
+../xklspec.c:          sprintf(str3,"time%d: %d",i+1,spectro->avgtimes[i]);
+../xklspec.c:           (int)grdxr + spectro->wchar ,ytext,str3,strlen(str3)  ); 
+../xklspec.c:  if(spectro->option == 's' || spectro->option == 'S' ||
+../xklspec.c:     spectro->option == 'l' || spectro->option == 'j'||
+../xklspec.c:     spectro->option == 'c' || spectro->option == 'T'){
+../xklspec.c:	arox1 = (float)spectro->xr[SPECTRUM] * .008;
+../xklspec.c:	arox2 = (float)spectro->xr[SPECTRUM] * .004;
+../xklspec.c:	aroy1 = (float)spectro->yb[SPECTRUM] * .02;
+../xklspec.c:	aroy2 = (float)spectro->yb[SPECTRUM] * .015;
+../xklspec.c:	aroy3 = (float)spectro->yb[SPECTRUM] * .045;
+../xklspec.c:      ytext =  grdoy + 7 * spectro->hchar;
+../xklspec.c:          ytext =  grdoy + 7 * (float)spectro->hchar * ps_scale;
+../xklspec.c:    (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,botlabel);  
+../xklspec.c:    ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:      (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,str2); 
+../xklspec.c:    ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:    fprintf(postfp, "%d %d m (%s) o\n", (int)grdxr + spectro->wchar,
+../xklspec.c:	    spectro->yb[SPECTRUM] - ytext, "FREQ AMP");
+../xklspec.c:      (int)grdxr + spectro->wchar ,ytext,botlabel,strlen(botlabel)  );
+../xklspec.c:    ytext += spectro->hchar;
+../xklspec.c:      (int)grdxr + spectro->wchar ,ytext,str2,strlen(str2)  );
+../xklspec.c:    ytext += spectro->hchar;
+../xklspec.c:      (int)grdxr + spectro->wchar ,ytext,"FREQ AMP",
+../xklspec.c:      ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:    ytext += spectro->hchar;
+../xklspec.c:       for(i = 0; i < spectro->nforfreq; i++){
+../xklspec.c:         tmpfreq = spectro->forfreq[i];
+../xklspec.c:         y = y0 - (float)spectro->foramp[i]/10. * yinc -
+../xklspec.c:             spectro->hchar/2 ;
+../xklspec.c:           sprintf(str,"%d %d",tmpfreq,(int)(spectro->foramp[i]/10) );
+../xklspec.c:              points[0].x,spectro->yb[SPECTRUM] - points[0].y);
+../xklspec.c:                                 spectro->yb[SPECTRUM] - points[n].y);}
+../xklspec.c:           (int)grdxr  ,spectro->yb[SPECTRUM] - ytext,"*");}
+../xklspec.c:         fprintf(postfp, "%d %d m (%s) o\n",(int) grdxr + spectro->wchar, 
+../xklspec.c:		 spectro->yb[SPECTRUM] - ytext,str); 
+../xklspec.c:             (int)grdxr + spectro->wchar ,ytext,str,strlen(str)  );
+../xklspec.c:                ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:                ytext += spectro->hchar;
+../xklspec.c: if(drawsav && spectro->savspectrum){ 
+../xklspec.c:     xinc =  spectro->savspers / 2.0 / spectro->lensavfltr;
+../xklspec.c:     spectro->savclip = 0;
+../xklspec.c:     for(i = 0; i < spectro->lensavfltr; i++){
+../xklspec.c:       if(spectro->option == 'c' || spectro->option == 'T')
+../xklspec.c:	 if(spectro->option == 'T'){
+../xklspec.c:	   x = spectro->nfr[i];
+../xklspec.c:          x = spectro->savnfr[i];
+../xklspec.c:       spectro->xsav[i] = x / halfsrate * (grdxr - grdox); 
+../xklspec.c:       points[i].x = spectro->xsav[i] + .5 + grdox;    
+../xklspec.c:           spectro->ysav[i] = (float)spectro->savfltr[i]/10. * yinc;      
+../xklspec.c:           points[i].y =  y0 - spectro->ysav[i] + .5 ; 
+../xklspec.c:           spectro->savclip++;
+../xklspec.c:if(spectro->option == 'S' || spectro->option == 'j' ||
+../xklspec.c:   spectro->option == 'l' || spectro->option == 's' ||
+../xklspec.c:   spectro->option == 'c'){
+../xklspec.c:      winms = (float)spectro->savsizwin/spectro->savspers * 1000.0;
+../xklspec.c:      ytext =  grdoy +  1 * spectro->hchar;
+../xklspec.c:    if(spectro->option == 's' || spectro->option == 'c'){
+../xklspec.c:      strcpy(str3,spectro->savname);
+../xklspec.c:      sprintf(str4,"%.1f ms",spectro->oldtime);
+../xklspec.c:      if(spectro->savfd != -1){
+../xklspec.c:        sprintf(str5,"FD = %d",spectro->savfd);
+../xklspec.c:    else if(spectro->option == 'S' || spectro->option == 'j' ||
+../xklspec.c:      spectro->option == 'l' ){
+../xklspec.c:              getf0(spectro->savfltr,spectro->sizfft,(int)spectro->spers));
+../xklspec.c:      sprintf(str4,"Rms = %d dB",spectro->savfltr[spectro->lensavfltr]/10); 
+../xklspec.c:	if(spectro->option == 's' || spectro->option == 'c'){
+../xklspec.c:           spectro->xsav[0] + grdox,spectro->ysav[0] + yps);
+../xklspec.c:         for(i = 1; i < spectro->savclip - 1; i++)
+../xklspec.c:                     fprintf(postfp,"%f %f l\n",spectro->xsav[i] + 
+../xklspec.c:                      grdox, spectro->ysav[i] + yps + 12);
+../xklspec.c:     if(spectro->option == 's' || spectro->option == 'c'){
+../xklspec.c:          info->gc, points,spectro->savclip,CoordModeOrigin);
+../xklspec.c:if(  (spectro->option == 'c' || spectro->option == 's') &&
+../xklspec.c:              !spectro->history   ){ 
+../xklspec.c:               spectro->history = 1;
+../xklspec.c:               spectro->savspectrum = 0; }
+../xklspec.c:    if(postfp == PS4_fp) ps_scale = spectro->Gscale;
+../xklspec.c:    else ps_scale = spectro->gscale;
+../xklspec.c:	  (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,str1);
+../xklspec.c:  ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:	  (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,str2);
+../xklspec.c:  ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:	  (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,str3);
+../xklspec.c:  ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:	  (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,str4);
+../xklspec.c:    ytext += (float)spectro->hchar * ps_scale;
+../xklspec.c:	    (int)grdxr + spectro->wchar,spectro->yb[SPECTRUM] - ytext,str5);
+../xklspec.c:	      (int)grdxr + 2 * spectro->wchar ,ytext,str1,strlen(str1)  ); 
+../xklspec.c:  ytext += spectro->hchar;
+../xklspec.c:	      (int)grdxr + 2 * spectro->wchar ,ytext,str2,strlen(str2) );
+../xklspec.c:  ytext += spectro->hchar;
+../xklspec.c:	      (int)grdxr + 2 * spectro->wchar ,ytext,str3,strlen(str3) );
+../xklspec.c:  ytext += spectro->hchar;
+../xklspec.c:	      (int)grdxr + 2 * spectro->wchar ,ytext,str4,strlen(str4) );
+../xklspec.c:    ytext += spectro->hchar;
+../xklspec.c:		(int)grdxr + 2 * spectro->wchar ,ytext,str5,strlen(str5) );
+../xklspec.c:yps = spectro->yb[index] ;
+../xklspec.c:i = spectro->startindex[index];  
+../xklspec.c:  if(xmax > spectro->sampsused[index]){
+../xklspec.c:     inc = xmax / spectro->sampsused[index];
+../xklspec.c:     spectro->step = 1;
+../xklspec.c:     spectro->step = spectro->sampsused[index] / xmax ;
+../xklspec.c:  points = (XPoint *) malloc( sizeof(XPoint) * spectro->sampsused[index]);
+../xklspec.c:  mid = spectro->wavemax - (spectro->wavemax - spectro->wavemin) / 2.0;
+../xklspec.c:  (spectro->wavemax - spectro->wavemin) / 2.0 * spectro->wvfactor[index];
+../xklspec.c:  (spectro->wavemax - spectro->wavemin) / 2.0 * spectro->wvfactor[index];
+../xklspec.c: i = spectro->startindex[index]; 
+../xklspec.c: xinc = (float)xmax / (float)spectro->sampsused[index];
+../xklspec.c: for(n = 0; n <  spectro->sampsused[index]; n++){
+../xklspec.c:                    spectro->axisdist - 1) -
+../xklspec.c:         (map * ((float)(spectro->iwave[i] >> 4) - min) + .5)) ;
+../xklspec.c:  xoffset(spectro),yps - (bborder(spectro,index) - spectro->axisdist  - 1), 
+../xklspec.c:                (spectro->sampsused[index] - 1) );
+../xklspec.c:    for(i = 1; i < spectro->sampsused[index]; i ++){
+../xklspec.c:     spectro->xr[index],spectro->yb[index]); 
+../xklspec.c:          info->gc,xoffset(spectro) - spectro->axisdist,
+../xklspec.c:  if(spectro->wvfactor[index] != 1.0){
+../xklspec.c:if(spectro->sampsused[index] <= 10000){
+../xklspec.c:            info->gc,points,spectro->sampsused[index],CoordModeOrigin);
+../xklspec.c:   k = spectro->sampsused[index] / 10000;
+../xklspec.c:            (spectro->sampsused[index] % 10000) + 1,CoordModeOrigin);
+../xklspec.c:  if(spectro->wvfactor[index] != 1.0){
+../xklspec.c:  if (spectro->type_spec == DFT_MAG ||
+../xklspec.c:      spectro->type_spec == DFT_MAG_NO_DB) {
+../xklspec.c:    spectro->lenfltr = spectro->sizfft / 2;
+../xklspec.c:  else if (spectro->type_spec == CRIT_BAND) {
+../xklspec.c:    spectro->lenfltr = spectro->sizfft / 2;
+../xklspec.c:    spectro->lenfltr = spectro->nchan;
+../xklspec.c:  else if ((spectro->type_spec == SPECTROGRAM) ||
+../xklspec.c:	   (spectro->type_spec == SPECTO_NO_DFT)) {
+../xklspec.c:    spectro->lenfltr = spectro->sizfft / 2;
+../xklspec.c:  if( spectro->oldsizwin != spectro->sizwin ||
+../xklspec.c:      spectro->oldwintype!= spectro->params[NW]){
+../xklspec.c:    spectro->oldsizwin = spectro->sizwin;
+../xklspec.c:    spectro->oldwintype = spectro->params[NW];
+../xklspec.c:  if (spectro->type_spec == LPC_SPECT) {
+../xklspec.c:    spectro->lenfltr = (spectro->sizfft >> 1);
+../xklspec.c:    spectro->nchan = spectro->lenfltr;
+../xklspec.c:    xfdcoef = 0.01 * (float)(spectro->params[FD]);
+../xklspec.c:    for (nch = 1; nch < spectro->sizfft; nch++) {
+../xklspec.c:      if (spectro->params[FD] > 0) {
+../xklspec.c:	spectro->dftmag[nch] = spectro->hamm[nch] *
+../xklspec.c:	spectro->dftmag[nch] = spectro->hamm[nch] * 
+../xklspec.c:    pcode(spectro->dftmag,spectro->sizwin,spectro->params[NC],
+../xklspec.c:	  &spectro->dftmag[spectro->sizfft],
+../xklspec.c:    for (nch= spectro->params[NC] - 1; nch >= 0; nch--) {
+../xklspec.c:      spectro->dftmag[nch+ spectro->sizfft + 1] = - 
+../xklspec.c:	(spectro->dftmag[nch+spectro->sizfft]);
+../xklspec.c:    spectro->dftmag[spectro->sizfft] = 1.0;
+../xklspec.c:    count = (spectro->sizfft << 1);
+../xklspec.c:    for(nch=spectro->params[NC]+spectro->sizfft+1; nch <= count; nch++) {
+../xklspec.c:      spectro->dftmag[nch] = 0.;
+../xklspec.c:    dft(iwave,&spectro->dftmag[spectro->sizfft],spectro->dftmag,
+../xklspec.c:	spectro->sizwin,spectro->sizfft,-1);
+../xklspec.c:  else if (spectro->type_spec != SPECTO_NO_DFT) {
+../xklspec.c:    dft(iwave,spectro->hamm,spectro->dftmag,
+../xklspec.c:	spectro->sizwin,spectro->sizfft,spectro->params[FD]);
+../xklspec.c:  if (spectro->type_spec == DFT_MAG) {
+../xklspec.c:    for (nch=0; nch<spectro->lenfltr; nch++) {
+../xklspec.c:      nsum = spectro->dftmag[nch] * 20000.;
+../xklspec.c:      spectro->fltr[nch] = mgtodb(nsum,spectro->params[SG]);
+../xklspec.c:  else if (spectro->type_spec == LPC_SPECT) {
+../xklspec.c:    spectro->denergy = (double)energy * (double)pcerror;
+../xklspec.c:	    spectro->logoffset =(int)
+../xklspec.c:	      (-1450.0 + 100. * log10(spectro->denergy) + .5);
+../xklspec.c:	    for (nch = 0; nch<spectro->lenfltr; nch++) {
+../xklspec.c:	      spectro->denergy = spectro->dftmag[nch];
+../xklspec.c:	      spectro->fltr[nch] = (int)(spectro->logoffset - 100. * 
+../xklspec.c:					 log10(spectro->denergy));
+../xklspec.c:	      if (spectro->fltr[nch] < 0)    spectro->fltr[nch] = 0;
+../xklspec.c:	else if ((spectro->type_spec == CRIT_BAND)
+../xklspec.c:	 || (spectro->type_spec == SPECTO_NO_DFT)
+../xklspec.c:	 || (spectro->type_spec == SPECTROGRAM)) {
+../xklspec.c:	    for (nch=0; nch<spectro->lenfltr; nch++) {
+../xklspec.c:                pdft = spectro->nstart[nch];
+../xklspec.c:                pdftend = pdft + spectro->ntot[nch];
+../xklspec.c:                    sum += cbskrt[spectro->pweight[pw++]] * 
+../xklspec.c:                    spectro->dftmag[pdft++];
+../xklspec.c:	   spectro->attenpersamp = (0.4 * spectro->spers) /
+../xklspec.c:                            (spectro->nbw[nch] * spectro->nsdftmag);
+../xklspec.c:	    spectro->attenpersamp = 1.0 - spectro->attenpersamp;
+../xklspec.c:                if(spectro->attenpersamp > 1.0){spectro->attenpersamp = 1.0;}
+../xklspec.c:                else if(spectro->attenpersamp < 0.0)
+../xklspec.c:                    {spectro->attenpersamp = 0.0;}
+../xklspec.c:		if (pdftend < spectro->lenfltr) {
+../xklspec.c:		    pdft = spectro->lenfltr - 1;
+../xklspec.c:                    sumlow = (sumlow + spectro->dftmag[pdft--]) 
+../xklspec.c:                    * spectro->attenpersamp;
+../xklspec.c:		    sum += (sumlow * cbskrt[spectro->sizcbskirt-1]);
+../xklspec.c:                pdftend = spectro->nstart[nch];
+../xklspec.c:                    (sumlow + spectro->dftmag[pdft++]) * spectro->attenpersamp;
+../xklspec.c:		    sum += (sumlow * cbskrt[(spectro->sizcbskirt-1)>>1]);
+../xklspec.c:		if (spectro->type_spec == SPECTO_NO_DFT) {
+../xklspec.c:		    spectro->fltr[nch] = mgtodb(nsum,spectro->params[SG]);
+../xklspec.c:		    spectro->fltr[nch] = mgtodb(nsum,spectro->params[SG]);
+../xklspec.c:	        if (spectro->fltr[nch] > spectro->fltr[spectro->lenfltr + 1]) {
+../xklspec.c:		 spectro->fltr[spectro->lenfltr + 1] = spectro->fltr[nch];
+../xklspec.c:        for (pdft=0; pdft < spectro->sizfft>>1; pdft++) {
+../xklspec.c:            sum = sum + spectro->dftmag[pdft];
+../xklspec.c:        spectro->fltr[spectro->lenfltr] = mgtodb(nsum,spectro->params[SG]);
+../xklspec.c:    if (spectro->initskrt == 0) {
+../xklspec.c:	spectro->initskrt++;
+../xklspec.c:	nfmax = (int)spectro->spers / 2;
+../xklspec.c:	xsdftmag = spectro->nsdftmag;
+../xklspec.c:if ((spectro->type_spec == LPC_SPECT) || ( spectro->type_spec== AVG_SPECT)) {
+../xklspec.c:	     spectro->lenfltr); */
+../xklspec.c:	    i3 = spectro->lenfltr / 2;	/* For rounding up */
+../xklspec.c:	    for (i1=0; i1<spectro->lenfltr; i1++) {
+../xklspec.c:		spectro->nfr[i1] = ((i1 * nfmax) + i3) / spectro->lenfltr;
+../xklspec.c:	if ( spectro->type_spec == CRIT_BAND) {
+../xklspec.c:	    nsmin = ((80 * spectro->nsdftmag) / nfmax) + 1;
+../xklspec.c:            linlogfreq = (float) spectro->params[FL];
+../xklspec.c:	    temp1 = 1. + ((float)spectro->params[F1]/linlogfreq);
+../xklspec.c:	    temp2 = 1. + ((float)spectro->params[F2]/linlogfreq);
+../xklspec.c:	n1000 = (1000.0 * spectro->nsdftmag)/nfmax;
+../xklspec.c:	xbw1000 = spectro->params[B1];
+../xklspec.c:	spectro->nchan = 0;
+../xklspec.c:	while (spectro->nchan < NFMAX) {
+../xklspec.c:	if (spectro->type_spec == SPECTROGRAM || 
+../xklspec.c:            spectro->type_spec == SPECTO_NO_DFT) {
+../xklspec.c:		fcenter = spectro->nchan;
+../xklspec.c:		bwcenter = spectro->params[BS];
+../xklspec.c:		d = a*(b + spectro->nchan + 1.0);
+../xklspec.c:		if (bwcenter < (float)spectro->params[B0]) {
+../xklspec.c:		    bwcenter = spectro->params[B0];
+../xklspec.c:	    spectro->nfr[spectro->nchan] = ((fcenter * xfmax) / xsdftmag) + .5;
+../xklspec.c:	    spectro->nbw[spectro->nchan] = bwcenter;
+../xklspec.c:	    spectro->nstart[spectro->nchan] = 0;
+../xklspec.c:	    spectro->ntot[spectro->nchan] = 0;
+../xklspec.c:	    bwscale = bwscal/(10. * spectro->nbw[spectro->nchan]);
+../xklspec.c:	    for (i1 = nsmin; i1 < spectro->nsdftmag; i1++) {
+../xklspec.c:		    spectro->sizcbskirt = SIZCBSKIRT;	
+../xklspec.c:		else spectro->sizcbskirt = SIZCBSKIRT>>1;	
+../xklspec.c:		if (i3 < spectro->sizcbskirt) {
+../xklspec.c:		    if (spectro->nstart[spectro->nchan] == 0) {
+../xklspec.c:			spectro->nstart[spectro->nchan] = i1;
+../xklspec.c:		     spectro->pweight[np] = i3; np++;
+../xklspec.c:		   printf("\t(while working on filter %d).  ", spectro->nchan);
+../xklspec.c:		    spectro->ntot[spectro->nchan]++;
+../xklspec.c:	    spectro->nchan++;
+../xklspec.c:	spectro->sizcbskirt = SIZCBSKIRT;
+../xklspec.c:  sprintf(str,"\t\t\t%s FILTER CHACTERISTICS:\n\n",spectro->wavename);
+../xklspec.c:  n3 = (spectro->nchan+2)/3;
+../xklspec.c:	    n+1, spectro->nfr[n], spectro->nbw[n]);
+../xklspec.c:	    n+n3+1, spectro->nfr[n+n3], spectro->nbw[n+n3]);
+../xklspec.c:    if ((n+n3+n3) < spectro->nchan) {
+../xklspec.c:	      n+n3+n3+1, spectro->nfr[n+n3+n3], spectro->nbw[n+n3+n3]);
+../xklspec.c:  XtSetValues(spectro->fbw_text,args,n);
+../xklspec.c:	if ((spectro->sizwin > spectro->sizfft) || 
+../xklspec.c:            (spectro->sizwin <= 0) || (spectro->sizfft > 512)) {
+../xklspec.c:	    spectro->sizwin , spectro->sizfft);
+../xklspec.c:	incr = TWOPI/(spectro->sizwin);
+../xklspec.c:	limit = spectro->sizwin;
+../xklspec.c:	/*if (spectro->halfwin == 1)    limit = limit >> 1;*/
+../xklspec.c:	    if (spectro->params[NW] == 1) {
+../xklspec.c:		spectro->hamm[i] = (1. -  cos(xi));
+../xklspec.c:		spectro->hamm[i] = 1.;	/* rectangular window */
+../xklspec.c:	while (i < spectro->sizfft) {
+../xklspec.c:	    spectro->hamm[i++] = 0.;
+../xklspec.c:	    for (nch=2; nch<spectro->nchan-2; nch++) {
+../xklspec.c:		spectro->dfltr[nch] = 
+../xklspec.c:                spectro->fltr[nch+2] + spectro->fltr[nch+1] -
+../xklspec.c:                spectro->fltr[nch-1] - spectro->fltr[nch-2];
+../xklspec.c:	    spectro->nmax_in_d = 0;
+../xklspec.c:	    lasderiv = spectro->dfltr[2];
+../xklspec.c:	    spectro->hftot = 0;
+../xklspec.c:	    for (nch=3; nch<spectro->nchan-2; nch++) {
+../xklspec.c:	        if (spectro->dfltr[nch] > lasderiv) {
+../xklspec.c:		    if ( (direction == down) && (spectro->nmax_in_d > 0) ) {
+../xklspec.c:			if ((spectro->hiddenf[spectro->hftot] = testhidden(spectro)) > 0) {
+../xklspec.c:                          index = (spectro->hiddenf[spectro->hftot]*spectro->sizfft)/spectro->spers;
+../xklspec.c:		          spectro->hiddena[spectro->hftot] = spectro->fltr[index];
+../xklspec.c:			    if (spectro->hftot < MAX_INDEX)   spectro->hftot++;
+../xklspec.c:	        else if (spectro->dfltr[nch] < lasderiv) {
+../xklspec.c:		    if ((spectro->nmax_in_d > 0) && (direction == down)) {
+../xklspec.c:			spectro->ampdmin[spectro->nmax_in_d-1] = spectro->dfltr[nch];
+../xklspec.c:			spectro->ncdmin[spectro->nmax_in_d-1] = nch;
+../xklspec.c:		    if ((direction == up) && (spectro->nmax_in_d < 7)) {
+../xklspec.c:			spectro->ampdmin[spectro->nmax_in_d] = spectro->dfltr[nch];
+../xklspec.c:			spectro->ncdmin[spectro->nmax_in_d] = nch;
+../xklspec.c:			spectro->ampdmax[spectro->nmax_in_d] = lasderiv;
+../xklspec.c:			spectro->ncdmax[spectro->nmax_in_d] = nch-1;
+../xklspec.c:			if (spectro->nmax_in_d < MAX_INDEX)   spectro->nmax_in_d++;
+../xklspec.c:	        lasderiv = spectro->dfltr[nch];
+../xklspec.c:	    spectro->nforfreq = 0;
+../xklspec.c:	    lasfltr = spectro->fltr[0];
+../xklspec.c:	    for (nch=1; nch<spectro->nchan; nch++) {
+../xklspec.c:	        if (spectro->fltr[nch] > lasfltr) {
+../xklspec.c:	        else if (spectro->fltr[nch] < lasfltr) {
+../xklspec.c:		    if ((spectro->nforfreq > 0) && (direction == down)) {
+../xklspec.c:			spectro->valleyamp[spectro->nforfreq-1] = spectro->fltr[nch];
+../xklspec.c:		    if ((direction == up) && (spectro->nforfreq < 6)) {
+../xklspec.c:			spectro->valleyamp[spectro->nforfreq] = spectro->fltr[nch];
+../xklspec.c:			    if (spectro->fltr[nchb] < spectro->fltr[nch-1])    break;
+../xklspec.c:			ff = spectro->nfr[nchp];
+../xklspec.c:			    ff = (spectro->nfr[nchp] + spectro->nfr[nchp+1]) >> 1;
+../xklspec.c:		        da1 = spectro->fltr[nchp] - spectro->fltr[nchb];
+../xklspec.c:		        da2 = spectro->fltr[nchp] - spectro->fltr[nch];
+../xklspec.c:			nsum = ((da1-da2) * (spectro->nfr[nch-1] - spectro->nfr[nch-2]));
+../xklspec.c:			while ((nhf < spectro->hftot) && (spectro->hiddenf[nhf] < ff)
+../xklspec.c:			&& (spectro->nforfreq < MAX_INDEX)) {
+../xklspec.c:			    spectro->foramp[spectro->nforfreq] = spectro->hiddena[nhf];
+../xklspec.c:			    spectro->forfreq[spectro->nforfreq] = - spectro->hiddenf[nhf];
+../xklspec.c:                            spectro->nforfreq++; nhf++;
+../xklspec.c:			spectro->foramp[spectro->nforfreq] = lasfltr;
+../xklspec.c:			spectro->forfreq[spectro->nforfreq] = ff;
+../xklspec.c:			if (spectro->nforfreq < MAX_INDEX)    spectro->nforfreq++;
+../xklspec.c:	        lasfltr = spectro->fltr[nch];
+../xklspec.c:	    while ((nhf < spectro->hftot) && (spectro->nforfreq < MAX_INDEX)) {
+../xklspec.c:		spectro->foramp[spectro->nforfreq] = spectro->hiddena[nhf];
+../xklspec.c:		spectro->forfreq[spectro->nforfreq] = - spectro->hiddenf[nhf]; 
+../xklspec.c:                spectro->nforfreq++;
+../xklspec.c:        NCH_OF_PEAK_IN_DERIV = spectro->ncdmax[spectro->nmax_in_d-1];
+../xklspec.c:        AMP_OF_PEAK_IN_DERIV = spectro->ampdmax[spectro->nmax_in_d-1];
+../xklspec.c:        NCH_OF_VALLEY_IN_DERIV = spectro->ncdmin[spectro->nmax_in_d-1];
+../xklspec.c:        AMP_OF_VALLEY_IN_DERIV = spectro->ampdmin[spectro->nmax_in_d-1];
+../xklspec.c:		while ( (spectro->fltr[nchvar-1] >= spectro->fltr[nchvar]) && (nchvar > 0) ) {
+../xklspec.c:		delamp = spectro->fltr[nchvar] - spectro->fltr[nchpeak];
+../xklspec.c:		while ( (spectro->fltr[nchvar+1] >= spectro->fltr[nchvar]) && (nchvar < 127) ) {
+../xklspec.c:		delamp = spectro->fltr[nchvar] - spectro->fltr[nchpeak];
+../xklspec.c:		if (spectro->dfltr[nchpeak] > amphidpeak) {
+../xklspec.c:		    while ( ((spectro->dfltr[nchpeak] - amphidpeak) >= 0)
+../xklspec.c:		a = spectro->dfltr[nchpeak] - amphidpeak;
+../xklspec.c:		denom = spectro->dfltr[nchpeak] - spectro->dfltr[nchpeak+1];
+../xklspec.c:		    f = spectro->nfr[nchpeak]
+../xklspec.c:			 + ((a*(spectro->nfr[nchpeak+1]-spectro->nfr[nchpeak]))/denom);
+../xklspec.c:		    f = spectro->nfr[nchpeak];
+../xklspec.c:	for (nf=0; nf<spectro->nforfreq-1; nf++) {
+../xklspec.c:	    if ((nf == 0) || (spectro->foramp[nf-1] > spectro->foramp[nf]+60)) {
+../xklspec.c:		if (spectro->foramp[nf+1] > spectro->foramp[nf]+60) {
+../xklspec.c:		    if ((nf == 0) || (spectro->valleyamp[nf-1] > spectro->foramp[nf]-20)) {
+../xklspec.c:			if (spectro->valleyamp[nf] > spectro->foramp[nf]-20) {
+../xklspec.c:			    for (n=nf; n<spectro->nforfreq; n++) {
+../xklspec.c:				spectro->forfreq[n] = spectro->forfreq[n+1];
+../xklspec.c:				spectro->foramp[n] = spectro->foramp[n+1];
+../xklspec.c:			    spectro->nforfreq--;
+../xklspec.c:	    if (nf < spectro->nforfreq-1) {
+../xklspec.c:		fcur = spectro->forfreq[nf];
+../xklspec.c:		fnext = spectro->forfreq[nf+1];
+../xklspec.c:		    if (spectro->foramp[nf] > spectro->foramp[nf+1])    xxx = 1;
+../xklspec.c:		    for (n=nf+xxx; n<spectro->nforfreq-1; n++) {
+../xklspec.c:			spectro->forfreq[n] = spectro->forfreq[n+1];
+../xklspec.c:			spectro->foramp[n] = spectro->foramp[n+1];
+../xklspec.c:		    spectro->nforfreq--;
+../xklspec.c:  if( spectro->xr[window] > 648  && spectro->yb[window] > 468){
+../xklspec.c:    scale = (float)648 /(float)spectro->xr[window] ;
+../xklspec.c:    tmpscale = (float)468 / (float)spectro->yb[window] ;
+../xklspec.c:  else if(spectro->xr[window] > 648 ) {
+../xklspec.c:    scale = (float)648 / (float)spectro->xr[window];
+../xklspec.c:  else if(spectro->yb[window] > 468 ) {
+../xklspec.c:    scale = (float)468 / (float)spectro->yb[window] ;
+../xklspec.c:    tmpscale = (float)648 / (float)spectro->xr[SPECTRUM];
+../xklspec.c:    tmpscale1 = (float)468 / (float)spectro->yb[SPECTRUM];
+../xklspec.c:	  (int)( spectro->yb[window] * scale) + 72, 
+../xklspec.c:	  (int)(spectro->xr[window] * scale) + 72); 
+../xklspec.c:  fprintf(fp, "0 30 m (%s SF: %d Hz) o\n",datestr, (int)spectro->spers);
+../xklspec.c:  fprintf(fp, "0 15 m (File: %s) o\n", spectro->wavefile);
+../xklspec.c:       "/Times-Roman findfont %d scalefont setfont\n",spectro->hchar);
+../xklspec.c:	  spectro->yb[window] * scale + 144,  72); 
+../xklspec.c:  wave_pixmap(spectro->info[window],spectro,1, window, fp);
+../xklspec.c:  if ( spectro->xr[SPECTRUM] > 720  && spectro->yb[SPECTRUM] > 540){
+../xklspec.c:    scale = (float)720 /(float)spectro->xr[SPECTRUM] ;
+../xklspec.c:    tmpscale = (float)540 / (float)spectro->yb[SPECTRUM] ;
+../xklspec.c:  else if(spectro->xr[SPECTRUM] > 720 )
+../xklspec.c:    scale = (float)720 / (float)spectro->xr[SPECTRUM];
+../xklspec.c:  else  if(spectro->yb[SPECTRUM] > 540)
+../xklspec.c:    scale = (float)540 / (float)spectro->yb[SPECTRUM] ;
+../xklspec.c:    tmpscale = (float)720 / (float)spectro->xr[SPECTRUM];
+../xklspec.c:    tmpscale1 = (float)540 / (float)spectro->yb[SPECTRUM];
+../xklspec.c:  spectro->gscale = 1;
+../xklspec.c:	  (int)( spectro->yb[SPECTRUM] * scale) + 106, 
+../xklspec.c:	  (int)(spectro->xr[SPECTRUM] * scale) + 36);
+../xklspec.c:	  "/Times-Roman findfont %d scalefont setfont\n", spectro->hchar);
+../xklspec.c:  fprintf(fp,"%f %d translate 90 rotate\n", scale * spectro->yb[SPECTRUM] + 106,
+../xklspec.c:  ybsave = spectro->yb[SPECTRUM];
+../xklspec.c:  xrsave = spectro->xr[SPECTRUM];
+../xklspec.c:  spectro->yb[SPECTRUM] = 300;
+../xklspec.c:  spectro->xr[SPECTRUM] = 600;
+../xklspec.c:  spectro->Gscale = 1;/* don't use scale in setfont */
+../xklspec.c:	    spectro->hchar);
+../xklspec.c:    spectro->yb[SPECTRUM] = ybsave;
+../xklspec.c:    spectro->xr[SPECTRUM] = xrsave;
+../xklspec.c:    ybsave = spectro->yb[1];
+../xklspec.c:    xrsave = spectro->xr[1];
+../xklspec.c:    spectro->yb[1] = 100;
+../xklspec.c:    spectro->xr[1] = 575;
+../xklspec.c:    startsave = spectro->startindex[1];
+../xklspec.c:    usedsave = spectro->sampsused[1];
+../xklspec.c:    timesave = spectro->startime[1];
+../xklspec.c:    spectro->startindex[1] = spectro->saveindex - 2*spectro->sizwin;
+../xklspec.c:    spectro->sampsused[1] = spectro->sizwin * 4;
+../xklspec.c:    if (spectro->startindex[1] < 0) spectro->startindex[1] = 0;
+../xklspec.c:    if ((spectro->startindex[1] + spectro->sampsused[1]) > 
+../xklspec.c:	(spectro->totsamp - 1))
+../xklspec.c:      spectro->sampsused[1] = spectro->totsamp - 1 - 
+../xklspec.c:	spectro->startindex[1];
+../xklspec.c:    spectro->startime[1] = spectro->startindex[1] / 
+../xklspec.c:      spectro->spers * 1000;
+../xklspec.c:    wave_pixmap(spectro->info[1], spectro, 1, 1, fp);
+../xklspec.c:    draw_hamm(spectro,1,spectro->info[1],fp);
+../xklspec.c:    spectro->startindex[1] = startsave;
+../xklspec.c:    spectro->sampsused[1] = usedsave;
+../xklspec.c:    spectro->startime[1] = timesave;
+../xklspec.c:    spectro->yb[1] = ybsave;
+../xklspec.c:    spectro->xr[1] = xrsave; 
+../xklspec.c:  sprintf(str, "Small-size spectrum copied to quadrant %d of postscript file:\n\t%s\n", quadcount, spectro->tmp_name);
+../xklspec.c:  spectro->oldindex = spectro->saveindex;
+../xklspec.c:  spectro->oldtime = spectro->savetime;
+../xklspec.c:  if (spectro->sampsused[1] <= spectro->spers / 1000.0)
+../xklspec.c:    spectro->savetime -= 1.0;
+../xklspec.c:  else spectro->savetime -= (float)spectro->sampsused[1] / spectro->spers
+../xklspec.c:  spectro->saveindex = spectro->savetime * spectro->spers / 1000.00 + .5;
+../xklspec.c:  spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xklspec.c:  if (spectro->oldindex != spectro->saveindex) {
+../xklspec.c:    update(spectro->info[SPECTRUM],spectro, SPECTRUM); 
+../xklspec.c:      update(spectro->info[i], spectro, i);
+../xklspec.c:  spectro->oldindex = spectro->saveindex;
+../xklspec.c:  spectro->oldtime = spectro->savetime;
+../xklspec.c:  if (spectro->sampsused[1] <= spectro->spers / 1000.0)
+../xklspec.c:    spectro->savetime += 1.0;
+../xklspec.c:    spectro->savetime += (float)spectro->sampsused[1] / spectro->spers
+../xklspec.c:  spectro->saveindex = spectro->savetime * spectro->spers / 1000.0  + .5;
+../xklspec.c:  spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xklspec.c:  if (spectro->oldindex != spectro->saveindex) {
+../xklspec.c:    update(spectro->info[SPECTRUM],spectro,SPECTRUM); 
+../xklspec.c:      update(spectro->info[i], spectro, i);
+../xklspec.c:  oldstart = spectro->startindex[window];
+../xklspec.c:  oldsampsused = spectro->sampsused[window] ;
+../xklspec.c:  spectro->sampsused[window]  = spectro->sampsused[window] / 2;
+../xklspec.c:  if (spectro->sampsused[window] / 2 < spectro->spers / 1000)
+../xklspec.c:    spectro->sampsused[window] = spectro->spers / 1000.0  +.5;
+../xklspec.c:  spectro->startindex[window] = spectro->saveindex -
+../xklspec.c:    spectro->sampsused[window]/2;
+../xklspec.c:  if (spectro->startindex[window] < 0) spectro->startindex[window] = 0;
+../xklspec.c:  if ((spectro->startindex[window] + spectro->sampsused[window]) > 
+../xklspec.c:      (spectro->totsamp - 1))
+../xklspec.c:    spectro->sampsused[window] = spectro->totsamp - 1 - 
+../xklspec.c:      spectro->startindex[window];
+../xklspec.c:  if(oldstart != spectro->startindex[window] ||
+../xklspec.c:     oldsampsused != spectro->sampsused[window] ){ /* zoom in */
+../xklspec.c:    spectro->startime[window] = spectro->startindex[window] / 
+../xklspec.c:      spectro->spers * 1000;
+../xklspec.c:    wave_pixmap(spectro->info[window],spectro,1,window,NULL);
+../xklspec.c:    update(spectro->info[window],spectro,window);
+../xklspec.c:  oldstart = spectro->startindex[window];
+../xklspec.c:  oldsampsused = spectro->sampsused[window] ;
+../xklspec.c:  spectro->startindex[window] = spectro->startindex[window] -
+../xklspec.c:    spectro->sampsused[window] / 2 ;
+../xklspec.c:  spectro->sampsused[window]  = spectro->sampsused[window] * 2;
+../xklspec.c:  if (spectro->startindex[window] < 0)
+../xklspec.c:    spectro->startindex[window] = 0;
+../xklspec.c:  if ((spectro->startindex[window] + spectro->sampsused[window]) > 
+../xklspec.c:      (spectro->totsamp - 1))
+../xklspec.c:    spectro->sampsused[window] = spectro->totsamp - 1 - 
+../xklspec.c:      spectro->startindex[window];
+../xklspec.c:  if (oldstart != spectro->startindex[window] ||
+../xklspec.c:     oldsampsused != spectro->sampsused[window]) {
+../xklspec.c:    spectro->startime[window] = (float)spectro->startindex[window] / 
+../xklspec.c:      spectro->spers * 1000.0;
+../xklspec.c:    wave_pixmap(spectro->info[window],spectro,1,window,NULL);
+../xklspec.c:    update(spectro->info[window],spectro,window);
+../xklspec.c:   if(spectro->option != 's'){
+../xklspec.c:       spectro->option = 's';
+../xklspec.c:    spectro->history = 0; /* don't copy into savfltr*/
+../xklspec.c:    fscanf(fp,"%s\n",spectro->savname);
+../xklspec.c:    fscanf(fp,"%f\n",&spectro->savspers);
+../xklspec.c:    fscanf(fp,"%f\n",&spectro->oldtime); 
+../xklspec.c:    fscanf(fp,"%d\n",&spectro->lensavfltr);
+../xklspec.c:    fscanf(fp,"%d",&spectro->savsizwin);
+../xklspec.c:      fscanf(fp,"%d\n",&spectro->savfd);
+../xklspec.c:    else{spectro->savfd = -1;}
+../xklspec.c:    for( i = 0; i < spectro->lensavfltr; i ++)
+../xklspec.c:            spectro->savfltr[i] = (int)(val * 10);
+../xklspec.c:    spectro->history = 1;/* draw savfltr */
+../xklspec.c:    spectro->savspectrum = 1;
+../xklspec.c:   XCopyArea(spectro->info[SPECTRUM]->display,spectro->info[SPECTRUM]->pixmap,
+../xklspec.c:           spectro->info[SPECTRUM]->win,spectro->info[SPECTRUM]->gc,
+../xklspec.c:            0 ,0,spectro->xr[SPECTRUM],spectro->yb[SPECTRUM],0,0);
+../xklspec.c:   if(spectro->option != 's'){
+../xklspec.c:       spectro->option = 's';
+../xklspec.c:       spectro->history = 0;
+../xklspec.c:       update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xklspec.c:  if(!spectro->spectrum){
+../xklspec.c:    fprintf(fp,"%s\n",spectro->wavename);
+../xklspec.c:    fprintf(fp,"%f\n",spectro->spers); /* samples per second */
+../xklspec.c:    fprintf(fp,"%f\n",spectro->savetime);/*center of spectrum*/
+../xklspec.c:    fprintf(fp,"%d\n",spectro->lenfltr);
+../xklspec.c:    fprintf(fp,"%d %d\n",spectro->sizwin,spectro->params[FD]);
+../xklspec.c:    for( i = 0; i < spectro->lenfltr; i ++)
+../xklspec.c:           {fprintf(fp,"%.1f \n",(float)spectro->fltr[i]/10.0); }
+../xklspec.c:   strcpy(spectro->tmp_name,fname);
+../xklspec.c:   fp = fopen(spectro->tmp_name,"w");
+../xklspec.c:    fprintf(fp,"%s\n",spectro->wavename);
+../xklspec.c:    fprintf(fp,"%f\n",spectro->spers); /* samples per second */
+../xklspec.c:    fprintf(fp,"%f\n",spectro->savetime);/*center of spectrum*/
+../xklspec.c:    fprintf(fp,"%d\n",spectro->lenfltr);
+../xklspec.c:    fprintf(fp,"%d\n",spectro->sizwin);
+../xklspec.c:    for( i = 0; i < spectro->lenfltr; i ++)
+../xklspec.c:           {fprintf(fp,"%.1f \n",(float)spectro->fltr[i]/10.0); }
+../xklspec.c:      sprintf(mess,"Wrote: %s.\n",spectro->tmp_name);
+../xklspec.c:  halfwin = (spectro->params[WD] >> 2);
+../xklspec.c:  msstep = 0.001* spectro->spers;
+../xklspec.c:  if( spectro->option == 'k' || spectro->option == 'a') {
+../xklspec.c:    if(spectro->option == 'k') {
+../xklspec.c:      spectro->avgtimes[0] = (int)(spectro->savetime + .5) - spectro->params[KN];
+../xklspec.c:      spectro->avgtimes[1] = (int)(spectro->savetime + .5) + spectro->params[KN];
+../xklspec.c:    nxxmin = spectro->avgtimes[0] * spectro->spers / 1000.0 - halfwin;
+../xklspec.c:    nxxmax = spectro->avgtimes[1] * spectro->spers / 1000.0 - halfwin;
+../xklspec.c:    for (i = spectro->avgtimes[0]; i <= spectro->avgtimes[1]; i++  ) {
+../xklspec.c:      index = (i * spectro->spers / 1000.0 + .5) -
+../xklspec.c:      if(index < 0 || index >= spectro->totsamp){
+../xklspec.c:  else if( spectro->option == 'A'){
+../xklspec.c:    for (i = 0; i <= spectro->avgcount; i++  ) {
+../xklspec.c:      index = (spectro->avgtimes[i] * spectro->spers / 1000.0 + .5) -
+../xklspec.c:      if(index < 0 || index >= spectro->totsamp){
+../xklspec.c:	sprintf(str,"Invalid time: %d\n",spectro->avgtimes[i]);
+../xklspec.c:  spectro->sizwin = spectro->params[WD];  /* DFT window*/
+../xklspec.c:  spectro->sizfft = spectro->params[SD]; /* user defined size dft */
+../xklspec.c:  spectro->type_spec = DFT_MAG_NO_DB;    /*AVG_SPEC = DFT_MAG_NO_DB */
+../xklspec.c:  spectro->nsdftmag = spectro->sizfft / 2;
+../xklspec.c:  for (nx=0; nx < spectro->nsdftmag; nx++) cumspec[nx] = 0.;
+../xklspec.c:  if( spectro->option == 'k' || spectro->option == 'a'){
+../xklspec.c:	    spectro->avgtimes[0],spectro->avgtimes[1]);
+../xklspec.c:      quickspec(spectro,&spectro->iwave[i]);
+../xklspec.c:      for (nx=0; nx < spectro->lenfltr; nx++) {
+../xklspec.c:	cumspec[nx] += spectro->dftmag[nx];
+../xklspec.c:  else if( spectro->option == 'A'){
+../xklspec.c:    for (i = 0; i <= spectro->avgcount; i++  ) {
+../xklspec.c:      sprintf(temp,"%d ",spectro->avgtimes[i]);
+../xklspec.c:      index = (spectro->avgtimes[i] * spectro->spers / 1000.0 + .5) -
+../xklspec.c:      quickspec(spectro,&spectro->iwave[index]);
+../xklspec.c:      for (nx=0; nx < spectro->lenfltr; nx++) {
+../xklspec.c:	cumspec[nx] += spectro->dftmag[nx];
+../xklspec.c:  spectro->lensavfltr = spectro->lenfltr;
+../xklspec.c:  spectro->savspectrum = 1;
+../xklspec.c:  spectro->history = 1;
+../xklspec.c:  spectro->savsizwin = spectro->sizwin;
+../xklspec.c:  spectro->savspers = spectro->spers;
+../xklspec.c:  for (nx=0; nx < spectro->lensavfltr; nx++) {
+../xklspec.c:    spectro->savfltr[nx] = 
+../xklspec.c:      mgtodb(cumspec[nx] * cumscale,spectro->params[SG]);
+../xklspec.c:    spectro->spectrum = 1;
+../xklspec.c:    for (nx=0; nx < spectro->lenfltr; nx++) 
+../xklspec.c:      spectro->dftmag[nx] = cumspec[nx] * cumscale ;
+../xklspec.c:    spectro->type_spec = SPECTO_NO_DFT;
+../xklspec.c:    quickspec(spectro,&spectro->iwave[512]);
+../xklspec.c:if ( spectro->option == 'k') {
+../xklspec.c:   spectro->oldindex = spectro->saveindex;
+../xklspec.c:   spectro->oldtime = spectro->savetime;
+../xklspec.c:   spectro->savetime = spectro->savetime + 
+../xklspec.c:      (spectro->avgtimes[1] - spectro->avgtimes[0])/2;
+../xklspec.c:   spectro->saveindex = spectro->savetime * spectro->spers / 1000.0 + .5;
+../xklspec.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000.0;
+../xklspec.c:   if( spectro->oldindex != spectro->saveindex){
+../xklspec.c:           update(spectro->info[i], spectro, i);
+../xklspec.c: info = spectro->info[SPECTRUM];
+../xklspec.c:	   0,0,spectro->xr[SPECTRUM],spectro->yb[SPECTRUM],0,0);
+../xklspec.c:	for (np=0; np<npks; np++) {   spectro->option = spectro->savoption;
+../xklspec.c:   spectro->history = 0;
+../xspec_util.c:   fx = (ms - spectro->startime[window]) * 
+../xspec_util.c:	 ((float)spectro->sampsused[window] / spectro->spers * 1000.0); 
+../xspec_util.c:     if (spectro->draww[i]  == w) break;
+../xspec_util.c:info = spectro->info[i];
+../xspec_util.c:   t = spectro->t0;  fq = spectro->wymax - 1;
+../xspec_util.c:   for(i = 0; i < spectro->postcount; i++){
+../xspec_util.c:      if(spectro->posti[i] > 10){
+../xspec_util.c:          tmp = spectro->posti[i] - 10;
+../xspec_util.c:          t += tmp / spectro->wymax; 
+../xspec_util.c:          fq = fq - (tmp % spectro->wymax);
+../xspec_util.c:               fq = spectro->wymax + fq;
+../xspec_util.c:            if(lastindex != spectro->posti[i]){
+../xspec_util.c:                 XSetForeground(spectro->info->display,
+../xspec_util.c:                                spectro->info->gc,
+../xspec_util.c:				spectro->info->color[spectro->posti[i]].pixel);
+../xspec_util.c:				lastindex = spectro->posti[i];
+../xspec_util.c:				XDrawPoint(spectro->info->display,
+../xspec_util.c:				spectro->info->win,
+../xspec_util.c:				spectro->info->gc,t,fq);
+../xspec_util.c:				fq = spectro->wymax + fq;
+../xspec_util.c:  totgvs = spectro->wxmax * spectro->wymax;
+../xspec_util.c:  starti = spectro->t0 * spectro->wymax;
+../xspec_util.c:  spectro->posti = (int *) malloc( sizeof(int) * totgvs);
+../xspec_util.c:  spectro->postcount = 0;
+../xspec_util.c:    if((int)spectro->allgvs[i] == 0){
+../xspec_util.c:      while(((int)spectro->allgvs[i] == 0) && (numzeros < 245)
+../xspec_util.c:      spectro->posti[spectro->postcount] = numzeros + 10;
+../xspec_util.c:      spectro->postcount++;
+../xspec_util.c:      spectro->posti[spectro->postcount] = (int)spectro->allgvs[i];
+../xspec_util.c:      spectro->postcount++;
+../xspec_util.c:  if( spectro->xr[GRAM] > 648  && spectro->yb[GRAM] > 468){
+../xspec_util.c:    scale = (float)648 /(float)spectro->xr[GRAM] ;
+../xspec_util.c:    tmpscale = (float)468 / (float)spectro->yb[GRAM] ;
+../xspec_util.c:    if(spectro->xr[GRAM] > 648 ){
+../xspec_util.c:      scale = (float)648 / (float)spectro->xr[GRAM];
+../xspec_util.c:    if(spectro->yb[GRAM] > 468){
+../xspec_util.c:     scale = (float)468 / (float)spectro->yb[GRAM] ;
+../xspec_util.c:  (int)(spectro->yb[GRAM] * scale) + 144,
+../xspec_util.c:  (int)(spectro->xr[GRAM] * scale) + 72); 
+../xspec_util.c:  fprintf(fp,"/w %d d /h %d d\n",spectro->xgram,spectro->wymax);
+../xspec_util.c:  fprintf(fp, "0 28 m (File: %s) o\n", spectro->wavefile);
+../xspec_util.c:    (int)spectro->spers,spectro->winms,spectro->msdelta,spectro->slice);
+../xspec_util.c:  "/Times-Roman findfont %d scalefont setfont\n",spectro->hchar);*/
+../xspec_util.c:         (spectro->yb[GRAM] - 1) * scale + 144);
+../xspec_util.c:  "/Times-Roman findfont %d scalefont setfont\n",spectro->hchar);
+../xspec_util.c: draw_axes(spectro,spectro->info[GRAM],GRAM,fp);
+../xspec_util.c:  (spectro->wymax + yoffset(spectro) - 1) * scale + 144 ,
+../xspec_util.c:  fprintf(fp,"%d{",spectro->postcount);
+../xspec_util.c:  numb = spectro->postcount * 2 + spectro->postcount / 35 + 1;
+../xspec_util.c:  for(i = 0; i < spectro->postcount; i++){
+../xspec_util.c:    if(spectro->posti[i] > 15)
+../xspec_util.c:      {fprintf(fp,"%x",spectro->posti[i]);}
+../xspec_util.c:      {fprintf(fp,"0%x",spectro->posti[i]);}
+../xspec_util.c:free(spectro->posti);
+../xspec_util.c:  sprintf(filename,"%s.gram",spectro->wavename);
+../xspec_util.c: if(!fscanf(fp,"%d %d %f %f %d %d %f %d %d %f %f\n", &spectro->xgram,
+../xspec_util.c:      &spectro->wymax,&spectro->spers,&spectro->winms,
+../xspec_util.c:      &spectro->slice,&spectro->numav,&spectro->msdelta,
+../xspec_util.c:      &spectro->xpix,&spectro->ypix,&spectro->maxmag,&spectro->minmag)){
+../xspec_util.c:  spectro->allgvs = (char *) malloc( sizeof(char) *
+../xspec_util.c:                 spectro->xgram * spectro->wymax);
+../xspec_util.c:  totgvs = spectro->xgram * spectro->wymax;
+../xspec_util.c:     spectro->allgvs[gvsindex] = (int)c;
+../xspec_util.c:        spectro->allgvs[gvsindex] = 0;
+../xspec_util.c:  strcpy(spectro->wavefile, wvname);
+../xspec_util.c:  strcpy(spectro->fname, name);
+../xspec_util.c:   spectro->savemsdelta = spectro->msdelta ;
+../xspec_util.c:   spectro->savewinms = spectro->winms ; 
+../xspec_util.c:spectro->saveindex = -1;
+../xspec_util.c:spectro->spratio = 650;
+../xspec_util.c:spectro->numcol = 9;
+../xspec_util.c:spectro->cinc = (spectro->maxmag - spectro->minmag) /
+../xspec_util.c:                (spectro->numcol - 2);
+../xspec_util.c:spectro->tickspace = 2;
+../xspec_util.c:spectro->axisdist  = 8;
+../xspec_util.c:/* spectro->xr and spectro->yb used for sizing window */
+../xspec_util.c:spectro->t0 = 0;
+../xspec_util.c:     spectro->winms = 6.4;
+../xspec_util.c:     spectro->slice = 128;
+../xspec_util.c:     spectro->numav = 3;
+../xspec_util.c:     spectro->msdelta = 1.0;
+../xspec_util.c:     spectro->specms = 1300.0;
+../xspec_util.c:     spectro->minmag = 5.0;
+../xspec_util.c:     spectro->maxmag = 25.0;
+../xspec_util.c:     spectro->xpix = 1;
+../xspec_util.c:     spectro->fdifcoef = 100;
+../xspec_util.c:     spectro->sec = 0;
+../xspec_util.c:       spectro->defserr = 0;
+../xspec_util.c:if(fp = fopen(spectro->fname,"r")){
+../xspec_util.c:    if(!fscanf(fp,"%f",&spectro->winms)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:     if(!fscanf(fp,"%d",&spectro->slice)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:     if(spectro->slice != 16 &&
+../xspec_util.c:        spectro->slice != 32 &&
+../xspec_util.c:        spectro->slice != 64 && 
+../xspec_util.c:        spectro->slice != 128 && 
+../xspec_util.c:        spectro->slice != 256 &&
+../xspec_util.c:        spectro->slice != 512) { 
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:     if(!fscanf(fp,"%d",&spectro->numav)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:     if(spectro->numav < 1){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:     if(!fscanf(fp,"%f",&spectro->msdelta)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:     if(spectro->msdelta <= 0 ){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:    if(!fscanf(fp,"%f",&spectro->specms)){
+../xspec_util.c:         spectro->defserr = 1;  
+../xspec_util.c:    if(!fscanf(fp,"%f",&spectro->minmag)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:    if(!fscanf(fp,"%f",&spectro->maxmag)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:     if(spectro->minmag >= spectro->maxmag){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:    if(!fscanf(fp,"%d",&spectro->xpix)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:    if(!fscanf(fp,"%d",&spectro->fdifcoef)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:    if(spectro->fdifcoef < 0 || spectro->fdifcoef > 100){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:   if(!fscanf(fp,"%d",&spectro->sec)){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:   if(spectro->sec != 0 &&
+../xspec_util.c:      spectro->sec != 1){
+../xspec_util.c:         spectro->defserr = 1;
+../xspec_util.c:      spectro->info[p] = (INFO *) malloc( sizeof(INFO) );
+../xspec_util.c:spectro->allmag = NULL;
+../xspec_util.c:spectro->allgvs = NULL;
+../xspec_util.c:spectro->posti = NULL;
+../xspec_util.c:spectro->xim = NULL;
+../xspec_util.c:spectro->pix = NULL;
+../xspec_util.c:spectro->iwave = NULL;
+../xspec_util.c:spectro->hamm_in_ms[0] = 25.7;/*wc*/ 
+../xspec_util.c:spectro->hamm_in_ms[1] = 29.9;/*wd*/ /*f0*/
+../xspec_util.c:spectro->hamm_in_ms[2] = 25.6;/*ws*/
+../xspec_util.c:spectro->hamm_in_ms[3] = 25.6;/*wl*/
+../xspec_util.c:/*spectro->params[0] = 257; wc*/ 
+../xspec_util.c:/*spectro->params[1] = 299; wd*/
+../xspec_util.c:/*spectro->params[2] = 256; ws*/
+../xspec_util.c:/*spectro->params[3] = 256; wl*/
+../xspec_util.c:spectro->params[4] = 14;  /*nc*/ /* # of coeff for LPC*/
+../xspec_util.c:spectro->params[5] = 0; /*fd*/ /* firstdifsw */
+../xspec_util.c:spectro->params[6] = 70;  /*b0*/
+../xspec_util.c:spectro->params[7] = 180; /*b1*/
+../xspec_util.c:spectro->params[8] = 300; /*bs*/
+../xspec_util.c:spectro->params[9] = 100; /*f1*/
+../xspec_util.c:spectro->params[10] = 124;/*f2*/
+../xspec_util.c:spectro->params[11] = 700;/*fl*/
+../xspec_util.c:spectro->params[12] = 450;/*sg*/
+../xspec_util.c:spectro->params[13] = 1;  /*nw*/
+../xspec_util.c:spectro->params[14] = 512;/*sd*/
+../xspec_util.c:spectro->params[15] = 10;/*kn*/
+../xspec_util.c:spectro->localtimemax = 0; /* EC 2/27/97 */
+../xspec_util.c:spectro->localfreqmax = 0; /* EC 2/27/97 */
+../xspec_util.c:spectro->option = 'S'; 
+../xspec_util.c:spectro->oldwintype = 0; /* cause window to be calulated first time */
+../xspec_util.c:spectro->oldsizwin = 0;
+../xspec_util.c:/*spectro->quadcount = 4; when 0 <= quadcount <=3 put 4 spectra on page*/
+../xspec_util.c:spectro->history = 0;
+../xspec_util.c:spectro->segmode = 1; /* play w to e*/
+../xspec_util.c:spectro->param_active = 0; /* widget for changing params not active*/
+../xspec_util.c:for(p = 0; p < NUM_WINDOWS; p++) spectro->info[p]->pixmap = 0;
+../xspec_util.c:  if(spectro->wavefile[0] =='?'){
+../xspec_util.c:    strcpy(str,spectro->wavefile);
+../xspec_util.c:  strip_path(str, spectro->wavename);
+../xspec_util.c:  spectro->iwave = getWavWaveform(spectro->wavefile,
+../xspec_util.c:                &(spectro->spers),&(spectro->totsamp), spectro->swap);
+../xspec_util.c:  spectro->insize = spectro->totsamp;
+../xspec_util.c:  spectro->wavemax = 0.0;
+../xspec_util.c:  spectro->wavemin = 0.0; 
+../xspec_util.c:  spectro->wvfactor[0] = 1.0; /* scale in y for waveform window 0*/
+../xspec_util.c:  spectro->wvfactor[1] = 1.0; /* scale in y for waveform window 1*/
+../xspec_util.c:  for(p = 0; p < spectro->insize; p++){
+../xspec_util.c:      datatmp = (float) (spectro->iwave[p] >> 4);
+../xspec_util.c:         if(datatmp > spectro->wavemax)
+../xspec_util.c:                   {spectro->wavemax = datatmp;}
+../xspec_util.c:         if(datatmp < spectro->wavemin)
+../xspec_util.c:                   {spectro->wavemin = datatmp;}
+../xspec_util.c:if(spectro->wavemin < 0 && spectro->wavemax > 0){
+../xspec_util.c: if((spectro->wavemin * spectro->wavemin) >
+../xspec_util.c:    (spectro->wavemax * spectro->wavemax)){
+../xspec_util.c:      spectro->wavemax = - spectro->wavemin;
+../xspec_util.c: else if (spectro->wavemin == spectro->wavemax) {
+../xspec_util.c:      spectro->wavemin = 6000;
+../xspec_util.c:      spectro->wavemin = - spectro->wavemax;
+../xspec_util.c:      spectro->wavemin = - spectro->wavemax;
+../xspec_util.c:       spectro->params[p] = 
+../xspec_util.c:            spectro->hamm_in_ms[p]  * spectro->spers / 1000.00 + .5;
+../xspec_util.c:if(spectro->spectrogram){
+../xspec_util.c:spectro->xr[GRAM] = 100;
+../xspec_util.c:spectro->yb[GRAM] = 100;
+../xspec_util.c:  createtext(fbwdialog,&spectro->fbw_text);
+../xspec_util.c:	XtSetArg(mharg[0],XmNheight,&spectro->menu_height);
+../xspec_util.c:	XtGetValues(XtParent(spectro->buttons[0]),mharg,1);
+../xspec_util.c:	spectro->menu_height += 10; /* space between menu and draw widget*/
+../xspec_util.c:	XtSetArg(args[n], XmNwidth, spectro->xr[i] );n++;
+../xspec_util.c:	XtSetArg(args[n], XmNheight,spectro->yb[i]+spectro->menu_height);n++;
+../xspec_util.c:     spectro->toplevel[i] = XtCreatePopupShell(name, topLevelShellWidgetClass, 
+../xspec_util.c:     spectro->mainw[i] = XmCreateMainWindow(spectro->toplevel[i],
+../xspec_util.c:     XtManageChild(spectro->mainw[i]);
+../xspec_util.c:     CreateMenus(spectro->mainw[i],spectro,&spectro->buttons[i],
+../xspec_util.c:		 &spectro->menu_bar[i],1);
+../xspec_util.c:	XtSetArg(args[n],XmNwidth,&spectro->xr[i]); n++;
+../xspec_util.c:	XtSetArg(args[n], XmNheight,&spectro->yb[i]);n++;
+../xspec_util.c:     XtSetArg(args[n],XmNx,&spectro->ox[i]); n++;
+../xspec_util.c:     XtSetArg(args[n], XmNy,&spectro->oy[i]);n++;
+../xspec_util.c:     XtGetValues(spectro->toplevel[i] ,args,n);
+../xspec_util.c:	spectro->yb[i] = spectro->yb[i] - spectro->menu_height;
+../xspec_util.c:     XtSetArg(args[n], XmNwidth, spectro->xr[i]);n++;
+../xspec_util.c:     XtSetArg(args[n], XmNheight,spectro->yb[i]);n++;
+../xspec_util.c:     spectro->draww[i] = XmCreateDrawingArea(spectro->mainw[i],
+../xspec_util.c:		   spectro->draww[i],  /* widget */
+../xspec_util.c:		   spectro->draww[i], /* widget */
+../xspec_util.c:		   spectro->draww[i], /* widget */
+../xspec_util.c:     XtManageChild( spectro->draww[i] );
+../xspec_util.c:     XmMainWindowSetAreas(spectro->mainw[i],spectro->menu_bar[i],NULL,
+../xspec_util.c:                          NULL,NULL,spectro->draww[i]); 
+../xspec_util.c:     spectro->normstate[i] = 1; /* start off with normal state */
+../xspec_util.c:      if(i == GRAM && !spectro->spectrogram){/* no spectrogram*/}
+../xspec_util.c:      XtManageChild(spectro->toplevel[i]);
+../xspec_util.c:      XMoveWindow(XtDisplay(spectro->toplevel[i]),
+../xspec_util.c:		  XtWindow(spectro->toplevel[i]),
+../xspec_util.c:		  spectro->ox[i],spectro->oy[i]);
+../xspec_util.c:      setupcmap(spectro->draww[i],spectro->info[i]);   
+../xspec_util.c:      if(i == GRAM && spectro->spectrogram){
+../xspec_util.c:	 make_pixmap(spectro->info[i],spectro,i);
+../xspec_util.c:      info = spectro->info[i];
+../xspec_util.c:   XGetWindowAttributes(XtDisplay(spectro->toplevel[i]),
+../xspec_util.c:   XtWindow(spectro->toplevel[i]), &windowatt);
+../xspec_util.c:   XSelectInput(XtDisplay(spectro->toplevel[i]),
+../xspec_util.c:   XtWindow(spectro->toplevel[i]) , 
+../xspec_util.c:   if(spectro->param_active)
+../xspec_util.c:                  spectro->toplevel[i], /* widget */
+../xspec_util.c:     XtDestroyWidget(spectro->toplevel[i]);
+../xspec_util.c:     if(spectro->info[i]->pixmap) 
+../xspec_util.c:     {XFreePixmap(XtDisplay(spectro->toplevel[i]),spectro->info[i]->pixmap);
+../xspec_util.c:     if(spectro->info[i])
+../xspec_util.c:        {free(spectro->info[i]); spectro->info[i] = NULL;}
+../xspec_util.c:    XtDestroyWidget(XtParent(XtParent(spectro->fbw_text)));
+../xspec_util.c:  if(spectro->allmag)
+../xspec_util.c:      free(spectro->allmag);
+../xspec_util.c:  if(spectro->allgvs)
+../xspec_util.c:      free(spectro->allgvs);
+../xspec_util.c:  if(spectro->posti)
+../xspec_util.c:      free(spectro->posti);
+../xspec_util.c:  if(spectro->iwave)
+../xspec_util.c:      free(spectro->iwave);
+../xspec_util.c:  if(spectro->xim)     
+../xspec_util.c:       XDestroyImage(spectro->xim);
+../xspec_util.c:  /*  if(spectro->pix)
+../xspec_util.c:      free(spectro->pix); */
+../xspec_util.c:spectro->allmag = NULL;
+../xspec_util.c:spectro->allgvs = NULL;
+../xspec_util.c:spectro->posti = NULL;
+../xspec_util.c:spectro->xim = NULL;
+../xspec_util.c:spectro->pix = NULL;
+../xspec_util.c:spectro->iwave = NULL;
+../xspec_util.c:if(spectro->specms > (float)spectro->totsamp / spectro->spers * 1000.0 ){
+../xspec_util.c:     spectro->specsize = spectro->totsamp;
+../xspec_util.c:     spectro->specms = spectro->specsize / spectro->spers * 1000;
+../xspec_util.c:    {spectro->specsize = spectro->specms * spectro->spers / 1000;}
+../xspec_util.c:    spectro->xmaxests = (spectro->specsize - spectro->winsamps) /
+../xspec_util.c:                   ((spectro->winsamps - spectro->ovlap) * spectro->numav);
+../xspec_util.c:    spectro->wxmax = spectro->xpix  * (spectro->xmaxests ) ;
+../xspec_util.c:     if(spectro->wxmax > spectro->devwidth - 100){
+../xspec_util.c:           spectro->wxmax = spectro->devwidth - 100;
+../xspec_util.c:      spectro->xmaxests = spectro->wxmax / spectro->xpix;
+../xspec_util.c:      spectro->specsize = spectro->xmaxests *
+../xspec_util.c:     ((spectro->winsamps - spectro->ovlap) * spectro->numav) + 
+../xspec_util.c:      spectro->winsamps;
+../xspec_util.c:       spectro->specms = spectro->specsize / spectro->spers * 1000;
+../xspec_util.c:    spectro->sampsused[GRAM] = spectro->winsamps + spectro->xmaxests  *
+../xspec_util.c:                   ((spectro->winsamps - spectro->ovlap) * spectro->numav);
+../xspec_util.c:spectro->xr[GRAM] = spectro->wxmax + spectro->wchar * 10 +
+../xspec_util.c:                 spectro->axisdist;
+../xspec_util.c:spectro->yb[GRAM] = spectro->wymax + 
+../xspec_util.c:           3 * spectro->hchar  + spectro->axisdist;
+../xspec_util.c: spectro->winsamps = spectro->winms * spectro->spers / 1000;
+../xspec_util.c: if(spectro->winsamps > spectro->slice){
+../xspec_util.c:     spectro->winsamps = spectro->slice;
+../xspec_util.c:     spectro->winms = (float)spectro->slice * 1000.0 /spectro->spers;
+../xspec_util.c: spectro->sdelta = spectro->msdelta * spectro->spers / 1000;
+../xspec_util.c: if((spectro->winsamps - spectro->sdelta) > 0)
+../xspec_util.c:     spectro->ovlap = spectro->winsamps - spectro->sdelta;
+../xspec_util.c:   spectro->ovlap = 11;
+../xspec_util.c:spectro->specsize = spectro->totsamp;  
+../xspec_util.c:spectro->xmaxests = (spectro->specsize - spectro->winsamps) /
+../xspec_util.c:                   ((spectro->winsamps - spectro->ovlap) * spectro->numav);
+../xspec_util.c:spectro->sampsused[GRAM] = spectro->winsamps + spectro->xmaxests  *
+../xspec_util.c:                   ((spectro->winsamps - spectro->ovlap) * spectro->numav);
+../xspec_util.c:spectro->wxmax = spectro->xmaxests * spectro->xpix;
+../xspec_util.c:spectro->wymax = spectro->wxmax * spectro->spratio / 
+../xspec_util.c:      (spectro->sampsused[GRAM] / spectro->spers * 1000);
+../xspec_util.c:if(spectro->wymax > spectro->devheight ){
+../xspec_util.c:      spectro->wymax = spectro->devheight ;
+../xspec_util.c:      spectro->ypix = spectro->wymax / (spectro->slice / 2);
+../xspec_util.c:      spectro->wxmax = (spectro->sampsused[GRAM] / spectro->spers * 1000) /
+../xspec_util.c:      spectro->spratio  * spectro->wymax;
+../xspec_util.c:  spectro->ypix = spectro->wymax / (spectro->slice / 2);
+../xspec_util.c: halfslice = spectro->slice >> 1;
+../xspec_util.c: halfwin = spectro->winsamps / 2;
+../xspec_util.c: spectro->estsize = (spectro->winsamps - spectro->ovlap) *
+../xspec_util.c:       (spectro->numav-1) + spectro->winsamps;
+../xspec_util.c: spectro->numests = (spectro->insize - spectro->winsamps)/
+../xspec_util.c:                  ((spectro->winsamps - spectro->ovlap) * spectro->numav);
+../xspec_util.c:  fd = 0.01 * (float) spectro->fdifcoef;
+../xspec_util.c:  if(spectro->allmag)
+../xspec_util.c:      free(spectro->allmag);
+../xspec_util.c:  spectro->allmag = (float *) malloc(sizeof(float) *
+../xspec_util.c:                    spectro->slice / 2 * spectro->numests);
+../xspec_util.c:  mag = (float *) malloc(sizeof(float) * spectro->slice);
+../xspec_util.c:  samp = (COMPLEX *) malloc(sizeof(COMPLEX) * spectro->slice);
+../xspec_util.c:  totgvs = spectro->slice / 2.0 * spectro->numests *
+../xspec_util.c:           spectro->xpix * spectro->ypix;
+../xspec_util.c:    if(spectro->allgvs)
+../xspec_util.c:      free(spectro->allgvs);
+../xspec_util.c:  spectro->allgvs = (char *) malloc(totgvs);
+../xspec_util.c:       spectro->allgvs[i] = (char)0;
+../xspec_util.c:sprintf(str,"%s, %.1fms win.",spectro->wavename,spectro->winms);
+../xspec_util.c:  for (i=0; i<spectro->numests; i++){
+../xspec_util.c:   for (k=0; k<spectro->slice; k++) {mag[k] = 0;}
+../xspec_util.c:    for (j=0; j<spectro->numav; j++){
+../xspec_util.c:            index = i*(spectro->winsamps-spectro->ovlap)*spectro->numav +
+../xspec_util.c:            j*(spectro->winsamps-spectro->ovlap);
+../xspec_util.c:                  for( f = 0; f < spectro->winsamps; f++){
+../xspec_util.c:                    samp[f].real = (float)(spectro->iwave[f] >> 4);
+../xspec_util.c:                xri = (float)(spectro->iwave[index + fdj] >> 4)
+../xspec_util.c:                 - fd * (float)(spectro->iwave[index + fdj - 1] >> 4);
+../xspec_util.c:                xii = (float)(spectro->iwave[index + fdk] >> 4) 
+../xspec_util.c:                 - fd *  (float)(spectro->iwave[index + fdj] >> 4);
+../xspec_util.c:        for (k=0; k<spectro->winsamps; k++){
+../xspec_util.c:          /* index = i*spectro->estsize +*/ 
+../xspec_util.c:          index = i*(spectro->winsamps-spectro->ovlap)*spectro->numav +
+../xspec_util.c:            j*(spectro->winsamps-spectro->ovlap) + k;
+../xspec_util.c:          samp[k].real = (float)(spectro->iwave[index] >> 4);
+../xspec_util.c:      if(spectro->slice > spectro->winsamps){
+../xspec_util.c:      for( k = spectro->winsamps; k < spectro->slice; k++){
+../xspec_util.c:      ham(samp,spectro->winsamps);
+../xspec_util.c:      m = ilog2(spectro->slice);
+../xspec_util.c:      a = (float) spectro->slice*spectro->slice;
+../xspec_util.c:      for (k=0; k<spectro->slice; k++){
+../xspec_util.c:    for (k=0; k<spectro->slice/2; k++){
+../xspec_util.c:      mag[k] = mag[k]/spectro->numav;
+../xspec_util.c:      spectro->allmag[i*spectro->slice/2+k] = mag[k];
+../xspec_util.c:      spectro->allmag[i * spectro->slice / 2 + k] = mag[k];
+../xspec_util.c:	yinc = (spectro->allmag[(i-1)*spectro->slice/2 + k ] -
+../xspec_util.c:		spectro->allmag[(i-1)*spectro->slice/2 + k - 1]) /
+../xspec_util.c:                  (float)(spectro->ypix );
+../xspec_util.c:	xinc = (spectro->allmag[i*spectro->slice/2 + k - 1] -
+../xspec_util.c:		spectro->allmag[(i - 1)*spectro->slice/2 + k - 1]) /
+../xspec_util.c:                  (float)(spectro->xpix );
+../xspec_util.c:	for(j = 0; j < spectro->xpix; j++){
+../xspec_util.c:	  for(l =0; l < spectro->ypix; l++){
+../xspec_util.c:	    if((spectro->allmag[(i-1)*spectro->slice/2 + k - 1] + j * xinc + l * yinc)
+../xspec_util.c:	       > spectro->minmag) {
+../xspec_util.c:	      if((spectro->allmag[(i-1)*spectro->slice/2 + k - 1] + j * xinc + l * yinc)
+../xspec_util.c:		 >= spectro->maxmag)
+../xspec_util.c:		{ gv = spectro->numcol;}
+../xspec_util.c:	      else { gv = (spectro->allmag[(i-1)*spectro->slice/2 + k - 1]
+../xspec_util.c:			   - spectro->minmag + j * xinc + l * yinc) / spectro->cinc + 2;
+../xspec_util.c:	      gvsindex = (int)(t) * spectro->ypix
+../xspec_util.c:	      spectro->allgvs[gvsindex] = (char)gv;
+../xspec_util.c:	  fq -= (float)spectro->ypix;
+../xspec_util.c:	t -= (float)spectro->xpix;
+../xspec_util.c:	fq += (float)spectro->ypix;
+../xspec_util.c:     t += (float)spectro->xpix;
+../xspec_util.c:  spectro->xgram = spectro->numests * spectro->xpix;
+../xspec_util.c:  spectro->wymax = spectro->slice / 2 * spectro->ypix;
+../xspec_util.c: halfslice = spectro->slice >> 1;
+../xspec_util.c:  if(spectro->allgvs) {free(spectro->allgvs);}
+../xspec_util.c:  spectro->allgvs = (char *) calloc(
+../xspec_util.c:           (size_t)(spectro->xgram * spectro->wymax),sizeof(char)  );
+../xspec_util.c:  totgvs = spectro->xgram * spectro->wymax;
+../xspec_util.c:  for( i = 0; i < spectro->numests - 1; i++){
+../xspec_util.c:     for(k = 0; k < spectro->slice/2 - 1; k++){
+../xspec_util.c:      yinc = (spectro->allmag[i*spectro->slice/2 +k+1] -
+../xspec_util.c:               spectro->allmag[i*spectro->slice/2 +k]) /
+../xspec_util.c:                  (float)(spectro->ypix );
+../xspec_util.c:      xinc = (spectro->allmag[(i+1)*spectro->slice/2 +k] - 
+../xspec_util.c:               spectro->allmag[i*spectro->slice/2 +k]) / 
+../xspec_util.c:                  (float)(spectro->xpix );
+../xspec_util.c:    for(j = 0; j < spectro->xpix; j++){
+../xspec_util.c:       for(l =0; l < spectro->ypix; l++){
+../xspec_util.c:       if((spectro->allmag[i*spectro->slice/2 +k] + j * xinc + l * yinc) 
+../xspec_util.c:                        > spectro->minmag) {
+../xspec_util.c:       if ((spectro->allmag[i*spectro->slice/2 +k] + j * xinc + l * yinc) 
+../xspec_util.c:                        >= spectro->maxmag) 
+../xspec_util.c:              { gv = spectro->numcol;}
+../xspec_util.c:       else {gv = (spectro->allmag[i*spectro->slice/2 +k] 
+../xspec_util.c:             - spectro->minmag + j * xinc + l * yinc) / spectro->cinc + 2;}
+../xspec_util.c:               gvsindex = (int)(t) * spectro->ypix
+../xspec_util.c:               spectro->allgvs[gvsindex] = (char)gv;
+../xspec_util.c:      fq -= (float)spectro->ypix;
+../xspec_util.c:     t -= (float)spectro->xpix;
+../xspec_util.c:     fq += (float)spectro->ypix;
+../xspec_util.c:   t += (float)spectro->xpix;
+../xspec_util.c:     info = spectro->info[GRAM];
+../xspec_util.c:   if(spectro->allmag == NULL){
+../xspec_util.c:    XDestroyImage(spectro->xim);
+../xspec_util.c:    /* assume for now that this deallocates spectro->pix */ 
+../xspec_util.c:    spectro->xim = NULL;
+../xspec_util.c:  sprintf(str,"%s.gram",spectro->wavename);
+../xspec_util.c:  fprintf(fp,"%d %d %.2f %.2f %d %d %.2f %d %d %.2f %.2f\n", spectro->xgram,
+../xspec_util.c:      spectro->wymax,spectro->spers,(float)spectro->winms,
+../xspec_util.c:      spectro->slice,spectro->numav,spectro->msdelta,
+../xspec_util.c:      spectro->xpix,spectro->ypix,spectro->maxmag,spectro->minmag);
+../xspec_util.c:  totgvs = spectro->xgram * spectro->wymax;
+../xspec_util.c:  if ((int)spectro->allgvs[i] == 0) { /* white space */
+../xspec_util.c:    while ((i < totgvs) && ((int)spectro->allgvs[i] == 0) 
+../xspec_util.c:   c = spectro->allgvs[i];
+../xspec_util.c:        info->win,spectro->xr[index],spectro->yb[index],
+../xspec_util.c:   if(spectro->iwave == NULL){ 
+../xspec_util.c:     spectro->xr[index],spectro->yb[index]);
+../xspec_util.c:  info = spectro->info[SPECTRUM];
+../xspec_util.c:            0, 0, spectro->xr[SPECTRUM], spectro->yb[SPECTRUM], 0, 0);
+../xspec_util.c:  if(spectro->specamp != -1) { /* valid cursor location */
+../xspec_util.c:    grdyb = (float)spectro->yb[SPECTRUM] - 2 * spectro->hchar - 1;
+../xspec_util.c:	      info->gc,spectro->spec_cursor, grdoy,spectro->spec_cursor,
+../xspec_util.c:    grdxr = (int) (float)spectro->xr[SPECTRUM] * SPEC_XR;
+../xspec_util.c:    grdyb = (int) (float)spectro->yb[SPECTRUM] - 20;
+../xspec_util.c:    sprintf(str, "%6d Hz %3.1f dB", (int) spectro->specfreq, spectro->specamp);
+../xspec_util.c:		grdxr + spectro->wchar, grdyb - 2*spectro->hchar, 
+../xspec_util.c:    if (spectro->savspecamp != -1.0) {
+../xspec_util.c:      sprintf(str,"%6d Hz %3.1f dB", (int) spectro->savspecfreq,
+../xspec_util.c:	      spectro->savspecamp);
+../xspec_util.c:		  grdxr + spectro->wchar, grdyb - spectro->hchar, 
+../xspec_util.c:  if (spectro->normstate[index]) { /* window is not iconified */    
+../xspec_util.c:if(spectro->xim == NULL){
+../xspec_util.c:  assume spectro->pix is deallocated by XDestroyImage
+../xspec_util.c:  if(spectro->pix)
+../xspec_util.c:    {free(spectro->pix); }
+../xspec_util.c:   fmax = spectro->spers/2000.0;
+../xspec_util.c:   inc = (float)spectro->wymax/(spectro->spers/2000.0);
+../xspec_util.c:       for( j = 0; j < spectro->xgram; j++){
+../xspec_util.c:         if((int)spectro->allgvs[y + j * spectro->wymax] == 0){
+../xspec_util.c:            spectro->allgvs[y + j * spectro->wymax] = 1;
+../xspec_util.c:  spectro->pix  = (char *) malloc( sizeof(char) * 
+../xspec_util.c:                  (spectro->xgram/8 + 1) * spectro->wymax);
+../xspec_util.c:  for(fq = spectro->wymax - 1; fq >= 0; fq += -1){
+../xspec_util.c:   for(t =  0; t < spectro->xgram; t+= 8){
+../xspec_util.c:     spectro->pix[i] = (char)0;
+../xspec_util.c:          if( l < spectro->xgram){
+../xspec_util.c:          spectro->pix[i] +=
+../xspec_util.c:         (char) (info->color[(int)spectro->allgvs[(t + n) *
+../xspec_util.c:                             spectro->wymax + fq]].pixel) << n;
+../xspec_util.c:  bytesperline = spectro->xgram / 8; 
+../xspec_util.c:     if(spectro->xgram % 8)  bytesperline++;
+../xspec_util.c:  spectro->pix  = (char *) malloc( sizeof(char) * 
+../xspec_util.c:                  spectro->xgram * spectro->wymax);
+../xspec_util.c:  for(fq = spectro->wymax - 1; fq >= 0; fq += -1){
+../xspec_util.c:   for(t =  0; t < spectro->xgram; t++){
+../xspec_util.c:     spectro->pix[i] = (char)
+../xspec_util.c:     (info->color[(int)spectro->allgvs[t * spectro->wymax + fq]].pixel);
+../xspec_util.c:  bytesperline = spectro->xgram;
+../xspec_util.c:  spectro->xim =  XCreateImage(info->display,
+../xspec_util.c:           ZPixmap,0,spectro->pix,(unsigned int)spectro->xgram,
+../xspec_util.c:           (unsigned int)spectro->wymax ,8, bytesperline );
+../xspec_util.c:spectro->xim->bits_per_pixel = bitspp;
+../xspec_util.c:     spectro->xr[index],spectro->yb[index]); 
+../xspec_util.c:  /* spectro->t0 is time offset for spectrogram */
+../xspec_util.c:   info->gc,spectro->xim,
+../xspec_util.c:/* src */   spectro->t0,0,
+../xspec_util.c:/* w,h */  spectro->wxmax,spectro->wymax);
+../xspec_util.c:  return(spectro->wchar * 6 + spectro->axisdist);
+../xspec_util.c:  return(spectro->hchar);
+../xspec_util.c:     spectro->savetime = (float)(x -  xoffset(spectro)) / 
+../xspec_util.c:     (float)spectro->sampsused[index] / spectro->spers * 1000.0 +
+../xspec_util.c:     (float)spectro->startime[index];
+../xspec_util.c:     spectro->saveindex = spectro->savetime * spectro->spers / 1000.00 + .5;
+../xspec_util.c:     spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000;
+../xspec_util.c:  waveindex = spectro->saveindex;
+../xspec_util.c:    mid = spectro->iwave[waveindex];
+../xspec_util.c:    else left = spectro->iwave[waveindex-1];
+../xspec_util.c:    if (waveindex == spectro->totsamp-1) right = 0.0;
+../xspec_util.c:    else right = spectro->iwave[waveindex+1];
+../xspec_util.c:  spectro->saveindex = waveindex;
+../xspec_util.c:  spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000;
+../xspec_util.c:  grdox = spectro->xr[SPECTRUM] * SPEC_OX;
+../xspec_util.c:  grdxr = spectro->xr[SPECTRUM] * SPEC_XR;
+../xspec_util.c:  if(spectro->option == 'd' ||
+../xspec_util.c:     ((spectro->option == 'c' || spectro->option == 's') &&
+../xspec_util.c:              !spectro->history )     ){
+../xspec_util.c:       /* just draw spectro->fltr */
+../xspec_util.c:    halfsrate = spectro->spers / 2.0; 
+../xspec_util.c:  if( 	  spectro->option == 'c' || spectro->option == 'j'||
+../xspec_util.c:          spectro->option == 'T' || spectro->option == 'l'){
+../xspec_util.c:        diff = fabsf(tempfr - (float)spectro->nfr[0]);
+../xspec_util.c:	 for(i = 1; i < spectro->lenfltr; i++){
+../xspec_util.c:           tempdiff = fabsf(tempfr - (float)spectro->nfr[i]);
+../xspec_util.c:    spectro->specfreq = spectro->nfr[freqindex];
+../xspec_util.c:    spectro->specamp = spectro->fltr[freqindex]/10.0;
+../xspec_util.c:   spectro->spec_cursor = spectro->specfreq / halfsrate *
+../xspec_util.c:     freqindex = (int)(   ((float)x -  grdox) * (float)spectro->lenfltr 
+../xspec_util.c:     if (spectro->localfreqmax)
+../xspec_util.c:	 mid = spectro->dftmag[freqindex];
+../xspec_util.c:	 else left = spectro->dftmag[freqindex-1];
+../xspec_util.c:	 if (freqindex == spectro->lenfltr-1) right = 0.0;
+../xspec_util.c:	 else right = spectro->dftmag[freqindex+1];
+../xspec_util.c:     tempfr = halfsrate / spectro->lenfltr * (float)freqindex;
+../xspec_util.c:     spectro->specfreq = (int)(tempfr + .5);
+../xspec_util.c:     spectro->specamp = spectro->fltr[freqindex]/10.0;
+../xspec_util.c:    spectro->spec_cursor = spectro->specfreq / halfsrate *
+../xspec_util.c:  savhalf = spectro->savspers / 2.0;
+../xspec_util.c:  if( spectro->option == 's'){
+../xspec_util.c:  if(drawsav && spectro->savspectrum && freqrange){
+../xspec_util.c:    if(spectro->option == 'c' || spectro->option == 'T'){
+../xspec_util.c:       if(spectro->option == 'c')
+../xspec_util.c:             histnfr = spectro->savnfr;
+../xspec_util.c:       if(spectro->option == 'T' )
+../xspec_util.c:             histnfr = spectro->nfr;
+../xspec_util.c:	 for(i = 1; i < spectro->lensavfltr; i++){
+../xspec_util.c:      spectro->savspecfreq = histnfr[freqindex];
+../xspec_util.c:      spectro->savspecamp = spectro->savfltr[freqindex]/10.0;
+../xspec_util.c:      if(spectro->lensavfltr > spectro->lenfltr){
+../xspec_util.c:	spectro->spec_cursor = spectro->savspecfreq / savhalf *
+../xspec_util.c:     freqindex = (int)(   ((float)x -  grdox) * (float)spectro->lensavfltr 
+../xspec_util.c:     if (spectro->localfreqmax) do {
+../xspec_util.c:       mid = spectro->dftmag[freqindex];
+../xspec_util.c:       else left = spectro->dftmag[freqindex-1];
+../xspec_util.c:       if (freqindex == spectro->lenfltr-1) right = 0.0;
+../xspec_util.c:       else right = spectro->dftmag[freqindex+1];
+../xspec_util.c:     tempfr = savhalf / spectro->lensavfltr * (float)freqindex;
+../xspec_util.c:     spectro->savspecfreq = (int)(tempfr + .5);
+../xspec_util.c:     spectro->savspecamp = spectro->savfltr[freqindex]/10.0;
+../xspec_util.c:    if(spectro->lensavfltr > spectro->lenfltr || 
+../xspec_util.c:    spectro->spec_cursor = spectro->savspecfreq / savhalf *
+../xspec_util.c:   spectro->savspecfreq = -1;
+../xspec_util.c:   spectro->savspecamp = -1.0;
+../xspec_util.c:if(spectro->saveindex < 0){
+../xspec_util.c:   spectro->saveindex = 0;
+../xspec_util.c:   spectro->savetime = 0.0;
+../xspec_util.c:else if(spectro->saveindex > spectro->totsamp - 1){
+../xspec_util.c:  spectro->saveindex = spectro->totsamp - 1;
+../xspec_util.c:  spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000;
+../xspec_util.c: if(spectro->iwave == NULL) {
+../xspec_util.c:    if(spectro->saveindex > spectro->startindex[window] +
+../xspec_util.c:       spectro->sampsused[window]  || spectro->saveindex <
+../xspec_util.c:       spectro->startindex[window]){
+../xspec_util.c:         if(window == GRAM && spectro->spectrogram){
+../xspec_util.c:            0 ,0,spectro->xr[window],spectro->yb[window],0,0);
+../xspec_util.c:                  if(spectro->sampsused[window] / 2 > spectro->saveindex){
+../xspec_util.c:                      spectro->startindex[window] = 0;
+../xspec_util.c:                      spectro->startindex[window] = spectro->saveindex - 
+../xspec_util.c:                      spectro->sampsused[window] / 2;
+../xspec_util.c:                       if ( spectro->startindex[window] + 
+../xspec_util.c:                          spectro->sampsused[window] > spectro->totsamp){
+../xspec_util.c:                             spectro->startindex[window] = spectro->totsamp -
+../xspec_util.c:                             spectro->sampsused[window];
+../xspec_util.c:             spectro->startime[window] = spectro->startindex[window] /
+../xspec_util.c:                    spectro->spers * 1000;
+../xspec_util.c:             0 ,0,spectro->xr[window],spectro->yb[window],0,0);
+../xspec_util.c:             if(window == GRAM && !spectro->spectrogram){/* no spectrogram*/}
+../xspec_util.c:               0 ,0,spectro->xr[window],spectro->yb[window],0,0);
+../xspec_util.c:if(window == GRAM && !spectro->spectrogram){/* no spectrogram*/}
+../xspec_util.c:       x = mstox(spectro,window,spectro->savetime);
+../xspec_util.c:           sprintf(str,"%.2f ms (%d)",spectro->savetime, (int)(spectro->iwave[spectro->saveindex] / 32767.0 * 9997.56 ));
+../xspec_util.c:	   if (x + (spectro->wchar * strlen(str)) > rborder(spectro, window)) 
+../xspec_util.c:			   x - (spectro->wchar*(strlen(str)+1)),yoffset(spectro) + 
+../xspec_util.c:			   spectro->hchar,str,strlen(str)  );
+../xspec_util.c:		       x + spectro->wchar,yoffset(spectro) + 
+../xspec_util.c:		       spectro->hchar,str,strlen(str)  );
+../xspec_util.c:    x = samptox(spectro,window,spectro->startmarker);
+../xspec_util.c:    x = x - spectro->wchar + 2;
+../xspec_util.c:   if( x >= (xoffset(spectro) - spectro->wchar) &&
+../xspec_util.c:    x = samptox(spectro,window,spectro->endmarker);
+../xspec_util.c:yps = spectro->yb[window] ;
+../xspec_util.c:/*based on spectro->option set window size*/
+../xspec_util.c: sampindex = spectro->saveindex - spectro->sizwin / 2;
+../xspec_util.c:for( i = 0; i < spectro->sizwin; i++){
+../xspec_util.c:      spectro->axisdist - 1) - (float)ymax / 2.0 - 
+../xspec_util.c:      (map * (spectro->hamm[i] ) + .005)  ) ; 
+../xspec_util.c:  x,yoffset(spectro),1,findymax(spectro,window) + spectro->axisdist,
+../xspec_util.c:  x,0,spectro->wchar,spectro->hchar,x,0); 
+../xspec_util.c:ms = (float)whichsamp / spectro->spers * 1000.0;
+../xspec_util.c:return(spectro->xr[index] - spectro->wchar * 10  - spectro->axisdist - 1);
+../xspec_util.c:return(spectro->yb[index] - (spectro->hchar * 3) - spectro->axisdist);
+../xspec_util.c:yps = spectro->yb[index] - 1; /* used to make y normal again for postscript*/
+../xspec_util.c:x =  spectro->xr[index] - 3 * spectro->wchar + 1;
+../xspec_util.c:x = xoffset(spectro) + xmax / 2 - strlen("TIME (ms)") / 2 * spectro->wchar;
+../xspec_util.c:y = spectro->yb[index] - 2; 
+../xspec_util.c:if(spectro->sec){
+../xspec_util.c:   x =  xoffset(spectro) - 5 * spectro->wchar - spectro->axisdist;
+../xspec_util.c:   y = 2 * spectro->hchar ;
+../xspec_util.c:    fprintf(postfp,"%d %d translate 90 rotate\n",spectro->xr[GRAM],0);
+../xspec_util.c:    yps/2 - y, spectro->xr[GRAM] - xoffset(spectro) + 2 * spectro->wchar + 10,
+../xspec_util.c:  x =  xoffset(spectro) - spectro->axisdist; 
+../xspec_util.c:  tmax = spectro->spers/2000.0;
+../xspec_util.c:  inc = (float)ymax/(spectro->spers/2000.0);
+../xspec_util.c:  y  = spectro->yb[index] - 2 * spectro->hchar - spectro->axisdist - 1;
+../xspec_util.c:  ygram0 = spectro->yb[index] - 2 * spectro->hchar - spectro->axisdist - 1;
+../xspec_util.c:  /*fy = spectro->yb[index] - spectro->hchar - spectro->axisdist - 1;*/
+../xspec_util.c:  xt = xoffset(spectro) - (int)(1.5*spectro->wchar) - spectro->axisdist;
+../xspec_util.c:    yt =  y + spectro->hchar * (float)strlen(str) / 2.0;
+../xspec_util.c:  mid = spectro->wavemax - (spectro->wavemax - spectro->wavemin) / 2.0;
+../xspec_util.c:  (spectro->wavemax - spectro->wavemin) / 2.0 * spectro->wvfactor[index];
+../xspec_util.c:  (spectro->wavemax - spectro->wavemin) / 2.0 * spectro->wvfactor[index];
+../xspec_util.c:   tstep = (float)spectro->hchar * 1.5 * (max - min) / (float)ymax ;
+../xspec_util.c:     x = x2 - spectro->axisdist; 
+../xspec_util.c:     y0 = bborder(spectro,index) - spectro->axisdist - 1;
+../xspec_util.c:     yt = y + spectro->hchar/ 2.0;
+../xspec_util.c:    xt = x - (spectro->wchar * (strlen(str) + 1));
+../xspec_util.c:    yt = y + spectro->hchar/ 2.0; 
+../xspec_util.c:if(spectro->sec){
+../xspec_util.c:      ms = (float)spectro->startime[index] + 
+../xspec_util.c:           (float)spectro->sampsused[index]  / spectro->spers * 1000 ;
+../xspec_util.c:     ms = (float)spectro->startime[index] +
+../xspec_util.c:           (float)spectro->sampsused[index] / spectro->spers * 1000;
+../xspec_util.c:      tstep = (float)spectro->wchar *  (float)strlen(str) *
+../xspec_util.c:           ((float)spectro->sampsused[index] / spectro->spers * 1000)
+../xspec_util.c:   if(  ((float)spectro->sampsused[index] / spectro->spers * 1000) > 150)
+../xspec_util.c:    else if(  ((float)spectro->sampsused[index] / spectro->spers * 1000) > 80)
+../xspec_util.c:    else if(  ((float)spectro->sampsused[index] / spectro->spers * 1000) > 50)
+../xspec_util.c:      tmax = spectro->sampsused[index] / 
+../xspec_util.c:              spectro->spers * 1000 / tstep ;
+../xspec_util.c:y =  spectro->yb[index] - 2 * spectro->hchar - 1;
+../xspec_util.c:y2 = spectro->yb[index] - 2 * spectro->hchar - 
+../xspec_util.c:    spectro->axisdist - 1 + spectro->tickspace;
+../xspec_util.c:yt = spectro->yb[index] - 1 * spectro->hchar - 1; 
+../xspec_util.c:if((int)(spectro->startime[index]  / tstep) * tstep
+../xspec_util.c:           == spectro->startime[index])
+../xspec_util.c:    { ms = spectro->startime[index];} 
+../xspec_util.c:  {ms = ((int)spectro->startime[index]  / tstep + 1) *  tstep ;}
+../xspec_util.c:    if(spectro->sec)
+../xspec_util.c:    xt = x - spectro->wchar * strlen(str)  / 2 + 3;
+../xspec_util.c:    if(xt + spectro->wchar * strlen(str) / 2 + 5 <
+../xspec_util.c:         spectro->xr[index] - spectro->wchar * 3){
+../xspec_util.c:return(spectro->xr[index] - 4 * spectro->wchar);
+../xspec_util.c:return(spectro->yb[index] - 2 * spectro->hchar);
+../xspec_util.c:/* this function assumes that spectro->spers has
+../xspec_util.c:spectro->startindex[index] = startindex + 1;
+../xspec_util.c:spectro->startime[index] = startindex / spectro->spers * 1000.0;/*ms*/
+../xspec_util.c:   if(spectro->iwave == NULL)
+../xspec_util.c:   spectro->saveindex = spectro->totsamp / 2 ;
+../xspec_util.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000;
+../xspec_util.c:   spectro->startime[0] = 0.0;
+../xspec_util.c:   spectro->startindex[0] = 0;
+../xspec_util.c:   spectro->sampsused[0] = spectro->totsamp;
+../xspec_util.c:   spectro->sampsused[1] = spectro->params[1];/* samples in DFT window */
+../xspec_util.c:   if(spectro->sampsused[1] > spectro->totsamp)
+../xspec_util.c:         spectro->sampsused[1] = spectro->totsamp;
+../xspec_util.c:      spectro->startindex[1] = spectro->saveindex - 
+../xspec_util.c:               spectro->sampsused[1] / 2;
+../xspec_util.c:   spectro->startime[1] = spectro->startindex[1] / spectro->spers * 1000;
+../xspec_util.c:    if(spectro->spectrogram){gramoffset(spectro);}
+../xspec_util.c:     spectro->oldindex = spectro->saveindex;
+../xspec_util.c:     spectro->oldtime  = spectro->savetime;
+../xspec_util.c:     spectro->startmarker = 0;
+../xspec_util.c:     spectro->endmarker = spectro->totsamp - 1;
+../xspec_util.c:     spectro->oldstart = spectro->startmarker;
+../xspec_util.c:     spectro->oldend = spectro->endmarker;
+../xspec_util.c:   if(spectro->sampsused[GRAM] / 2 > spectro->saveindex){
+../xspec_util.c:       {spectro->startindex[GRAM] = 0;}
+../xspec_util.c:   else if(spectro->sampsused[GRAM] / 2 + spectro->saveindex > 
+../xspec_util.c:                     spectro->totsamp)
+../xspec_util.c:     {spectro->startindex[GRAM] = spectro->totsamp - spectro->sampsused[GRAM];}
+../xspec_util.c:      spectro->startindex[GRAM] = spectro->saveindex - 
+../xspec_util.c:               spectro->sampsused[GRAM] / 2;
+../xspec_util.c:   spectro->startime[GRAM] = spectro->startindex[GRAM] / spectro->spers * 1000;
+../xspec_util.c:   spectro->t0 =(spectro->startindex[GRAM] ) /
+../xspec_util.c:   ((spectro->winsamps - spectro->ovlap) * spectro->numav) * spectro->xpix;
+../xspec_util.c:   spectro->swap = allspectros.list[0]->swap;
+../xspec_util.c:   spectro->spectrogram = spectrogram;
+../xspec_util.c:   spectro->devwidth = allspectros.list[0]->devwidth;
+../xspec_util.c:   spectro->devheight = allspectros.list[0]->devheight;
+../xspec_util.c:   spectro->wchar = allspectros.list[0]->wchar;
+../xspec_util.c:   spectro->hchar = allspectros.list[0]->hchar;
+../xspec_util.c:   strcpy(spectro->wavefile,filename);
+../xspec_util.c:   add_spectro(spectro,"xkl_defs.dat",spectro->wavefile);
+../xspec_util.c:   n = XtNumber(spectro->params);
+../xspec_util.c:   spectro->hamm_in_ms[i] = oldspectro->hamm_in_ms[i];
+../xspec_util.c:   spectro->params[i] = 
+../xspec_util.c:            spectro->hamm_in_ms[i]  * spectro->spers / 1000.00 + .5;
+../xspec_util.c:   for(i = 4; i < n; i++) spectro->params[i] = oldspectro->params[i];
+../xspec_util.c:   strcpy(spectro->wavefile,str);
+../xspec_util.c:      update(spectro->info[i], spectro, i);
+../xspec_util.c:   if (spectro->iwave) {
+../xspec_util.c:     tmpdur = spectro->totsamp/spectro->spers;
+../xspec_util.c:     sprintf(wedur, "%3.1f ms", 1000*(spectro->endmarker - 
+../xspec_util.c:				      spectro->startmarker)/spectro->spers);
+../xspec_util.c:	     spectro->wavename, space, (int) spectro->spers, space, VERSION,
+../xspec_util.c:	     spectro->wavename, space, (int) spectro->spers, space, VERSION,
+../xspec_util.c:   XtSetValues(spectro->toplevel[0],args,n);
+../xspec_util.c:      sprintf(title,"%s :%d",spectro->wavename,i);
+../xspec_util.c:      XtSetValues(spectro->toplevel[i],args,n);
+../xspec_util.c:   spectro->history = 0;
+../xspec_util.c:   if(spectro->param_active){
+../xspec_util.c:      XtSetArg(args[0],XmNtitle,spectro->wavename);
+../xspec_util.c:  if(spectro->spectrogram){
+../xspec_util.c:          update(spectro->info[GRAM],spectro,GRAM); 
+../xspec_util.c:           make_pixmap(spectro->info[i],spectro,i);
+../xspec_util.c:           XCopyArea(spectro->info[i]->display,spectro->info[i]->pixmap,
+../xspec_util.c:           spectro->info[i]->win,spectro->info[i]->gc,
+../xspec_util.c:           0,0,spectro->xr[i],spectro->yb[i],0,0);
+../xspec_util.c:           draw_cursor(spectro,i,spectro->info[i]);
+../xspec_util.c:   update(spectro->info[SPECTRUM],spectro,SPECTRUM);
+../xspec_util.c:   spectro->oldindex = spectro->saveindex;
+../xspec_util.c:   spectro->oldtime = spectro->savetime;
+../xspec_util.c:   spectro->savetime = (float)atof(str);
+../xspec_util.c:   spectro->saveindex =  (spectro->savetime  * spectro->spers / 1000.0) + .5;
+../xspec_util.c:   spectro->savetime = (float)spectro->saveindex / spectro->spers * 1000;
+../xspec_util.c:           update(spectro->info[i], spectro, i);
+../xspec_util.c:   if((float)atof(temp) != spectro->specms && spectro->spectrogram){
+../xspec_util.c:      info = spectro->info[GRAM];
+../xspec_util.c:      spectro->specms = (float)atof(temp);
+../xspec_util.c:   sprintf(temp,"%.1f ms in spectrogram\n",spectro->specms);
+../xspec_util.c:      fprintf(fp,"%d     number of samples\n",spectro->sampsplay);
+../xspec_util.c:      fprintf(fp,"%f     samples per second\n",spectro->spers);  
+../xspec_util.c:      for(i = 0; i < spectro->sampsplay; i++)
+../xspec_util.c:        fprintf(fp,"%d\n",spectro->startplay[i]);
+../xspec_util.c:   strcpy(spectro->tmp_name,fname);
+../xspec_util.c:   fp = fopen(spectro->tmp_name,"w");
+../xspec_util.c:   fprintf(fp,"%d     number of samples\n",spectro->sampsplay);
+../xspec_util.c:   fprintf(fp,"%f     samples per second\n",spectro->spers);  
+../xspec_util.c:   for(i = 0; i < spectro->sampsplay; i++)
+../xspec_util.c:        fprintf(fp,"%d\n",spectro->startplay[i]);
+../xspec_util.c:   sprintf(mess,"wrote: %s\n",spectro->tmp_name);
+../xspec_util.c:  if(spectro->segmode){
+../xspec_util.c:   if(spectro->endmarker > spectro->startmarker){
+../xspec_util.c:    spectro->sampsplay = spectro->endmarker - spectro->startmarker + 1;
+../xspec_util.c:    spectro->startplay = &spectro->iwave[spectro->startmarker];
+../xspec_util.c:          spectro->sampsplay = spectro->sampsused[window];
+../xspec_util.c:          spectro->startplay = &spectro->iwave[spectro->startindex[window] ];
+../xspec_util.c:         spectro->sampsplay = spectro->sampsused[0];
+../xspec_util.c:         spectro->startplay = &spectro->iwave[spectro->startindex[0] ];
+../xspec_util.c:  spectro->spectrogram = 1;
+../xspec_util.c:  XtSetArg(args[n], XmNwidth, spectro->xr[GRAM] );n++;
+../xspec_util.c:  XtSetArg(args[n], XmNheight,spectro->yb[GRAM]+spectro->menu_height);n++;
+../xspec_util.c:  XtSetValues(spectro->toplevel[GRAM],args,n);
+../xspec_util.c:  XtSetArg(args[n], XmNwidth, spectro->xr[GRAM] );n++;
+../xspec_util.c:  XtSetArg(args[n], XmNheight,spectro->yb[GRAM] );n++;
+../xspec_util.c:  XtSetValues(spectro->draww[GRAM],args,n);
+../xspec_util.c:  XtManageChild(spectro->toplevel[GRAM]);
+../xspec_util.c:  XMoveWindow(XtDisplay(spectro->toplevel[GRAM]),
+../xspec_util.c:	      XtWindow(spectro->toplevel[GRAM]),
+../xspec_util.c:	      spectro->ox[GRAM],spectro->oy[GRAM]);
+../xspec_util.c:  setupcmap(spectro->draww[GRAM],spectro->info[GRAM]);

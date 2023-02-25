@@ -1,0 +1,234 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	2002.06.25.21.33.39;	author xkldev;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2002.06.13.15.17.17;	author tiede;	state Exp;
+branches;
+next	;
+
+
+desc
+@Xkl help text
+@
+
+
+1.2
+log
+@add note about persistent ALT behavior
+@
+text
+@/* $Log: help.h,v $
+ * Revision 1.1  2002/06/13 15:17:17  tiede
+ * Initial revision
+ *
+ * Revision 1.2  1998/06/04 23:13:34  krishna
+ * Added RCS header.
+ * */
+
+#ifndef XKL_HELP_H
+#define XKL_HELP_H
+
+static String help_string[] = {
+"FIRST TIME XKL USER:\n",
+"      This help does not contain a description of each of\n",
+"the xkl commands.  We hope that most of the menu entries are\n", 
+"straightforward.  After reading this help file, you might want to\n",
+"go through the menus and select each item in order to become familiar\n",
+"with all of the commands. \n\n", 
+"      When using xkl it is possible to overwrite .wav\n",
+"data so make sure your data is appropriately backed up.\n\n",
+"MOUSE BUTTONS:\n",
+"Shift and Alt keys may be combined; ignored for spectrum window clicks.\n",
+"      Left mouse button moves the time cursor.\n",
+"Shft+ Left mouse button sets label using dialog.\n",
+"Alt + Left mouse button tracks the cursor while button is down\n\n",
+"      Middle mouse button plays waveform.\n",
+"Shft+ Middle mouse button plays from w -> e locations.\n",
+"Alt + Middle mouse button plays from mouseDown -> mouseUp locations.\n\n",
+"      Right mouse button raises all windows associated with waveform.\n",
+"Shft+ Right mouse button sets unnamed label immediately.\n",
+"Alt + Right mouse button tracks cursor, sets position, raises windows.\n\n",
+"NOTE: The time cursor aligns on an actual sample.\n\n",
+"      The waveform amplitude is the 16 bit value \n",
+"      stored in the .wav file / 32767.0 * 9997.56 \n\n",
+"      Alt key behavior may vary depending on window manager.\n",
+"      Under fvwm95 Alt+Right is trapped (Shift+Alt+Right works).\n",
+"      Releasing the Alt key BEFORE the mouse button makes the\n",
+"      cursor tracking persistent; reset by releasing mouse btn FIRST.\n\n",
+"GENERAL INFO:\n",
+"	The xkl program displays information about a given waveform\n",
+" in as many as four graphics windows, and is capable of displaying\n",
+" several different waveforms at once.  Each waveform has its own spectrum\n",
+" and spectrogram windows, and two waveform windows.\n\n",
+"	Each of the graphics windows reacts to\n", 
+"user input it receives when it has the focus of attention (The program\n",
+"indicates which window is active by changing the border color).\n",
+" NOTE: Pointer mode makes it difficult to use the keyboard only.\n",
+"  The pointer location overrides other types of window selection.\n",
+"	The text window does not accept any commands.  Note that\n",
+"it does not have any menus.  It is there to provide the user\n",
+"with a history of the actions taken in the program.  Text from the\n",
+"can be pasted into an input popup window.\n\n",
+"	Although each of the graphics windows handles its own\n",
+"input through its menus, much of the time this will be transparent to\n",
+"the user through the use of accelerators and because many of the\n",
+"windows respond in the same way to a menu selection.  An accelerator is\n",
+"a single character associated with a menu item that has the effect of\n",
+"selecting that entry from a menu when it is entered from the keyboard\n",
+"There is no need to pull down the menu.  If any one of the four\n",
+"graphics waveform windows has the focus of attention and the user enters\n",
+"'t', an popup window appears and the user is expected to enter a time\n",
+"in ms.  Until the user enters a time or chooses cancel, all of the xkl\n",
+"windows except the text window (and of course the popup) do not process\n",
+"any user requests.  Holding down the ALT key while pressing the first\n", 
+"(lower case) letter of the menu brings down that menu\n",
+"so it can be read.\n\n",  
+"     There are some menu items that behave differently depending\n",
+"on which window is active.  For example, saving a full-page image of a\n",
+"window to a postscript file requires that that window has the focus\n",
+"of attention when the command is invoked. \n\n",
+"     The commands G, g, and H open global files in which data\n",
+"from any waveform can be stored.  The character `*' stores a full-page\n",
+"image of a window into a file opened by `G', `#' stores spectra four-to-\n",
+"a page in a file opened by `g', and `h' stores spectrum or waveform\n",
+"amplitude data in a file opened with the `H' command\n\n",
+"	 When either play is selected from the Commands window (the \n",
+"accelerator is 'p') or the middle mouse button is pushed, the selected\n",
+"region of the waveform is played.  `P' plays the entire waveform. \n\n",
+"DISPLAYING SPECTRA FROM TWO DIFFERENT FILES IN SAME WINDOW:\n\n",
+"	The xkl program has a spectrum window for each waveform so\n",
+"so at present the display of spectra from two different files in the\n",
+"same spectrum window is handled differently than it is in KLspec.  \n",
+"The user can write a spectrum file ('z'), which is an ascii file of the\n",
+"values of the smoothed spectrum in the spectrum window.  The user can then\n",
+"use 'Z' to read this file into xkl and display it in the spectrum window\n", 
+"of another waveform for comparison.  This feature is only available\n",
+"in `s' or  `smoothed spectrum' mode.\n\n",
+"WINDOW SIZES and LOCATIONS:\n",
+"      If you want to change the default window locations copy the\n",
+"following into your .Xdefaults file (don't forget to run xrdb) :\n\n",
+"      !large waveform window\n",
+"      xkl*window_0.x: 10\n",
+"      xkl*window_0.y: 20\n",
+"      xkl*window_0.width: 1000\n",
+"      xkl*window_0.height: 230\n\n",
+"      !small waveform window\n", 
+"      xkl*window_1.x: 500\n",
+"      xkl*window_1.y: 300\n",
+"      xkl*window_1.width: 465\n",
+"      xkl*window_1.height: 255\n\n",
+"      !spectrogram\n", 
+"      !size determined by ms\n",
+"      xkl*window_2.x: 500\n",
+"      xkl*window_2.y: 590\n\n",
+"      !spectrum\n",
+"      xkl*window_3.x: 10\n",
+"      xkl*window_3.y: 500\n",
+"      xkl*window_3.width: 450\n",
+"      xkl*window_3.height: 355\n\n",
+"      xkl*xkl_textwindow.x: 25\n",
+"      xkl*xkl_textwindow.y: 300\n",
+"      xkl*xkl_textwindow.width: 400\n",
+"      xkl*xkl_textwindow.height: 160\n\n",
+"      xkl*syn.x: 25\n",
+"      xkl*syn.y: 475\n\n",
+"      xkl*syngraph.x: 500\n",
+"      xkl*syngraph.y: 275\n\n",
+"SGI USERS:\n",
+"	You might want to include:\n",
+"         4Dwm*interactivePlacement: False\n",
+"         4Dwm*iconAutoPlace: True\n",
+"         4Dwm*iconPlacement: bottom right\n",
+"in your .Xdefaults so the windows are placed automatically\n",
+"and the icons are placed in the lower right.\n",
+"You'll have to restart your session for this to take effect.\n\n",
+"COPYING FROM F+BW WINDOW:\n",
+"       The 'O' command writes to the screen and not to a file\n",
+"but it is easy to cut and paste the information into a file,\n",
+"especially with version 19.19 of emacs.  Use kill-rectangle and\n",
+"yank-rectangle in emacs if you need to rearrange the columns.\n\n",
+"THE PARAMETERS WINDOW:\n",
+	"When the user selects 'Change param. value' from the Options\n",
+"menu(`C') a window with a list of the parameters pops up.  There are three\n",
+"ways to select the parameter that you want to change.  If you click\n",
+"with the right mouse button on an entry in the list (motif will highlight\n",
+"it for you) and click on change, the input popup will appear and you can\n", 
+"change the value.  Double clicking on a list entry eliminates the need\n",
+"for clicking on `change'.  You can also choose the parameter you want to\n",
+"change by typing the single character associated with the parameter\n",
+"in the 'SYM' column.\n\n",
+"THE INPUT POPUP:\n\n",
+"	This little window pops up when the xkl program wants\n",
+"input from the user.  You may use the tab and arrow keys to move\n",
+"the focus from the buttons to the text area.  This applies to the\n",
+"file browser as well.  Tab moves to a different part of the window,\n",
+"for example from the text part to the button part and the arrow keys\n",
+"move the focus to the different buttons.  Of course clicking with the\n",
+"mouse moves focus as well.  You might want to enter your\n",
+"new value by just hitting return in the text area.  This will\n", 
+"leave text area selected so next time you use the input popup\n",
+"the text area is already selected and you can just start typing.\n\n",
+"NOTE: the input popup stops all activity in the graphics windows\n",
+"until you enter a value or cancel.  You may cut and paste from the\n",
+"xkl textwindow and clicking in the textwindow raises the input popup\n",
+"should it become buried under other windows.\n\n",
+"SPECTROGRAMS:\n\n",
+"	The ' xkl_defs.dat ' file controls spectrogram parameters.  It\n",
+"must be named xkl_defs.dat and be in the directory that you run xkl from.\n",
+"It is suggested that you change just the white and dark gray thresholds.\n",
+"This file affects the SPECTROGRAM ONLY.\n",
+"Cut and paste the following into a file called ' xkl_defs.dat ':\n\n",
+"6.4     window in ms(padded with zeros for fft), default:6.4ms\n",
+"128	number of samples in each fft(16,32,64,128,256,512), default:128\n",
+"3	number of ffts averaged, default: 3\n",
+"1.0   number of ms that each fft is offset from the previous one,default:1\n",
+"700.0  total number of ms displayed in spectrogram, default:1300.0\n", 
+"5.0     magnitudes < this mapped to white, default:5.0\n",
+"25.0    magnitudes > this mapped to darkest gray, default:25.0\n",
+"1       scale size of spectrogram(1 or 2), default:1 \n",
+"100     0 = no pre-emphasis  100 = exact first difference, default:100\n",
+"0       0 = x axis in milliseconds, 1 = x axis in seconds, default:0\n\n",
+" A LARGER SPECTROGRAM for .ps files: you can 'set number of ffts averaged' to\n",
+"1 or 2. This will make a spectrogram that is higher resolution for printing\n",
+"however it will take several minutes to print(lspecto prints faster.)\n\n", 
+"THE .PARAMS FILES:\n",
+"     It is possible to store all the parameter values that you\n",
+"can access with the 'C' command in a file and read them in\n",
+"during another session.  The commands are 'm' to store the values\n",
+"in a file and 'M' to retrieve them.  It is NOT RECOMMENDED that you\n",
+"edit this file but rather write out a new one from the program where\n",
+"the parameter values are checked against a valid range. \n",
+"IMPORTANT NOTE: these parameters do not affect the spectrogram\n\n",
+"OTHER KLATT TOOL PROGRAMS: lspecto, concat, syn, rawtowav. Type\n",
+"program name with no arguments for usage.\n\n",
+"DISPLAY F0:  Use lspecto -syn on the .wav file first, use the\n",
+"synthesizer with that .doc file, then 'd' (time function F0) for a graph\n\n",
+"SD TO WAV: It's hard to be sure what format an sd file is in but in\n",
+"most cases this should work.  Running on a little endian machine like\n",
+"lexic use:   sfconvert -o SHORT file.sd file.temp\n",
+"             bhd file.temp file.raw\n",
+"             rawtowav file.raw file sampling_rate\n",
+"             rm -f file.temp file.raw\n"
+};
+
+#endif /* XKL_HELP_H */
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d2 3
+d35 4
+@
