@@ -1,0 +1,269 @@
+head	1.5;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.5
+date	98.06.09.00.37.53;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.06.06.22.51.22;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.04.15.19.43.07;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.02.03.07.52.30;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.36.30;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.5
+log
+@Changed argument processing based on changes to functions in
+getargs.c.  Modified usage.
+@
+text
+@/*
+ * $Log: raw2kl.c,v $
+ * Revision 1.4  1998/06/06 22:51:22  krishna
+ * Added RCS log.
+ *
+ */
+
+/***********************************************************************
+ *
+ * This program reads a raw soundfile that is in 16 bit signed
+ * little endian format.  The user enters the sampling rate as a 
+ * command line argument and the program writes out the data with
+ * a .wav header that contains the following:
+ *  - 32 bit int that is the number of usec between sample
+ *  - 32 bit int that is the number of samples
+ *  - 32 bit int that is the version number 1 in this case
+ *  - the remainder of the 512 byte header is filled with zeros
+ *
+ * On sgi the sf description of the raw .wav format is:
+ * -i byteorder little integer 16 2scomp chan 1
+ *
+ * 
+ * KKG 2/25/97, v.1.1
+ * - Commented
+ * - Made more clean.
+ *
+ ***********************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "wavio.h"
+#include "getargs.h"
+
+void main(int argc, char **argv);
+void usage(char *name);
+
+#define CHUNK 10000  /* Chunk of data to read */
+
+void main(int argc, char **argv)
+{
+   char data[CHUNK];
+   int i;
+   float samplingRate;
+   int count, numread, numargs;
+   FILE *rfp, *wfp;
+   char iname[256], oname[256], progName[256], *str;
+
+/* 
+ * Need file name and sampling rate.  If not provided, exit.
+ * Also, Check for help or ?, and if right number of args
+ */
+
+   strcpy(progName, argv[0]);
+
+   if (IsArg("-h", &argc, argv) || IsArg("-H", &argc, argv) || 
+       IsArg("-help", &argc, argv) || IsArg("--help", &argc, argv) ||
+       IsArg("-?", &argc, argv))
+     usage(progName);
+
+   samplingRate = checkIntArg("-f", &argc, argv, -1);
+
+   if ((str = RemainingArgs(argc, argv)) != NULL) {
+     fprintf(stderr, "Unknown or duplicate argument: %s\n", str);
+     usage(progName);
+   }
+
+   if ((samplingRate == -1) || (argc != 3)) {
+     printf("\nNOTE NEW USAGE -- sampling rate is specified differently now.\n");
+     usage(progName);
+   }
+   
+   strcpy(iname, argv[1]);
+   strcpy(oname, argv[2]);
+
+   openWav(oname, &wfp, WRITE);
+
+   /* 
+    *Can read from input and write to output file. So,  write out all
+    * zero header right now and fill it in later after reading all the
+    * data.
+    */
+
+   for (i = 0; i < 512; i++) data[i] = 0;
+   fwrite(data, sizeof(char), 512, wfp);
+
+   if (!(rfp = fopen(iname, "r"))) { 
+      fprintf(stderr, "Error: Could not read input file, %s.\n", iname);
+      exit(0);
+   }
+
+   /* 
+    * Read all the data from the input file and write to output file
+    */
+
+   count = 0; /* Number of shorts read */
+
+   while((numread = fread(data, sizeof(char), CHUNK, rfp)) == CHUNK) {
+      fwrite(data, sizeof(char), numread, wfp);
+      count += numread;
+   } 
+   fwrite(data, sizeof(char), numread, wfp);
+
+   count += numread;   /* Add last numread */
+   count = count >> 1; /* Number of shorts  (2 bytes = 1 short) */
+   fclose(rfp);
+
+   fseek(wfp, 0, 0); /* rewind */
+   writeWavHeader(wfp, samplingRate, count, SWAP);
+   closeWav(wfp);
+
+
+   fprintf(stderr, "Read %s....Wrote %d samples at %d Hz to %s.\n\n",
+	   iname, count, (int) samplingRate, oname);
+}
+
+void usage(char *name)
+{
+   fprintf(stderr, "\nUsage: %s [-h | --help] -f <sampling rate> <infile> <outfile>\n", name);
+   fprintf(stderr, "\t<infile> must be a headerless, single channel 16-bit\n");
+   fprintf(stderr, "\t\tsigned (2scomp), little endian data.\n");
+   fprintf(stderr, "\tFor <outfile>, .wav is optional.\n");
+   fprintf(stderr, "\t<sampling rate> should be an integer.\n");
+   fprintf(stderr,"e.g. %s -f 11000 in.raw out\n", name);
+   exit(0);
+} 
+@
+
+
+1.4
+log
+@Added RCS log.
+@
+text
+@d2 4
+a5 1
+ * $Log$
+d46 1
+a46 1
+   char iname[256], oname[256], progName[256];
+a52 2
+   
+   numargs = argc;
+d55 3
+a57 3
+   if (IsArg("-h", argc, argv) || IsArg("-H", argc, argv) || 
+       IsArg("-help", argc, argv) || IsArg("--help", argc, argv) ||
+       IsArg("-?", argc, argv))
+d60 1
+a60 1
+   samplingRate = checkIntArg("-f", argc, argv, &numargs, -1);
+d62 6
+a67 1
+   if ((samplingRate == -1) || (numargs != 3)) {
+d71 3
+a73 3
+
+   strcpy(iname, argv[argc - 2]);
+   strcpy(oname, argv[argc - 1]);
+d118 1
+a118 1
+   fprintf(stderr, "\nUsage: %s -f <sampling rate> <infile> <outfile>\n", name);
+d121 1
+a121 1
+   fprintf(stderr, "\tFor <outfile>, .wav will be appended.\n");
+@
+
+
+1.3
+log
+@Changed waveio.h to wavio.h.
+@
+text
+@d1 4
+@
+
+
+1.2
+log
+@Included the getargs processing.  Modified calling convention to use
+"-f <sampling rate>".
+@
+text
+@d24 1
+a24 1
+#include "waveio.h"
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d25 1
+d28 1
+a28 1
+void usage(char **argv);
+d37 1
+a37 1
+   int count, numread;
+d39 1
+a39 1
+   char iname[256], oname[256];
+d46 14
+a59 4
+   if (argc != 4) usage(argv);
+   for (i = 1; i < argc; i++) {
+     if ((strcmp(argv[i], "-h") == 0) ||  (strcmp(argv[i], "-H") == 0)  ||
+     (strcmp(argv[i], "-?") == 0) || (argv[i][0] == '?')) usage(argv);
+d62 2
+a63 4
+
+   samplingRate = (float) atoi(argv[3]);
+   strcpy(iname, argv[1]);
+   strcpy(oname, argv[2]);
+d106 1
+a106 1
+void usage(char **argv)
+d108 6
+a113 5
+   fprintf(stderr,"\nUsage: %s <infile> <outfile> <sampling rate>\n", argv[0]);
+   fprintf(stderr,"\n   e.g. %s in.raw out 11000\n", argv[0]);
+   fprintf(stderr,"\n   <infile> must be a headerless, 1 channel 16 bit \n");
+   fprintf(stderr,"   signed (2scomp), little endian data. For <outfile>, .wav\n");
+   fprintf(stderr,"   will be appended. <sampling rate> should be an integer.\n");
+@

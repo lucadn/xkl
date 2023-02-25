@@ -1,0 +1,20 @@
+if test $# = 2 
+then
+dd conv=swab < $1.wav > $1.temp
+btosps -S 512 -f $2 -c wav2sd_conversion $1.temp $1.fsd
+featosd $1.fsd $1.sd
+rm -f $1.temp
+rm -f $1.fsd
+else
+if test $# = 1 
+then
+dd conv=swab < $1.wav > $1.temp
+btosps -S 512 -f 16129 -c wav2sd_conversion $1.temp $1.fsd
+featosd $1.fsd $1.sd
+rm -f $1.temp
+rm -f $1.fsd
+else
+echo 'Usage: wav2sd wavfile [samplerate]'
+fi
+fi
+

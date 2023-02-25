@@ -1,0 +1,75 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	98.06.06.22.43.09;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.06.06.22.25.38;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@Initial RCS storage.
+@
+
+
+1.2
+log
+@Changed rawtowav to raw2kl, and commented.
+@
+text
+@#!/bin/csh
+
+# $Log: sd2kl,v $
+# Revision 1.1  1998/06/06 22:25:38  krishna
+# Initial revision
+#
+
+if ($#argv < 1) then
+   echo "Usage: sd2kl file1.sd file2.sd ..."
+   exit;
+endif
+
+foreach f ($*)
+   set rt=$f:r                          # Basename
+   set sf=`hditem -irecord_freq $f`     # Sampling rate
+
+   bhd $f $rt.raw.tmp                   # Remove header
+   raw2kl -f $sf $rt.raw.tmp $rt        # Binary to kl .wav
+   rm $rt.raw.tmp
+end
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d3 4
+a6 1
+# $Log$
+d8 3
+a10 3
+if($#argv < 1) then
+        echo "Usage: sd2kl file1.sd file2.sd ..."
+        exit;
+d14 2
+a15 2
+   set rt=$f:r
+   set sf=`hditem -irecord_freq $f`
+d17 3
+a19 3
+   bhd $f $rt.sd2wav.tmp
+   rawtowav -f $sf $rt.sd2wav.tmp $rt 
+   rm $rt.sd2wav.tmp
+@

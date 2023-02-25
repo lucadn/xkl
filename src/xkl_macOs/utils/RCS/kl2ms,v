@@ -1,0 +1,56 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	98.07.16.23.18.27;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#!/bin/csh
+
+if($#argv < 1) then
+   echo "This program converts one or more Klatt .wav files to Microsuck .wav"
+   echo "files.  The MS .wav files are renamed with the .mswav extension."
+   echo "This program requires sox (version 12.14)."
+   echo ""
+   echo "Usage: $0 file1.wav file2.wav ..."
+   echo "	.wav extension not required"
+   echo ""
+   exit
+endif
+
+
+foreach f ($*)
+   set rt=$f:r    # Get wave name without .wav extension
+
+   # Get sampling rate
+
+   set samplingRate = `klinfo -f $rt.wav`
+   echo "Sampling rate is set to...$samplingRate Hz"
+
+   # Convert from Klatt .wav format to headerless, binary data
+
+   kl2raw $rt.wav $rt.raw >& /dev/null
+
+   # Convert from 16-bit (shorts), to MS .wav format
+   
+   sox -r $samplingRate -s -w $rt.raw -t WAV $rt.mswav
+
+   rm -f $rt.raw
+   echo "MS .wav file written to $rt.mswav"
+end
+@

@@ -1,0 +1,24 @@
+#!/bin/csh
+
+# $Log: sd2kl,v $
+# Revision 1.2  1998/06/06 22:43:09  krishna
+# Changed rawtowav to raw2kl, and commented.
+#
+# Revision 1.1  1998/06/06 22:25:38  krishna
+# Initial revision
+#
+
+if ($#argv < 1) then
+   echo "Usage: sd2kl file1.sd file2.sd ..."
+   exit;
+endif
+
+foreach f ($*)
+   set rt=$f:r                          # Basename
+   set sf=`hditem -irecord_freq $f`     # Sampling rate
+
+   bhd $f $rt.raw.tmp                   # Remove header
+   raw2kl -f $sf $rt.raw.tmp $rt        # Binary to kl .wav
+   rm $rt.raw.tmp
+end
+

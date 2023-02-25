@@ -1,0 +1,43 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2001.02.26.18.35.25;	author hanson;	state Exp;
+branches;
+next	;
+
+
+desc
+@Perl script to convert big endian ESPS format waveforms
+to Klatt waveforms
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#!/usr/bin/perl
+
+if (@@ARGV < 1) {
+   die "Usage: sgisd2kl file1.sd file2.sd ...\n";
+}
+
+foreach $sdfile (@@ARGV) {
+   $root = $sdfile;
+   $root =~ s/\W.*//;
+   $sf = `hditem -irecord_freq $sdfile`;
+   chomp($sf);
+   system "bhd $sdfile $root.tmp";
+   system "dd conv=swab < $root.tmp > $root.raw";
+   system "raw2kl -f $sf $root.raw $root";
+   unlink("$root.raw") || warn "having trouble deleting $root.raw: $!";
+   unlink("$root.tmp") || warn "having trouble deleting $root.tmp: $!";
+}
+
+@
