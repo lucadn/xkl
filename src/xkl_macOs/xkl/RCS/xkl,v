@@ -1,0 +1,125 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2000.08.24.20.36.09;	author tiede;	state Exp;
+branches;
+next	;
+
+
+desc
+@script for selection of platform-suited xkl binary
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#! /bin/sh
+#
+#   XKL  - run user preferred Xkl version
+#
+# mkt 08/16/00
+
+XKLVERSION=${XKLVERSION:-2.7};         # stable release version
+XKLP='/usr/users/tiede/dev/xkl/xkl'    # path to xkl tools
+#XKLP='/home/tiede/dev/xkl/xkl'    # path to xkl tools
+
+usage()
+{
+    cat << eof
+
+$0:  X-ified KLatt tools
+
+Usage: xkl [-g] [-h] [-n] [-s] [-v <version>] <file>
+
+  -g   batch creation of .gram files from .wav
+  -h   display this message
+  -n   no .wav file; startup in record/synthesize mode
+  -s   swap .wav bytes (invert platform behavior)
+  -v   specify version to run
+
+<file> .wav format file or files to open
+
+By default the most recent stable released version is run in the 
+form appropriate to the platform (Alpha Unix, Intel Linux, LinuxPPC).  
+Users may control this by specifying a specific version number 
+(using -v) or by defining environment variable XKLVERSION set to 
+their version of choice (to live dangerously specify [-v beta]).
+Available versions may be listed using [-v list].
+
+Please send bug reports to <xkldev@@speech.mit.edu>.
+
+eof
+}
+
+
+# get platform
+
+OSTYPE=${OSTYPE:-unix};
+ARCH=`echo $OSTYPE | sed -e 's/-.*$//'`;
+
+
+# parse args
+
+if [ $ARCH = 'unix' ]; then    # getopts doesn't work under DEC unix argh...
+    set -- `getopt ghnsv: $*`
+    if [ $? != 0 ]; then
+	usage ; exit 127
+    fi
+    for FLAG in $*
+    do
+	case ${FLAG} in
+	    -g) ;;
+	    -h) usage ; exit 1 ;;
+	    -n) ;;
+	    -s) ;;
+	    -v) XKLVERSION=$2 ; shift ; shift ;;
+	    --) break ;;
+	esac
+    done
+else
+    while getopts ghnsv: FLAG
+    do
+	case ${FLAG} in
+	    g) ;;
+	    h) usage ; exit 1 ;;
+	    n) ;;
+	    s) ;;
+	    v) XKLVERSION=$OPTARG ; shift ; shift ;;
+	    *) usage ; exit 127 ;;
+	esac
+    done
+
+# call the correct linux binary
+
+    HOSTTYPE=${HOSTTYPE:-notPPC};
+    if [ ${HOSTTYPE} = 'powerpc' ]; then 
+	ARCH=ppc;            # linuxPPC
+    elif [ `uname -r | cut -f 2 -d .` -gt 0 ]; then
+	ARCH=linux2;         # kernel rev 2+
+    fi
+
+fi
+
+# list versions if necessary
+
+if [ ${XKLVERSION} = "list" ]; then
+    echo Available ${ARCH} Xkl versions:
+    CURD=`pwd`
+    cd ${XKLP}
+    ls xkl_${ARCH}-*
+    cd ${CURD}
+    exit 0;
+fi
+
+# run the appropriate version (if available)
+
+exec ${XKLP}/xkl_${ARCH}-${XKLVERSION} $*
+@

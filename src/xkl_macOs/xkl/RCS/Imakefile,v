@@ -1,0 +1,95 @@
+head	1.3;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.3
+date	99.06.19.05.34.56;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.07.17.08.01.44;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.44.57;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.3
+log
+@Updated version.
+@
+text
+@# $Log: Imakefile,v $
+# Revision 1.2  1998/07/17 08:01:44  krishna
+# Added RCS header.
+#
+
+#
+# Imakefile for xkl.
+#
+
+XKL_VERSION = 2.5
+XKL = xkl-$(XKL_VERSION)
+
+INCLUDES = -I../common -I../syn
+DEPLIBS = XmClientDepLibs
+LOCAL_LIBRARIES = XmClientLibs -lXmu -lm
+
+COMMON_SRC = ../common/wavio.c ../common/wavaudio.c ../common/spectrum.c
+COMMON_OBJS = ../common/wavio.o ../common/wavaudio.o ../common/spectrum.o
+
+SYN_SRC =  ../syn/syn.c ../syn/synparwav.c ../syn/syngrid.c ../syn/synscrip.c
+SYN_OBJS =  ../syn/syn.o ../syn/synparwav.o ../syn/syngrid.o ../syn/synscrip.o
+
+SRCS = xkl.c xspec_util.c xinfo.c xklspec.c $(SYN_SRC) $(COMMON_SRC)
+OBJS = xkl.o xspec_util.o xinfo.o xklspec.o $(SYN_OBJS) $(COMMON_OBJS)
+
+NormalLibraryObjectRule()
+
+#if defined(sgi)
+ComplexProgramTarget($(XKL),$(LOCAL_LIBRARIES),NullParameter)
+#else
+MComplexProgramTarget($(XKL),$(LOCAL_LIBRARIES), NullParameter)
+#endif
+
+InstallManPage($(XKL),$(MANDIR))
+InstallProgram($(XKL),$(BINDIR))
+@
+
+
+1.2
+log
+@Added RCS header.
+@
+text
+@d1 4
+a4 1
+# $Log$
+d10 1
+a10 1
+XKL_VERSION = 2.4
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 2
+d14 2
+a15 2
+COMMON_SRC = ../common/waveio.c ../common/wavaudio.c ../common/spectrum.c
+COMMON_OBJS = ../common/waveio.o ../common/wavaudio.o ../common/spectrum.o
+@
