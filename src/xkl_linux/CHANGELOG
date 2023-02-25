@@ -1,0 +1,237 @@
+xkl v3.2  02/20/23 mkt
+- general: 
+  - Code clean up to make it compatible with modern linux flavours
+  - Bug fixes 
+
+xkl v3.1  06/25/02 mkt
+- xkl:
+  - fix null selection bug when loading labels from file
+
+xkl v3.0  06/07/02 mkt
+- xkl:
+  - new dialogs to change spectrum and spectrogram parameters
+  - support for user labelling
+  - support for cursor tracking
+  - wide range of bug fixes
+
+xkl v2.91 10/24/01 mkt
+- xkl:
+  - fix overwrite warnings synthesis bugs
+
+xkl v2.9 09/14/01 mkt
+- xkl:
+  - sound now interruptible
+  - additional label import options
+  - "Change All" bug fix
+- concat:
+  - number of output samples overrun fix
+
+xkl v2.8 09/15/00 mkt
+- xkl script:  
+  - bug fixes (-n arg now passed correctly all platforms) 
+  - added [-l] display CHANGELOG option
+- xkl:
+  - spectrogram *finally* displays correctly regardless of screen depth
+  - label support extended to *.LABEL files
+
+xkl v2.7 08/23/00 mkt
+- xkl:
+  - a start at label support:  new File option to read and display LAFF landmark label files
+
+xkl v2.6 08/17/00 mkt
+- makefile structure reorganized to simplify multi-platform development:
+    now loads platform specific data from Makefile.${PLATFORM}
+- new xkl script controls user-tailored version to execute
+- xkl:
+  - spectrogram now displayed in current device depth.  This solves 'blue screen'
+	problem, but some platforms show colors instead of grays (colormap mismatch
+	on saturation?)
+  - de/activateMenuItem now applies to all waveforms, not just current.  This allows
+	printing from multiple waveform sources to same PS file.  Also set menu item
+	sensitivity from currently open waveforms (same reason).
+
+xkl v2.51 06/07/00 mkt
+- added Xp to XTRA_LIBS in Makefile.vars for RH Linux distributions
+- put CHANGELOG, TODO, Makefile, Makefile.vars under RCS
+- xkl:
+  - writegram stubbed to prevent gram file writes
+  - byte-swapping on big-endian machines is now inferred 
+	(-s argument inverts default behavior on any platform)
+  - .doc files get default name from .wav file in synthesis
+
+xkldev directory reorganization 5/30/00 mkt
+  ~/xkl/xkl-2.5/* renamed to ~/dev/*  
+
+xkl v.2.5 4/20/00
+- Added man pages for utils
+- Added reading/writing MS .wav and .aiff 
+
+- xkl:
+  - File selection box remembers current directory
+  - "n" function allows for number of waveform to be pressed
+  - all oops messages => use ShowOops
+  - auto selected text in dialog boxes to allow for
+       continuous typing
+  - after out-of-range box comes up from an input dialog,
+       the input dialog now remains for re-entering a new value
+  - lock/unlock is fully functional.
+  -   "lock"- provides a dialog to select which waveforms to be
+  -           locked.  currently locked waveforms are highlighted.
+  -   "unlock" - unlocks all waveforms.
+
+  - Synthesis
+	- problems with synthesis funtion remedied
+	- instability when using certain functions seems to be removed
+	- better cross-machine compatibility	
+	- synthesis and save works-- calls up dialogs for both functions
+
+- xkl-web:
+  - uses stripped down, modified xkl.c and xspec_util.c in xkl/web/ directory
+  - draws either a spectrum (of arbitrary type) or a spectrogram
+      to a jpg file.  As argument takes the waveform name.  
+  - uses gs to convert ps->jpg (better way?)
+
+
+xkl v.2.4 7/17/98
+
+- General:
+  - Put all code into RCS.
+  - Added README to tell how to compile programs.
+  - Reorganized file structures -- put syn, lspecto, utils in separate
+    directories.
+  - Cleaned up concat.c, wave_util.c, wave_util.h, raw2kl.c,
+    kl2raw.c, xinfo.c, xinfo.h, resources.h, xklspec.h, wavinfo.c
+  - removed sgikl2sd and deckl2sd, and using kl2sd instead
+
+- Makefiles:
+  - Modified the top level makefile
+  - Created cleaner makefiles.
+  - Created Imakefile for xkl.
+  - Simplified Makefile to use "include ../Makefile.vars", which 
+    contains global variables.
+
+- xkl:
+  - Add RCS header for xkl files
+  - Added ability to change spectrum parameters for current waveform or 
+    all loaded waveforms.
+  - Added turning on/off menu items that allowed user to save
+    spectrum/window to file based on if postscript file is open.
+  - Moved syn front-end in xkl.c to bottom
+  - Modified to allow user to not open another window when they save a
+    w->e .wav file.
+  - Changed some of the menu item labels to be more understandable.
+  - Change where xkl look for lib files by using -DXKLIBDIR=${LIBDIR}
+    in Makefile.
+  - Deleted extra 'showpage' from fullpage postscript file, that caused
+    an extra blank page to be output.
+  - Changed AVGLIMIT, the maximum # of points that can be averaged
+    using 'A', to 100.
+  - Changed "D Delete .wav file" to "D Close .wav file" per Adrienne's
+    request:  Also the command under File menu that is Delete the
+    waveform might be clearer if it was Delete waveform from window or
+    something that made it clear the original file would not be
+    deleted completely.  
+  - Fixed: if zero amplitude wave file, then xkl no crashes.
+  - Fixed: Hamming window not drawn when after loading a waveform
+    using 'v' and starting with 'xkl -n'
+  - Change points[512] in draw_hamm to [2048] so we can display 44kHz
+    signals. 
+  - Major cleaning/prettifying of postscript outputs
+  - Fixed: I figured out why we are getting that blank page at the end
+    of  xkl 'G' .ps files: there is an extra 'showpage' at the end of
+    the file. (Helen)
+  - Fixed: Erika saved some spectra to a .ps file, and then it
+    wouldn't print.  It turned out that there wasn't a showpage at the
+    end.  I suspect that she didn't close the .ps file before quiting
+    xkl, and then xkl doesn't tie up the loose ends.  Either it should
+    close up the files, or ask the user if it is OK to do so.  By
+    close up, I mean doing whatever it does before closing the file,
+    e.g. add a showpage. (Helen)
+  - Changed to prettier fonts (emulates Netscape fonts).
+  - Moved FREQ (kHz) in spectrogram postscript file.
+  - Fixed 4 dB offset of spectrum in postscript printouts
+  - help pulldown menu data in xkl is now in a separate file, help.h.
+
+- wavio:
+  - Added getargs to code.  Contains IsArg, checkIntArg, etc. for
+    parsing args passed to programs.
+  - Created functions for opening, reading and writing .wav headers
+    and waveforms.
+  - Changed name of waveio.c to wavio.c.
+  - Created checkWavName in wavio.c, which checks if a wave file
+    exists, and if it does, prompts user for another filename.
+  - Added checks for ERRORs in opening, reading, and closing wavefiles.
+
+- lspecto
+  - Cleaned up postscript output -- no longer clips images, overwrites
+    text.
+  - Modified where it looks for default file -- it now looks
+    in XKLDIR, which is defined in the Makefile.
+
+- syn
+  - Modified where it looks for default file -- it now looks
+    in XKLDIR, which is defined in the Makefile.
+
+- wav audio:
+  - Created play and record functions, and incorporated them into
+    wavplay, wavrecord and xkl.
+
+- utils:
+  - cleaned and commented scripts, e.g. kl2sd, sd2kl, matlab scripts
+  - Changed names of wavinfo wavplay, etc. to use kl prefix to 
+    prevent clashes with MS .wav format.
+  - Created klinfo, klgain, klplay, klrecord, ms2kl, kl2ms, 
+    mac2kl, kl2mac.
+  - Changed MAXWAVEFORMS to 100 in concat.
+  - Added checkWavName to concat, wavrecord.
+  - put in the ability to record at different sampling rates and
+    durations, for wavrecord
+  - added pause in klplay for playing multiple wavefiles
+  - Added flags to klinfo to print out only sampling rate, num
+    samples, etc.
+  - Made 75% info for klgain, and checkin.
+  - Modified to use getargs.
+
+xkl v.2.3 9/30/97
+
+- Prevented zooming in spectrogram window, which causes problems
+- Write amplitude and freq in spectrum window with a mouse click
+- Listing of wave amplitude in waveform window
+- Deleted "only play on linux :-("
+- Changed -r to -n in usage
+- fixed sound for linux
+- key accelerators work on linux now
+
+
+xkl v.2.2 2/25/97
+
+* Change 4 postscript printout
+  - included SG
+  - put in full path and date
+  - put in time scale
+
+* Help document
+
+* Prettified print outs of spectrum (N) and Freq and BW (V)
+
+* Synthesize on separate menu
+* Changed reference for g_fp to PS4_fp
+* Created PSfull_fp for the full page postscript file
+
+* Arrangement of windows
+
+* Made waveform duration info in titlebar only print when there is a
+    waveform loaded
+
+* Can do multiple spectra to full-page postscript file
+* Can have both fullpage and 4/pg postscript file open at same time
+
+* Changed default for p to 0
+* Changed default for g to 450
+* Changed amax val of D to 2048
+
+* Changed C menu to have better descriptions of items
+
+* Added total duration and w->e duration to title bar
+* Fixed bug where click in window 0 (or 1) causes crash when no 
+  wave file is loaded
