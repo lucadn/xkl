@@ -1,0 +1,38 @@
+# $Log: Imakefile,v $
+# Revision 1.3  1999/06/19 05:34:56  krishna
+# Updated version.
+#
+# Revision 1.2  1998/07/17 08:01:44  krishna
+# Added RCS header.
+#
+
+#
+# Imakefile for xkl.
+#
+
+XKL_VERSION = 2.5
+XKL = xkl-$(XKL_VERSION)
+
+INCLUDES = -I../common -I../syn
+DEPLIBS = XmClientDepLibs
+LOCAL_LIBRARIES = XmClientLibs -lXmu -lm
+
+COMMON_SRC = ../common/wavio.c ../common/wavaudio.c ../common/spectrum.c
+COMMON_OBJS = ../common/wavio.o ../common/wavaudio.o ../common/spectrum.o
+
+SYN_SRC =  ../syn/syn.c ../syn/synparwav.c ../syn/syngrid.c ../syn/synscrip.c
+SYN_OBJS =  ../syn/syn.o ../syn/synparwav.o ../syn/syngrid.o ../syn/synscrip.o
+
+SRCS = xkl.c xspec_util.c xinfo.c xklspec.c $(SYN_SRC) $(COMMON_SRC)
+OBJS = xkl.o xspec_util.o xinfo.o xklspec.o $(SYN_OBJS) $(COMMON_OBJS)
+
+NormalLibraryObjectRule()
+
+#if defined(sgi)
+ComplexProgramTarget($(XKL),$(LOCAL_LIBRARIES),NullParameter)
+#else
+MComplexProgramTarget($(XKL),$(LOCAL_LIBRARIES), NullParameter)
+#endif
+
+InstallManPage($(XKL),$(MANDIR))
+InstallProgram($(XKL),$(BINDIR))

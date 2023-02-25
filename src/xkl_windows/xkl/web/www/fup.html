@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Sample File Upload Form</title>
+</head>
+<body>
+
+<h1>Sample File Upload Form</h1>
+
+<p><b>NOTE: This script is <i>not</i> operative on this server.
+You must install it on your own server in order to see it operate.</b>
+
+
+<p>This page allows you to upload a file.  Note that the script will
+limit the size of the file to around 50k (so that the server doesn't
+get swamped with data).
+
+
+<p>The file upload form looks just like any other form except that:
+<ol>
+<li> the form tag must specify the <tt>POST</tt> method
+<li> the form tag must specify an enctype of <tt>multipart/form-data</tt>
+<li> the form must contain an <tt>&lt;input type=file&gt;</tt> element.
+</ol>
+You can do a view source on this document to see all the elements.
+
+<p>The processing of a file upload is exactly like that of ordinary
+data; just make a call to <b><tt>ReadParse</b></tt> and the data will
+either be put in <tt>%in</tt> or some other variable that you specify.
+If you want to write files to disk (rather than store the data in
+memory), then you also need to set the variable
+<tt>$cgi_lib'writefiles</tt> to indicate the directory where the data
+should be written.  Other variables allow you to further customize the
+file upload.
+
+<hr>
+<h2>Please fill in the file-upload form below</h2>
+
+<form method='POST' enctype='multipart/form-data' action='http://figelwump.webjump.com/cgi-bin/fup5.pl'>
+File to upload: <input type=file name=upfile><br>
+Notes about the file: <input type=text name=note><br>
+<br>
+<input type=submit value=Press> to upload the file!
+</form>
+
+<hr>
+<address>Steven E. Brenner / cgi-lib@pobox.com</a>
+</address>
+$Date: 1996/07/31 16:45:47 $
+
+</body>
+</html>
