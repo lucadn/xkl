@@ -1,0 +1,23 @@
+#!/bin/csh -f
+
+# $Log: mksyn,v $
+# Revision 1.2  1998/06/06 22:46:17  krishna
+# Added RCS header.
+#
+
+if ($#argv < 1) then
+  echo "Usage: `basename $0` <doc file> [<doc file 2> ...] (with or without .doc extension)"
+  exit
+endif
+
+foreach possibleFile ( $* )
+  set Fname = $possibleFile:r
+
+  if (! -r $Fname.doc) then
+    echo "File $Fname.doc not readable"
+    exit
+  endif
+  set synName = $Fname"_syn"
+
+  echo "s $synName" | syn $Fname
+end

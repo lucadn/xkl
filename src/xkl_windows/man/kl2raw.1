@@ -1,0 +1,46 @@
+.TH KL2RAW 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+kl2raw \- convert a Klatt (.wav) audio file to a headerless binary file
+.SH SYNOPSIS
+.B kl2raw [-h | --help] [-swap] <infile> <outfile>
+.SH DESCRIPTION
+.PP
+.B kl2raw
+converts a Klatt (.wav) audio file, infile, to a raw, binary data
+file, outfile.  The outfile is a headerless data file containing
+single channel, shorts (signed 16-bit), little endian file.
+
+The .wav extension is optional on the file names.
+
+With no arguments, the program prints out the usage message.
+
+.SS OPTIONS
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+.I "\-swap"
+Swap the bytes in the file before storing them into the Klatt wav file.
+
+.SH EXAMPLES
+kl2raw quiet.wav quiet.raw
+kl2raw -swap quiet.wav quiet_swap.raw
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)
+

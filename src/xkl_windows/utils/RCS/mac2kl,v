@@ -1,0 +1,58 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	98.06.12.22.42.55;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#!/bin/csh
+
+#
+# $Log$
+#
+
+if (($#argv < 2) || ("$1" != "-f")) then
+   echo "Usage: mac2kl -f <sampling rate> file1.aiff file2.aiff ..."
+   echo "	.aiff extension not required"
+   exit
+endif
+
+#
+# Get sampling rate
+#
+
+shift
+set samplingRate=$1
+echo "Sampling rate set to $samplingRate Hz."
+shift
+
+foreach f ($argv)
+   set rt=$f:r    # Get wave name without .wav extension
+
+   # Convert from AIFF format to headerless, binary data
+
+   sox $rt.aiff -r $samplingRate -s -w $rt.raw
+   echo "Converted $rt.aiff to raw..."
+
+   # Convert from headerless, binary data to xkl (Klatt .wav)
+   
+   raw2kl -f $samplingRate $rt.raw $rt
+
+   rm -f $rt.raw
+end
+@

@@ -1,0 +1,43 @@
+.TH KLPLAY 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+klplay \- play one or more Klatt (.wav) audio file
+.SH SYNOPSIS
+.B klplay [-h | --help] [-p] <wav1> <wav2> [...]
+.SH DESCRIPTION
+.PP
+.B klplay
+plays out one or more Klatt (.wav) audio files.  The .wav extension is
+optional on the file names.
+
+.SS OPTIONS
+With no arguments, the program prints out the usage message.
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+.TP
+.I "\-p"
+Specifies that the program should pause 2 seconds between playing wave files.
+
+.SH EXAMPLES
+klplay -p hello.wav dave.wav
+.br
+klplay we_touch_mary
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)

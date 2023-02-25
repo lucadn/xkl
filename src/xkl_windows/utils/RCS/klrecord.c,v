@@ -1,0 +1,211 @@
+head	1.4;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.4
+date	98.06.09.00.38.53;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.06.06.22.51.22;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.04.15.21.43.38;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.33.03;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@Programs to play and record .wav files.
+@
+
+
+1.4
+log
+@Changed argument processing based on changes to functions in
+getargs.c.
+@
+text
+@/*
+ * $Log: klrecord.c,v $
+ * Revision 1.3  1998/06/06 22:51:22  krishna
+ * Added RCS log.
+ *
+ */
+
+#include <stdio.h>
+#include "wavio.h"
+#include "wavaudio.h"
+#include "getargs.h"
+
+#define DEFAULT_SAMPLING_RATE 10000 /* Hz */
+#define DEFAULT_DURATION 5.0    /* Seconds */
+
+void usage(char *name);
+void main(int argc, char **argv);
+
+void main(int argc, char **argv)
+{
+   float samplingRate, rate;
+   float duration;
+   int numSamples;
+   short *wave = NULL;
+   char fname[256], progName[256], dummy, *str;
+   char answer[100];
+   FILE *fp;
+
+   strcpy(progName, argv[0]);
+
+   if (IsArg("-h", &argc, argv) || IsArg("-H", &argc, argv) || 
+       IsArg("-help", &argc, argv) || IsArg("--help", &argc, argv) ||
+       IsArg("-?", &argc, argv))
+     usage(progName);
+
+   /*
+    * Get command line parameters for sampling rate and duration.
+    */
+
+   samplingRate = checkIntArg("-f", &argc, argv, DEFAULT_SAMPLING_RATE);
+   duration = checkFloatArg("-d", &argc, argv, DEFAULT_DURATION);
+
+
+   if ((str = RemainingArgs(argc, argv)) != NULL) {
+     fprintf(stderr, "Unknown or duplicate argument: %s\n", str);
+     usage(progName);
+   }
+
+   /* 
+    * Check for wave file name
+    */
+
+   if (argc != 2) usage(progName);
+   strcpy(fname, argv[1]);
+
+   rate = samplingRate; /* Requested rate not necessarily actual rate */
+
+   fprintf(stdout, "Hit a key to start recording for %4.3f seconds...", 
+	   duration);
+   dummy = getchar();
+
+   /*
+    * Record wave file
+    */
+
+   if ((wave = record(&rate, duration, &numSamples, SWAP)) == NULL) {
+     fprintf(stderr, "Error trying to record from audio device\n");
+     exit(-1);
+   }
+   checkWavName(fname);
+   if (putWavWaveform(fname, wave, rate, numSamples, SWAP) == ERROR)
+     fprintf(stderr, "Error writing wavefile %s\n", fname);
+
+   fprintf(stdout, 
+   "\nRecorded %s at %d Hz (requested %d Hz) for %4.3f sec (%d samples).\n", 
+	   fname, (int) rate, (int) samplingRate, duration, numSamples);
+
+   if (wave != NULL) free(wave);
+}
+
+void usage(char *name)
+{
+  fprintf(stderr, "\nUsage: %s [-h | --help] [-f <rate>] [-d <duration>] <wavefile>\n", name);
+  fprintf(stderr, "\t<rate> is the sampling rate in Hz.\n");
+  fprintf(stderr, "\t<duration> is the duration in seconds.\n");
+  fprintf(stderr, "\t<wavefile> is the file containing the recording (.wav not needed).\n");
+  fprintf(stderr, "\tDefault sampling rate is %d Hz, default duration is %4.3f seconds.\n",  DEFAULT_SAMPLING_RATE, DEFAULT_DURATION);
+  fprintf(stderr, "e.g. : %s -d 3 word\n", name);
+  exit(0);
+}
+@
+
+
+1.3
+log
+@Added RCS log.
+@
+text
+@d2 4
+a5 1
+ * $Log$
+d25 1
+a25 1
+   char fname[256], progName[256], dummy;
+a28 2
+   int numargs = argc;
+   
+d31 3
+a33 3
+   if (IsArg("-h", argc, argv) || IsArg("-H", argc, argv) || 
+       IsArg("-help", argc, argv) || IsArg("--help", argc, argv) ||
+       IsArg("-?", argc, argv))
+d40 8
+a47 4
+   samplingRate = checkIntArg("-f", argc, argv, &numargs, 
+			      DEFAULT_SAMPLING_RATE);
+   duration = checkFloatArg("-d", argc, argv, &numargs, 
+			    DEFAULT_DURATION);
+d53 2
+a54 2
+   if (numargs != 2) usage(progName);
+   strcpy(fname, argv[argc-1]);
+@
+
+
+1.2
+log
+@Added checkWavName -- verify that the output file does not yet exist,
+i.e. prevent accidental overwrite.
+@
+text
+@d1 4
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d2 1
+a2 1
+#include "waveio.h"
+d4 1
+d6 7
+a12 1
+void main(int argc, char *argv[])
+d17 8
+a24 2
+   short *wave;
+   char fname[256];
+d26 17
+a42 1
+   strcpy(fname, argv[1]);
+d44 2
+a45 2
+   samplingRate = 10000;
+   duration = 5.0;
+d49 10
+a58 2
+   if ((numSamples = record(wave, &rate, duration, SWAP)) == -1) {
+     printf("Error trying to record from audio device\n");
+d61 7
+a67 3
+   
+   fprintf(stdout, "Recorded %s at %d Hz for %f seconds (%d samples).\n", 
+	   fname, (int) rate, duration, numSamples);
+a68 2
+   if (putWavWaveform(fname, wave, samplingRate, numSamples, SWAP) == -1)
+     printf("Error writing wavefile %s\n", fname);
+d70 11
+@

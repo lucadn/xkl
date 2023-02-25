@@ -1,0 +1,72 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	98.07.17.00.13.40;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.06.06.22.44.48;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@Convert from klatt .wav files to ESPS .sd files.
+@
+
+
+1.2
+log
+@Things that make you go hmmmm.
+@
+text
+@#!/bin/csh
+
+# $Log: kl2sd,v $
+# Revision 1.1  1998/06/06 22:44:48  krishna
+# Initial revision
+#
+
+if (($#argv < 1) || ("$1" == "-h")) then
+   echo "Usage: kl2sd file1.wav file2.wav ..."
+   exit
+endif
+
+foreach f ($*)
+   set rt = $f:r  # Get basename
+
+   set samplingFreq = `klinfo -f $f`	# Get sampling rate
+   kl2raw $rt $rt.raw.tmp		# Get just binary data
+
+   # Convert from binary data to ESPS .sd file
+
+   btosps -f $samplingFreq -c "kl2sd conversion" $rt.raw.tmp $rt.fsd
+   featosd $rt.fsd $rt.sd
+   rm $rt.raw.tmp $rt.fsd
+end
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d3 4
+a6 1
+# $Log$
+d8 2
+a9 2
+if ($#argv < 1) then
+   echo "Usage: kl2sd file1.sd file2.sd ..."
+d23 1
+a23 1
+   rm $rt.raw.tmp
+@
