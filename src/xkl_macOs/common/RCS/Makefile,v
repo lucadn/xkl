@@ -1,0 +1,147 @@
+head	1.6;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.6
+date	98.06.06.05.06.24;	author krishna;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	98.05.18.18.05.00;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.04.15.18.39.39;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.04.13.23.43.55;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.04.13.23.30.20;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.39.08;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.6
+log
+@Added RCS header.
+@
+text
+@# $Log$
+#
+######################################################################
+#
+# Makefile for common.  No need for user to edit in here.
+#
+######################################################################
+
+include ../Makefile.vars
+
+COMMON_OBJS = wavaudio.o wavio.o spectrum.o getargs.o wavdata.o
+
+all: ${COMMON_OBJS}
+
+install:
+	@@echo "No installation done in this directory."
+
+clean:	
+	rm -f *.o core *~ ${COMMON_OBJS}
+
+waveaudio.o: waveaudio.c waveaudio.h
+waveio.o: waveio.c waveio.h
+spectrum.o: spectrum.c spectrum.h
+getargs.o: getargs.c getargs.h
+wavdata.o: wavdata.c wavdata.h
+@
+
+
+1.5
+log
+@Added wavdata.[cho] to Makefile.
+@
+text
+@d1 2
+@
+
+
+1.4
+log
+@Changed waveio.o to wavio.o.
+@
+text
+@d9 1
+a9 1
+COMMON_OBJS = wavaudio.o wavio.o spectrum.o getargs.o
+d21 3
+a23 1
+spectrum.o: spectrum.h
+@
+
+
+1.3
+log
+@Added getargs.o to object list.
+@
+text
+@d9 1
+a9 1
+COMMON_OBJS = wavaudio.o waveio.o spectrum.o getargs.o
+@
+
+
+1.2
+log
+@Simplified Makefile to use "include ../Makefile.vars", which contains
+global variables.
+@
+text
+@d9 1
+a9 1
+COMMON_OBJS = wavaudio.o waveio.o spectrum.o
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 1
+d3 1
+a3 1
+# Makefile for common.  No need to edit in here.
+d5 1
+d7 1
+a7 3
+CC = cc
+CFLAGS = -O
+SHELL = /bin/sh
+d11 1
+a11 1
+all: $(COMMON_OBJS)
+d17 1
+a17 1
+	rm -f *.o core *~ $(COMMON_OBJS)
+a21 3
+
+%.o : %.c
+	${CC} ${CFLAGS} -c $<
+@

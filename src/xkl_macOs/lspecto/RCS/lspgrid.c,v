@@ -1,0 +1,777 @@
+head	1.3;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.3
+date	98.06.06.21.05.16;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.05.18.23.33.10;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.41.50;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.3
+log
+@Added RCS header.
+@
+text
+@/* $Log$ */
+
+
+#include <stdlib.h>
+/* [klatt.specto]	P O S T G R I D . C	     D.H. Klatt	*/
+
+/*	Make a spectrogram grid      spectgrid()
+ *        or spectrogram plot        post_spec_plot()
+
+ *	  or F0 grid                 post_f0_grid()
+ *	  or F0 plot                 post_f0_plot()
+
+ *	  or formant grid            spectgrid()
+ *	  or formant plot            post_freq_plot()
+
+ *	  or a waveform grid         post_wave_axis()
+ *	  or a waveform plot         post_wave_plot()
+
+/*	This program is used by LSPECTO */
+
+#define XMINAMP	650		/* Lower corner of amplitude plot in f0 */
+#define XMINAMPF	729	/* Lower corner of amplitude plot in specto */
+#define XMINF0	480		/* Lower corner of f0 plot */
+#define XMINFORM	576	/* Lower corner of formant or specto plot */
+
+	extern char toupper();
+	extern char *getenv();
+	extern int strlen();
+
+	extern int	post_space();
+	extern int	post_move();
+	extern int	post_point();
+	extern int	post_cont();
+	extern int	post_smallfont();
+	extern int	post_mainfont();
+	extern int	post_setblack();
+	extern int	post_lwidth();
+	extern int	post_text();
+
+	int xminpost,yminpost;	/* Lower left corner of plot	*/
+	static int nfreqchan,xinc,xpostop,yposmax,xsize,xwhitespace;
+	static int npts_frame,nframe_sec,npts_tick,ywhitespace;
+	static int i,j,t,f,xpos,ypos,ypos0,ypos1,ypos2;
+	static char path[300],label[100];
+	int ispec= 0;
+	int amps[10000];
+	int xposlast = 0;
+	int yposlast;
+	static int sumamp=0;	/* debug variable */
+
+spectgrid(name,pagenumber,freqmax,date,action)
+ char *name; int pagenumber,freqmax; char *date,*action; {
+
+	nfreqchan = 128;
+	xinc = 4;		/* 512 plotting units / 128 freq channels */
+	xsize = xinc * nfreqchan;
+	xminpost = XMINFORM;
+	xpostop = xminpost - xsize;
+	if (pagenumber > 1)  post_newpage();
+	post_offset(30);	/* Shift plot down 30/xx" for 3-hole punch */
+	post_setblack();
+	post_grid(name,pagenumber,freqmax,date,action[9]);
+	post_move(0,32);		/* Station identification */
+	post_text(90, action);
+/*    Make an amplitude plot */
+	post_amp_axis(XMINAMPF,pagenumber);
+/*    Go back to x coordinates of f0 plot */
+	xminpost = XMINFORM;
+	xpostop = xminpost - xsize;
+}
+
+
+
+post_f0_grid(name,pagenumber,freqmax,date,action)
+ char *name; int pagenumber,freqmax; char *date,*action; {
+
+	nfreqchan = freqmax;
+	xinc = 1;
+	xsize = xinc * nfreqchan;
+	xminpost = XMINF0;
+	xpostop = xminpost - xsize;
+	if (pagenumber > 1)  post_newpage();
+	post_offset(50);	/* Shift plot down 30/xx" for 3-hole punch */
+	post_grid(name,pagenumber,freqmax,date,'0');
+	post_move(-20,38);		/* was 0, Station identification */
+	post_text(90, action);
+/*    Make an amplitude plot */
+	post_amp_axis(XMINAMP,pagenumber);
+/*    Go back to x coordinates of f0 plot */
+	xminpost = XMINF0;
+	xpostop = xminpost - xsize;
+}
+
+
+
+post_f0_plot(f0, ampl, time_ms) int f0,ampl,time_ms; {
+
+	extern int xminpost,yminpost;
+	int xloc,yloc;
+
+	post_lwidth(3);
+	xloc = xminpost;
+	yloc = yminpost + ((time_ms * 3) / 5);	/* 3 points per 5 ms */
+	xloc -= f0;
+	if (f0 > 0) {			/* Do not plot if f0=0 */
+	    post_point(xloc-2,yloc);
+	    post_cont(xloc+1,yloc);
+	}
+/*    Plot amplitude of windowed waveform chunk */
+	xloc = (XMINAMP - ampl);
+	post_point(xloc-2,yloc);
+	post_cont(xloc+1,yloc);
+}
+
+/* Plot a waveform segment */
+
+post_wave_plot(iwave,xpos_of_wave0,nwpts)
+ short iwave[]; int xpos_of_wave0,nwpts; {
+
+	extern short prwavesw;
+	int poswave;
+
+	if (xpos_of_wave0 <= 160) {
+	    post_offset(10);
+/*	  Define coordinates (xmin, ymin, xmax, ymax) */
+	    post_space(0, 0, 79100, 79200);	/* was 791,792 */
+	}
+
+	if (prwavesw == 2)   poswave = iwave[0];
+	else	poswave = -iwave[0];
+	j = xpos_of_wave0*100;
+	post_point(j+(poswave/6), 2100);
+	for (i=1; i<nwpts; i++) {
+	    if (prwavesw == 2)   poswave = iwave[i];
+	    else	poswave = -iwave[i];
+	    post_cont( j+(poswave/6), (2100+(i*75)));
+	}
+}
+
+
+
+post_wave_axis(name,xpos_of_wave0,nwpts,date,nlpp,action)
+ char *name; int xpos_of_wave0,nwpts; char *date; int nlpp; char *action; {
+
+        extern char frstname[];
+	static short nlines;
+	int ypos3,ccenter;
+
+/*    Draw waveform zero axis */
+	post_lwidth(1);
+	post_point(xpos_of_wave0*100, 2000);
+	post_cont(xpos_of_wave0*100, 2000+(nwpts*75));
+	post_lwidth(2);
+
+    if (xpos_of_wave0 <= 160) {
+/*    Station identification */
+	post_move(2700,2000);
+	post_text(90, action);
+
+/*    Find current directory */
+#ifdef VMS
+        if(getenv("PATH") )
+         {strcpy(path,getenv("PATH") );}
+	else{
+          strcpy(path," ");
+	}
+#else
+        if(getenv("PWD") )
+         {strcpy(path,getenv("PWD") );}
+	else{
+          strcpy(path," ");
+	}
+
+#endif
+
+/*    Raise case and then print path name */
+	i = 0; j = 0;
+#ifdef VMS
+	while (path[++j] != '[');
+#endif
+	while (path[j] != '\000') {
+	    label[i] = toupper(path[j]);
+	    i++; j++;
+	}
+	label[i] = '\0';
+	post_move(6500, 2000);
+	post_text(90, label);
+
+/*    Raise case and then print input name */
+/*
+	i = 0;
+	while (name[i] != '.') {
+	    label[i] = toupper(name[i]);
+	    i++;
+	}
+	label[i] = '\0';
+*/
+	post_move(6500,(760-(10*strlen(frstname)))*100);
+	post_text(90, frstname);
+
+/*    Raise case and then print date plot made */
+	i = 0; j = 0;
+	while (date[++j] != ' '); j++;
+	while (date[j] != '\n') {
+	    label[i] = toupper(date[j]);
+/*	  Skip over time portion of date */
+	    if (label[i] == ':') {
+		i -= 3;
+		j += 5;
+	    }
+	    i++; j++;
+	}
+	label[i] = '\0';
+	post_move(4500, 2000);
+	post_text(90, label);
+
+/*    Label each page with time */
+	post_move(76500,37500);
+	post_text(90, "TIME (ms)");
+
+    }
+
+/*    Label time axis, assume 10 pts per ms */
+	post_smallfont();	/* Use smaller numbers for time in ms */
+	ypos2+=nwpts;
+	for (; ypos1<=ypos2; ypos1+=100) {
+	    ypos3 = ypos1-ypos2+nwpts;
+	    post_point((xpos_of_wave0+70)*100,2000+(ypos3*75));
+	    post_cont((xpos_of_wave0+75)*100,2000+(ypos3*75));
+/*	  Move time label toward center if goes off page */
+	    if (ypos3 > 991) ypos3 = 991;
+/*	  Print label every 20 ms */
+	    if (((ypos1/200)*200) == ypos1) {
+		ccenter = 1650;
+		if (ypos1 > 0)    ccenter = 1300;
+		if (ypos1 > 999)  ccenter = 950;
+		if (ypos1 > 9999)  ccenter = 600;
+		post_move((xpos_of_wave0+90)*100,ccenter+(ypos3*75));
+		sprintf(label, "%d", ypos1/10);
+		post_text(90, label);
+	    }
+	}
+/*    Repeat time labels at start of next line */
+	if (ypos3 == 991)    ypos1 -= 100;
+	post_mainfont();		/* Return to standard char size */
+
+    nlines++;
+    if (nlines >= nlpp) {
+	nlines = 0;
+    }
+}
+
+
+
+post_grid(name,pagenumber,freqmax,date,flabel)
+ char *name; int pagenumber,freqmax; char *date,flabel; {
+ int box_wid,box_hyt;
+ extern char frstname[];
+
+
+	yminpost = 110;		/* Defines time = 0 */
+	yposlast = yminpost;	/* Used by amplitude plotter */
+	yposmax = 730;		/* Defines 5 units from right margin */
+	npts_frame = 3;
+	nframe_sec = 200;
+	npts_tick = npts_frame * nframe_sec / 10;	/* Tick every 100 ms */
+
+/*    Define coordinates (xmin, ymin, xmax, ymax) */
+	post_space(0, 0, 791, 792);	/* was 791,785 */
+
+/*    Make border dark */
+	post_lwidth(3);
+
+/*    Find current directory */
+#ifdef VMS
+        if(getenv("PATH") )
+         {strcpy(path,getenv("PATH") );}
+	else{
+          strcpy(path," ");
+	}
+
+#else
+        if(getenv("PWD") )
+         {strcpy(path,getenv("PWD") );}
+	else{
+          strcpy(path," ");
+	}
+#endif
+/*    Raise case and then print path name */
+	i = 0; j = 0;
+#ifdef VMS
+	while (path[++j] != '[');
+#endif
+	while (path[j] != '\0') {
+	    label[i] = toupper(path[j]);
+	    i++; j++;
+	}
+	label[i] = '\0';
+	post_move(47, 90);		/* x,y of top left corner of letter */
+	post_text(90, label);		/* Rotate 90 degrees */
+
+/*    Raise case and then print input name */
+/*	i = 0;
+	while (name[i] != '.') {
+	    label[i] = toupper(name[i]);
+	    i++;
+	}
+	label[i] = '\0';
+*/
+	post_move(45, 760-(10*strlen(frstname)));
+	post_text(90, frstname);
+
+/*    Raise case and then print date plot made */
+	i = 0; j = 0;
+	while (date[++j] != ' '); j++;
+	while (date[j] != '\n') {
+	    label[i] = toupper(date[j]);
+/*	  Skip over time portion of date */
+	    if (label[i] == ':') {
+		i -= 3;
+		j += 5;
+	    }
+	    i++; j++;
+	}
+	label[i] = '\0';
+	post_move(25, 90);
+	post_text(90, label);
+
+/*    Draw box */
+	ywhitespace = 20;
+	xwhitespace = 10;
+	box_wid = (xminpost+xwhitespace) - (xpostop -xwhitespace) + 1;
+	box_hyt = (yposmax +ywhitespace) - (yminpost-ywhitespace) + 1;
+	post_box (3,box_wid,box_hyt,xpostop-xwhitespace,yminpost-ywhitespace);
+
+/*    Label frequency axis */
+	if (flabel == '0') {
+	    for (f=0; f<= freqmax; f+=10) {
+		xpos = xpostop + xsize;
+		xpos -= (f * xsize) / freqmax;
+		lefttick(xpos,yminpost-ywhitespace+10);
+		righttick(xpos,yposmax+ywhitespace-5);
+		if (((f/20)*20) == f) {
+		    post_lwidth(1);
+		    post_point(xpos,yminpost-5-ywhitespace+10);
+		    post_cont(xpos,yposmax+1+ywhitespace-5);
+		    post_lwidth(2);
+		}
+		if (((f/100)*100) == f) {
+		    leftlabel(f,xpos+5,yminpost-3-ywhitespace+10);
+		}
+	    }
+	    post_move(XMINF0-160,50);		/* F0 plot */
+	    post_text(180, "F0  (HZ)");
+	}
+	else {
+	    for (f=0; f<= freqmax; f+=1000) {
+		xpos = xpostop + xsize;
+		xpos -= (f * xsize) / freqmax;
+		lefttick(xpos,yminpost-ywhitespace+10);
+		leftlabel(f/1000,xpos+5,yminpost-3-ywhitespace+10);
+		righttick(xpos,yposmax+ywhitespace-5);
+	    }
+	    post_lwidth(2);
+	    for (f=0; f<= freqmax; f+=100) {
+		xpos = xpostop + xsize;
+		xpos -= (f * xsize) / freqmax;
+		lefttick(xpos,yminpost-ywhitespace+10);
+		righttick(xpos,yposmax+ywhitespace-5);
+		if ((flabel != '6') && (((f/500)*500) == f)) {
+		    post_lwidth(1);
+		    post_point(xpos,yminpost-5-ywhitespace+10);
+		    post_cont(xpos,yposmax+1+ywhitespace-5);
+		    post_lwidth(2);
+		}
+	    }
+	    post_move(xminpost-200,60);		/* Specto plot */
+	    post_text(180, "FREQ  (kHz)");
+	}
+
+/*    Label time axis, assume 3 pts per 5 ms */
+	post_lwidth(3);
+	for (ypos=yminpost; ypos<=yposmax; ypos+=npts_tick) {
+	    t = ((ypos-yminpost) * 1000) / (npts_frame * nframe_sec);
+	    t += 1000 * (pagenumber - 1);
+	    bottomtick(ypos,t);
+	    toptick(ypos,t);
+	}
+	post_move(xminpost+50,370);
+	post_text(90, "TIME  (ms)");
+
+/*    Return line width to medium */
+	post_lwidth(2);
+}
+
+
+/* Draw a box for amplitude , and label axes */
+
+post_amp_axis(xlocbottom,pagenumber) int xlocbottom,pagenumber; {
+ int box_wid,box_hyt;
+
+	xminpost = xlocbottom;
+	xpostop = xminpost-80;
+
+/*    Draw box */
+	ywhitespace = 20;
+	xwhitespace = 10;
+	box_wid = (xminpost+xwhitespace) - (xpostop -xwhitespace) + 1;
+	box_hyt = (yposmax +ywhitespace) - (yminpost-ywhitespace) + 1;
+	post_box (3,box_wid,box_hyt,xpostop-xwhitespace,yminpost-ywhitespace);
+
+/*	post_lwidth(3);
+	post_point(xpostop-xwhitespace,yminpost-ywhitespace);
+	post_cont(xpostop-xwhitespace,yposmax+ywhitespace);
+	post_cont(xminpost+xwhitespace,yposmax+ywhitespace);
+	post_cont(xminpost+xwhitespace,yminpost-ywhitespace);
+	post_cont( xpostop-xwhitespace,yminpost-ywhitespace);*/
+
+/*    Label amplitude axis */
+	for (f=0; f<= 80; f+=10) {
+	    xpos = xpostop + (xminpost-xpostop);
+	    xpos -= (f * (xminpost-xpostop)) / 80;
+	    lefttick(xpos,yminpost-ywhitespace+10);
+	    righttick(xpos,yposmax+ywhitespace-5);
+	    if (((f/20)*20) == f) {
+		post_lwidth(1);
+		post_point(xpos,yminpost-5-ywhitespace+10);
+		post_cont(xpos,yposmax+1+ywhitespace-5);
+		post_lwidth(2);
+	    }
+	    if (((f/40)*40) == f) {
+		leftlabel(f,xpos+5,yminpost-3-ywhitespace+10);
+	    }
+	}
+	post_move(xminpost+7,60);
+	post_text(180, "AMP  (dB)");
+
+/*    Label time axis, assume 3 pts per 5 ms */
+	for (ypos=yminpost; ypos<=yposmax; ypos+=60) {
+	    t = ((ypos-yminpost) * 1000) / 600;
+	    t += 1000 * (pagenumber - 1);
+	    bottomtick(ypos,t);
+	    toptick(ypos,t);
+	}
+	post_move(xpostop+(xminpost-xpostop)+50,370);
+	post_text(90, "TIME  (ms)");
+
+/*    Return line width to medium */
+	post_lwidth(2);
+}
+/* SUBROUTINES */
+
+lefttick(x,y) int x,y; {
+
+	post_point(x,y-5);
+	post_cont(x,y-10);		/* Draw tick mark */
+}
+
+
+leftlabel(value,x,y) int value,x,y; {
+
+	int yoffset;
+
+	if (value < 10)        yoffset = 19;
+	else if (value < 100)  yoffset = 28;
+	else if (value < 1000) yoffset = 37;
+	else                   yoffset = 46;
+	post_move(x+1,y-yoffset);
+	sprintf(label, "%d", value);
+	post_text(90, label);
+}
+
+
+righttick(x,y) int x,y; {
+
+	post_point(x,y);
+	post_cont(x,y+5);		/* Draw tick mark */
+}
+
+
+bottomtick(y,time) int time,y; {
+
+	post_point(xminpost+5,y);
+	post_cont(xminpost+10,y);
+	post_move(xminpost+30,y-18);
+	sprintf(label, "%4d", time);
+	if (y+15 < yposmax)	post_text(90, label);
+}
+
+
+toptick(y,time) int time,y; {
+	post_point(xpostop-5,y);
+	post_cont(xpostop-10,y);
+}
+
+
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*		       P O S T - S P E C - P L O T			 */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+/* Convert a spectrum (dB vs. freq) into a pseudo-gray-scale plot */
+/* Use a 3 (horizontal) by 4 (vertical) area for each spectral value */
+
+#define ON_A_DOWN_SLOPE		1
+#define ON_AN_UP_SLOPE		2
+#define ABSOLUTE_MAX		400	/* Expected (i.e. min) dBmax*10 */
+#define ABS_THRESHOLD		50
+static int lastypos,xposttop,xpostbottom;
+static float lastlevel;
+
+post_spec_plot(inspec, ampdb, time_ms)
+	int inspec[];		/* Input spectrum in dB*10 */
+	int ampdb;		/* amplitude in dB of current windowed chunk */
+	int time_ms;		/* Time in ms of window center, 0 to 1000 */
+{
+
+	extern int xminpost;	/* Position of f=0 in postscript plot */
+	extern int yminpost;	/* Position of t=0 in postscript plot */
+	static int nch = 128;	/* Dimension of input and output arrays */
+	int kspec[128];		/* Temp array for input spec so can be mod */
+	int outspec[128];	/* Output array */
+	int direction,n,nx,max,kspeclast,locmax,xloc,yloc;
+	int peakboost,temp,level;
+	float fadethres,ryloc,width;
+	int maxlevel = 15;
+	float rmaxlevel = 15.;
+/*	float depth  = 100. ;	/* dynamic range = depth/10 dB down from max */
+	float depth  = 110. ;	/* dynamic range = depth/10 dB down from max */
+	float timems,zero_to_one;
+
+	static int maxamp = -1000;
+/*	goto debug;			*/
+
+/* PASS 0: Copy input spectral frame to temp array kspec[], & to output array */
+
+	lastlevel = 1.;
+	lastypos = -1;
+	for (n=0; n<nch; n++) {
+	    kspec[n] = inspec[n];
+	    outspec[n] = kspec[n];
+	}
+
+/* PASS 1: Set each local minimum to zero, find global max 'max' */
+
+	direction == ON_A_DOWN_SLOPE;
+	kspeclast = kspec[0];
+	max = 0;
+	for (n=0; n<nch; n++) {
+
+	    if (kspec[n] > max) {
+		max = kspec[n];		/* max = Global max */
+	    }
+
+	    if (kspec[n] < kspeclast) {
+		direction = ON_A_DOWN_SLOPE;
+	    }
+	    if ( (kspec[n] > kspeclast) || (n == nch-1) ) {
+		if (direction == ON_A_DOWN_SLOPE) {
+		    direction = ON_AN_UP_SLOPE;
+/*		  Artifically set local minimum to zero */
+		    outspec[n-1] -= 20;
+		    kspec[n-1] = 0;	/* Zero a local minimum */
+		}
+	    }
+	    kspeclast = kspec[n];
+	}
+
+ 
+/* PASS 2:  Increase spectrum half-way toward absolute max if near a local max */
+
+	direction = ON_A_DOWN_SLOPE;
+	kspeclast = kspec[0];
+	for (n=0; n<nch; n++) {
+
+	    if ( (kspec[n] < kspeclast) || (n == nch-1) ) {
+		if (direction != ON_A_DOWN_SLOPE) {
+		    nx = n - 1;
+		    locmax = kspec[nx];
+		    peakboost = (max - locmax) >> 1;
+/*		  Work back from local max, stop when fall 4 dB below loc max */
+		    while ( (nx >= 0)
+		     && (kspec[nx] > ABS_THRESHOLD)
+		     && (kspec[nx] > locmax - 40) ) {
+			temp = (peakboost * (40+kspec[nx]-locmax)) / 40;
+			outspec[nx] += temp;
+			nx--;
+		    }
+/*		  Work forward from local max, stop using same criterian */
+		    nx = n;
+		    while ( (nx < nch)
+		     && (kspec[nx] > ABS_THRESHOLD)
+		     && (kspec[nx] > locmax - 40) ) {
+			temp = (peakboost * (40+kspec[nx]-locmax)) / 40;
+			outspec[nx] += temp;
+			nx++;
+		    }
+		}
+		direction = ON_A_DOWN_SLOPE;
+	    }
+
+	    if (kspec[n] > kspeclast) {
+		direction = ON_AN_UP_SLOPE;
+	    }
+	    kspeclast = kspec[n];
+	}
+
+/*    PASS 3: Quantize output to one of 16 levels, send to plotter routine */
+/*	yloc = yminpost + (((time_ms*6)+4) / 10); /* Assume 3 points per 5 ms */
+	timems = time_ms;
+	ryloc = yminpost + (.6 * timems);
+	yloc = ryloc + .5;
+	xloc = xminpost;	/* Find proper page, f=0 */
+	if (max < ABSOLUTE_MAX)    max += ((ABSOLUTE_MAX - max)>>1);
+	fadethres = max - depth;
+	for (n=0; n<nch; n++) {
+/*	    outspec[n] = (outspec[n]-fadethres) / 16; */
+	    zero_to_one= (outspec[n]-fadethres)/depth; /*white-black::0-1 */
+	    level = zero_to_one*rmaxlevel+.5;  	       /*quantized gray level*/
+	    if (level < 0) level = 0;
+	    if (level > maxlevel) level = maxlevel;	/*shouldn't be needed*/
+	    outspec[n]= maxlevel - level;  /* zero is black, maxlevel is white */
+ 	    xloc -= 4;				/* Assume 4 points per chan */
+	}
+	width = .6;
+/*	printf ("POSTGRID:xpostop = %d xminpost = %d\n",xpostop,xminpost);
+	printf ("POSTGRID:width = %f, timems = %f\n",width,timems);
+*/
+	post_scan_line (width,xpostop,yminpost,xminpost,outspec);
+
+/*    Plot amplitude of windowed waveform chunk */
+/*Previous version, plotted amp after each scan line:
+	post_setblack();
+	xloc = (XMINAMPF - ampdb);
+	post_point(xposlast,yposlast);
+	post_cont(xloc,yloc);
+*/
+/* Instead, save amps for plotting after spectrogram page is done: */
+/*debug:	if (ampdb > maxamp) maxamp = ampdb; */
+
+	amps[ispec] = ampdb;
+	ispec++;
+
+/* older:
+	xloc = -ampdb;		      /* amp graph in upsidedown db units*/
+/*	amp_xloc[ispec] = xloc - xposlast;
+	sumamp += amp_xloc[ispec];
+	printf ("%d   %d %d %d\n",ispec+1,-ampdb,sumamp,amp_xloc[ispec]);
+	xposlast = xloc;
+	yposlast = yloc;
+	ispec++;		*/
+      }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*		       P O S T - F R E Q - P L O T			 */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+/* Take a list of formant frequencies, and plot them */
+/*   Plot faintly if negative */
+
+post_freq_plot(infreq, ninfreq, ampdb, time_ms)
+	int infreq[];		/* Input formant frequency list */
+	int ninfreq;		/* Number of input formant freqs */
+	int ampdb;		/* Amplitude in dB of windowed signal */
+	int time_ms;		/* Time in ms of window center, 0 to 1000 */
+{
+
+	extern int xminpost;	/* Position of f=0 in lxy plot */
+	extern int yminpost;	/* Position of t=0 in lxy plot */
+	extern int srate[],nwave;
+	int n,m,xloc,yloc,faintsw;
+
+	for (n=0; n<ninfreq; n++) {
+	    m = infreq[n];
+	    faintsw = 0;
+	    if (m < 0) {
+		faintsw++;
+		m = -m;
+	    }
+
+/*        Assume time axis of 3 points per 5 ms */
+	    yloc = yminpost + ((time_ms * 6) / 10);
+/*	  Assume freq axis of 0 to srate[nwave] kHz is 512 points */
+	    xloc = xminpost;
+	    xloc -= (m * 1024) / srate[nwave];
+	    post_point(xloc,yloc);
+	    post_cont(xloc+1,yloc);
+	    if (faintsw == 0) {		/* Draw darker dot */
+		post_lwidth(3);
+		post_point(xloc-2,yloc);
+		post_cont(xloc+1,yloc);
+	    }
+/*	  Plot amplitude of windowed waveform chunk */
+	    xloc = (XMINAMPF - ampdb);
+	    post_lwidth(3);
+	    post_point(xloc-2,yloc);
+	    post_cont(xloc+1,yloc);
+	    post_lwidth(2);
+	}
+}
+
+@
+
+
+1.2
+log
+@Pretified Postscript outputs.  Image was too large, and so parts
+of image were being clipped.  Some of the text was overlapping,
+including directory and date.  Changed these and others to make for a
+nice printout.
+@
+text
+@d1 3
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d183 1
+a183 1
+	post_move(6500,2000);
+d200 1
+a200 1
+	while (date[++j] != ' ');
+d211 1
+a211 1
+	post_move(6500,36000);
+d296 1
+a296 1
+	post_move(40,40);		/* x,y of top left corner of letter */
+d307 1
+a307 1
+	post_move(40,740-(10*strlen(frstname)));
+d312 1
+a312 1
+	while (date[++j] != ' ');
+d323 1
+a323 1
+	post_move(40,350);
+@

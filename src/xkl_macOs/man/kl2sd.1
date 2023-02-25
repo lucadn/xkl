@@ -1,0 +1,48 @@
+.TH KL2SD 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+kl2sd \- convert a Klatt (.wav) audio file to an ESPS (.sd) audio file
+.SH SYNOPSIS
+.B kl2sd [-h | --help] [-swap] <infile> <outfile>
+.SH DESCRIPTION
+.PP
+.B kl2sd
+converts a Klatt (.wav) audio file, infile, to an ESPS (.sd)
+audio file, outfile.
+
+The .wav extension is optional on the input file name.
+
+kl2sd is a shell script that uses kl2raw, and the ESPS programs hditem
+and bhd.
+
+With no arguments, the program prints out the usage message.
+
+.SS OPTIONS
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+
+.I "\-swap"
+Swap the bytes in the file before storing them into the Klatt wav file.
+
+.SH EXAMPLES
+kl2sd quiet.wav quiet.sd
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)
+

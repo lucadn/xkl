@@ -1,0 +1,67 @@
+.TH KLGAIN 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+klgain \- scales one or more Klatt (.wav) audio files
+.SH SYNOPSIS
+.B klgain [-h | --help] [-g <Gain>] [-m] <wav1> [...]
+.SH DESCRIPTION
+.PP
+.B klgain 
+scales one or more Klatt (.wav) audio files. 
+
+
+<wav1> is the file containing the original waveform
+
+The (scaled) output wav files will have "_scaled" appended to them.
+So, if you type 'klgain good', the output file is 'good_scaled.wav'.
+
+The .wav extension is optional on the file names.
+
+With no arguments, the program prints out the usage message.
+
+.SS OPTIONS
+With nod options, the program will print out the sampling rate,
+number of samples, header version, the byte-order (endian) type, and
+some statistics for the wav file.
+
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+
+.TP
+
+If both -m and -g are specified, then the -g option is ignored.
+
+.I "\-g" <Gain> 
+specifies the gain (multiplication) factor.
+
+.I "\-m"
+scales the waveforms to 75% of the maximum range.  
+
+75% of maximum value was chosen to match the amplitude of the waveform
+on the VAXstations.  When recording on the VAXstations, if the
+amplitude of the waveform is greater than 7500 (75% of maximum value
+on VAX) then the waveform gets clipped.  Therefore, the waveform is
+only scaled to 75% to be consistent across both the VAX and the UNIX
+platforms.
+
+.SH EXAMPLES
+klgain quiet.wav
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)

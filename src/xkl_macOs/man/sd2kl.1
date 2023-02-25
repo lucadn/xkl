@@ -1,0 +1,48 @@
+.TH SD2KL 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+sd2kl \- convert an ESPS (.sd) audio file to a Klatt (.wav) audio file
+.SH SYNOPSIS
+.B sd2kl [-h | --help] [-swap] <infile> <outfile>
+.SH DESCRIPTION
+.PP
+.B sd2kl
+converts an ESPS (.sd) audio file, infile, to a Klatt (.wav) audio
+file, outfile.
+
+The .wav extension is optional on the output file name.
+
+sd2kl is a shell script that uses the ESPS programs btosps and
+featosd, and raw2kl.
+
+With no arguments, the program prints out the usage message.
+
+.SS OPTIONS
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+
+.I "\-swap"
+Swap the bytes in the file before storing them into the Klatt wav file.
+
+.SH EXAMPLES
+sd2kl ba.sd ba.wav
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)
+

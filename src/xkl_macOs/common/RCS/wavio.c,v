@@ -1,0 +1,1138 @@
+head	1.10;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.10
+date	2001.01.23.23.18.49;	author hanson;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2001.01.23.18.02.24;	author hanson;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2000.04.20.05.36.24;	author krishna;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	98.06.12.04.20.25;	author krishna;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	98.06.08.22.21.37;	author krishna;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	98.06.06.05.20.19;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.05.18.17.06.42;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.04.15.20.55.08;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.04.15.20.49.35;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.39.27;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.10
+log
+@no changes made
+@
+text
+@/* $Log: wavio.c,v $
+ * Revision 1.1  2001/01/23  23:17:11  hanson
+ * Initial revision
+ *
+ * Revision 1.9  2001/01/23  18:02:24  hanson
+ * Fixed error in fread's and fwrite's in MS wav and AIFF
+ * read/write-header functions.
+ * Fixed error in computation of numSamples and datalength in
+ * MS wav and read/write-header functions
+ * Added support for big-endian (i.e. byte swapping) platforms
+ * to MS wav read/write-header functions (still needs to be
+ * done for AIFF functions).
+ * Added error checking for number of channels and bytes-per-
+ * sample to function MSWavReadHeader.
+ *
+ * Revision 1.8  2000/04/20 05:36:24  krishna
+ * Added MS wav and AIFF read/write functions.
+ *
+ * Revision 1.7  1998/06/12 04:20:25  krishna
+ * Set .wav 'version' to be 0, if very old .wav format.
+ *
+ * Revision 1.6  1998/06/08 22:21:37  krishna
+ * Put printf statements about reading in a waveform inside ifdef DEBUGs.
+ *
+ * Revision 1.5  1998/06/06 05:20:19  krishna
+ * Added RCS header.
+ *
+ * Older log info:
+ * 
+ * KKG  4/15/98 Functions return ERROR or NULL if a problem arises.
+ *
+ * KKG  10/15/97 Major clean up, and put in prototypes.  Broke up functions 
+ * into header and data for reading and writing.  Incorporated version 2
+ * of .wav format, which adds the floating value for sampling rate.
+ *
+ * Wave_Util.c - Waveform file utilities, based on Klatt's READWAVE.C 
+ *                                                                    
+ * SMH001        12-Aug-1991           Original coding.               
+ * delphinium   edited Aug 1993 to swap bytes for sgi                 
+ *	arg is name of wave file to be read
+ *	returns pointer to first location in short waveform core array
+ * 
+ **********************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "wavio.h"
+
+/***********************************************************************
+ *
+ * void checkWavName(char *fname)
+ *
+ * Check if output file exists.  If so, ask if we should overwrite.
+ * If user does not want to overwrite, then prompt user for another file
+ * name.  fname gets changed to a filename that is acceptable by the
+ * user.
+ *
+ ***********************************************************************/
+
+void checkWavName(char *filename)
+{
+  char answer[10], fname[1000];
+  FILE *fp;
+
+  strcpy(fname, filename);
+
+  while (openWav(fname, &fp, READ) != ERROR) { /* File exists */
+    fprintf(stdout, "*** WAVEFORM FILE %s EXISTS ***\n", fname);
+    fprintf(stdout, "Do you want to overwrite (y or n)? ");
+    scanf("%s", answer);
+
+    closeWav(fp);
+
+    if (strcmp(answer, "y") == 0) { break; }
+
+    else { /* Need to get a new file name */
+      fprintf(stdout, "Type the name of the output file: ");
+      scanf("%s", fname);
+    }
+  }
+  strcpy(filename, fname);
+}
+  
+/***********************************************************************
+ *
+ * short *getWavWaveform(char *fname, float *samplingRate, int *numSamples, 
+ *		      int swap) 
+ *
+ * Open waveform file to read, read header, set numSamples, samplingRate, 
+ * read samples, and return pointer waveform.  Note that getWavWaveform 
+ * allocates memory for wave.  If error then, NULL is returned.
+ *
+ ***********************************************************************/
+
+short *getWavWaveform(char *fname, float *samplingRate, int *numSamples, 
+		      int swap)
+{
+  short *wave;	/* Pointer to waveform vector */
+  FILE *fp;
+  int numsamps, version;
+  
+  /*
+   * Open wavefile for reading, and then read header.  readWavHeader
+   * sets the values for samplingRate and numSamples.
+   */
+  
+  if (openWav(fname, &fp, READ) == ERROR) {
+     fprintf(stderr, "Error opening file %s\n", fname);
+     return(NULL);
+  }
+  if (readWavHeader(fp, samplingRate, numSamples, &version, swap) == ERROR) {
+     fprintf(stderr, "Error reading waveform header in %s\n", fname);
+     closeWav(fp);
+     return(NULL);
+  }
+  
+  /* 
+   * Allocate memory for entire waveform
+   */
+  
+  if ((wave = (short *) calloc(*numSamples, sizeof(short))) == NULL) {
+    fprintf(stderr, "Insufficient memory for %d samples\n", *numSamples);
+    closeWav(fp);
+    return(NULL);
+  }
+  
+  /* 
+   * Read wave data.  Check if number of samples read equals what is
+   * stated in header, i.e. numSamples, and tell user.
+   */
+
+  numsamps = readWav(fp, wave, *numSamples, swap);
+  if (numsamps == ERROR) {
+    fprintf(stderr, "Error reading waveform from %s\n", fname);
+    closeWav(fp);
+    return(NULL);
+  }
+
+  if (numsamps != *numSamples) {
+#ifdef DEBUG
+     fprintf(stderr, "Read '%s' sampled at %d samp/sec\n", fname, (int)
+	    *samplingRate);
+    fprintf(stderr, "\n\t\tHeader indicates %d samples...", *numSamples);
+    fprintf(stderr, "but can only read %d samples.\n", numsamps);
+#endif
+    *numSamples = numsamps;
+  } 
+  else {
+#ifdef DEBUG
+    fprintf(stderr, "Read '%s'...%d samples at %d samp/sec\n", fname, 
+	    *numSamples, (int) *samplingRate);
+#endif
+  }
+  closeWav(fp);
+  return(wave);
+}   
+
+
+/***********************************************************************
+ *
+ * int putWavWaveform(char *fname, short *wave, float samplingRate, 
+ *		    int numSamples, int swap)
+ *
+ * Open waveform file to write, write header -- numSamples, samplingRate,
+ * and then write waveform.  Return ERROR if error, else return 0.
+ *
+ ***********************************************************************/
+
+int putWavWaveform(char *fname, short *wave, float samplingRate, 
+		    int numSamples, int swap)
+{
+  FILE *fp;
+  if (openWav(fname, &fp, WRITE) == ERROR) return(ERROR);
+
+  if (writeWavHeader(fp, samplingRate, numSamples, swap) == ERROR) {
+    fprintf(stderr, "Error writing waveform header to %s\n", fname); 
+    closeWav(fp);
+    return(ERROR);
+  }
+  if (writeWav(fp, wave, numSamples, swap) != numSamples) {
+    fprintf(stderr, "Error writing waveform to %s\n", fname); 
+    closeWav(fp);
+    return(ERROR);
+  }
+  closeWav(fp);
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * void openWav(char *fname, FILE **fp, char *readWriteFlag)
+ *
+ * Open wave file for reading or writing depending on readWriteFlag, which
+ * should be "r", or "w".  If needed, append '.wav' to fname.  Return file
+ * pointer in fp.  Returns ERROR if an error occurred.  Otherwise, returns 0.
+ *
+ ***********************************************************************/
+
+int openWav(char *fname, FILE **fp, char *readWriteFlag)
+{
+  /* 
+   * Accept filename or filename.wav.  Check if .wav extension provided.
+   * If so, delete .wav.  Next append .wav to filename.
+   */
+  
+  if (strcmp(&fname[strlen(fname) - 3 ],"wav") == 0 )
+    fname[strlen(fname) - 4 ]  = '\0';
+  
+  strcat(fname, ".wav");  
+  
+  /*
+   * Open file for reading or writing based on readWriteFlag
+   */
+  
+  if ((*fp = fopen(fname, readWriteFlag)) == NULL)
+    return(ERROR);
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * void closeWav(FILE *fp)
+ *
+ * Close up wave file.  
+ *
+ ***********************************************************************/
+
+int closeWav(FILE *fp)
+{
+  if (fclose(fp) != 0) return(ERROR);
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * void readAIFFHeader(FILE *fp, float *samplingRate, int *numSamples, 
+ *          int *numChannels, int *bytesPerSample, int swap)
+ *
+ * Read a AIFF header, setting samplingRate, numSamples, etc.  Returns 0 if 
+ * no problem, otherwise returns ERROR.
+ *
+ ***********************************************************************/
+
+int readAIFFHeader(FILE *fp, float *samplingRate, int *numSamples, 
+		   int *numChannels, int *bytesPerSample, int swap)
+{
+  AIFFHeaderStruct AIFFheader;
+  int hsize;
+
+  hsize = 8 /*COMM hdr*/ + 18 /*COMM chunk*/ +
+    8 /*SSND hdr*/ + 12 /*SSND chunk*/;
+
+  if (fread(&AIFFheader, sizeof(AIFFheader), 1, fp) != 1) return(ERROR);
+
+  if (strncmp(AIFFheader.formString, "FORM", 4)) return(ERROR);
+  if (strncmp(AIFFheader.aiffString, "AIFF", 4)) return(ERROR);
+  if (strncmp(AIFFheader.commString, "COMM", 4)) return(ERROR);
+  if (strncmp(AIFFheader.ssndString, "SSND", 4)) return(ERROR);
+
+  if (AIFFheader.commChunkLength != 18) return(ERROR);
+
+  *numChannels = (int) AIFFheader.numChannels;
+  *numSamples = (int) AIFFheader.numFrames;
+  *bytesPerSample = AIFFheader.numBits/8;
+  *samplingRate = (float) AIFFheader.samplingRate;
+
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * void writeAIFFHeader(FILE *fp, float samplingRate, int numSamples, 
+ *          int numChannels, int bytesPerSample, int swap)
+ *
+ * Write a AIFF header --  samplingRate and numSamples.  Returns 0 if 
+ * no problem, otherwise returns ERROR.
+ *
+ ***********************************************************************/
+
+int writeAIFFHeader(FILE *fp, float samplingRate, int numSamples, 
+		   int numChannels, int bytesPerSample, int swap)
+{
+  AIFFHeaderStruct AIFFheader;
+  int hsize = 8 /*COMM hdr*/ + 18 /*COMM chunk*/ +  8 /*SSND hdr*/ + 
+    12 /*SSND chunk*/;
+
+  strncpy(AIFFheader.formString, "FORM", 4);
+  AIFFheader.formChunkLength = hsize + numSamples * 
+    bytesPerSample * numChannels;
+
+  strncpy(AIFFheader.aiffString, "AIFF", 4);
+
+  strncpy(AIFFheader.commString, "COMM", 4);
+  AIFFheader.commChunkLength = 18;
+  AIFFheader.numChannels = (short) numChannels;
+  AIFFheader.numFrames = (long) numSamples;
+  AIFFheader.numBits = bytesPerSample*8;
+  AIFFheader.samplingRate = (double) samplingRate;
+
+  strncpy(AIFFheader.ssndString, "SSND", 4);
+  AIFFheader.ssndChunkLength = 8 + numSamples * numChannels * bytesPerSample;
+  AIFFheader.offset = 0;
+  AIFFheader.blockSize = 0;
+
+  if (fwrite(&AIFFheader, sizeof(AIFFheader), 1, fp) != 1) return(ERROR);
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * void readMSWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+ *          int *channels, int *bytesPerSample, int swap)
+ *
+ * Open a MS wave file and read header, and set samplingRate and numSamples,
+ * and also set version of .wav file.  Returns 0 if no problem, 
+ * otherwise returns ERROR.
+ *
+ ***********************************************************************/
+
+int readMSWavHeader(FILE *fp, char *fname, float *samplingRate, int *numSamples, 
+		   int *channels, int *bytesPerSample, int swap)
+{
+  MSWavHeaderStruct MSheader;
+
+  if (fread(&MSheader, sizeof(MSheader), 1, fp) != 1) return(ERROR);
+  
+  if (strncmp(MSheader.riffString, "RIFF", 4)) return(ERROR);
+  if (strncmp(MSheader.waveString, "WAVE", 4)) return(ERROR);
+  if (strncmp(MSheader.fmtString, "fmt ", 4)) return(ERROR);
+  if (strncmp(MSheader.dataString, "data", 4)) return(ERROR);
+
+  if (swap) {
+    *channels = swapShort(MSheader.numChannels);
+    *samplingRate = (float) swapInt(MSheader.samplingRate);
+    *bytesPerSample = swapShort(MSheader.bitsPerSample)/8;
+    *numSamples = swapInt(MSheader.dataLength)/ *bytesPerSample;
+  }
+  else {
+    *channels = MSheader.numChannels;
+    *samplingRate = (float) MSheader.samplingRate;
+    *bytesPerSample = MSheader.bitsPerSample/8;
+    *numSamples = MSheader.dataLength/ *bytesPerSample;
+  }
+
+  if (*channels != 1) {
+    fprintf(stderr, "MS-wave file %s must be single-channel\n", fname);
+    return(ERROR);
+  }
+
+  if (*bytesPerSample != 2) {
+    fprintf(stderr, "MS-wave file %s must be 16-bit\n", fname);
+    return(ERROR);
+  }
+
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * void writeMSWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+ *          int *channels, int *bytesPerSample, int swap)
+ *
+ * Write a MS-wave file header.  Returns 0 if no problem, 
+ * otherwise returns ERROR.
+ *
+ ***********************************************************************/
+
+int writeMSWavHeader(FILE *fp, float samplingRate, int numSamples, 
+		   int numChannels, int bytesPerSample, int swap)
+{
+  MSWavHeaderStruct MSheader;
+
+  strncpy(MSheader.riffString, "RIFF", 4);
+  strncpy(MSheader.waveString, "WAVE", 4);
+  strncpy(MSheader.fmtString, "fmt ", 4);
+  strncpy(MSheader.dataString, "data", 4);
+
+  if (swap) {
+    MSheader.riffChunkLength = swapInt(sizeof(MSheader) - 4 /* "RIFF" */ + 
+      (numSamples * numChannels * bytesPerSample * 8));
+    MSheader.fmtChunkLength = swapInt(16);
+    MSheader.waveFormat = swapShort(1);
+    MSheader.numChannels = swapShort(numChannels);
+    MSheader.samplingRate = swapInt(samplingRate);
+    MSheader.numBytesPerSecond = swapInt(samplingRate*numChannels*bytesPerSample);
+    MSheader.blockAlign = swapShort(bytesPerSample*numChannels);
+    MSheader.bitsPerSample = swapShort(bytesPerSample*8);
+    MSheader.dataLength = swapInt(numSamples*bytesPerSample);
+  } 
+  else {
+    MSheader.riffChunkLength = sizeof(MSheader) - 4 /* "RIFF" */ + 
+      (numSamples * numChannels * bytesPerSample * 8);
+    MSheader.fmtChunkLength = 16;
+    MSheader.waveFormat = 1;
+    MSheader.numChannels = numChannels;
+    MSheader.samplingRate = samplingRate;
+    MSheader.numBytesPerSecond = samplingRate*numChannels*bytesPerSample;
+    MSheader.blockAlign = bytesPerSample*numChannels;
+    MSheader.bitsPerSample = bytesPerSample*8;
+    MSheader.dataLength = numSamples*bytesPerSample;
+  } 
+
+  if (fwrite(&MSheader, sizeof(MSheader), 1, fp) != 1) return(ERROR);
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * void readWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+ *          int *version, int swap)
+ *
+ * Open wave file and read header, and set samplingRate and numSamples,
+ * and also set version of .wav file.  Returns 0 if no problem, 
+ * otherwise returns ERROR.
+ *
+ ***********************************************************************/
+
+int readWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+		   int *version, int swap)
+{
+  short temp[300];
+  int usecSamples, nsamps, sampRate;
+  
+  /*
+   * Read number of usec between samples at front of header 
+   */
+  
+  if (fread(&usecSamples, sizeof(int), 1, fp) != 1) {
+    fprintf(stderr, "\nError: Can't read sampling rate from header of input waveform file.\n");
+    return(ERROR);
+  }
+  
+  if (swap) usecSamples = swapInt(usecSamples); 
+  *samplingRate= 1000000.0/usecSamples;
+  
+  /*
+   * Read number of waveform samples in header
+   */
+  
+  if (fread(&nsamps, sizeof(int), 1, fp) != 1) {
+    fprintf(stderr, "\nError: Can't read numSamples from header of input waveform file");
+    return(ERROR);
+  }
+  if (swap) *numSamples = swapInt(nsamps);
+  else *numSamples = nsamps;
+  
+  /*
+   * Read new/old file format flag 
+   */
+  
+  if (fread(version, sizeof(int), 1, fp) != 1) {
+    fprintf(stderr, "\nError: Can't read version from header of input waveform file");
+    return(ERROR);
+  }
+  if (swap) *version = swapInt(*version);
+  
+  /*
+   * Read remaining header based on version.
+   * 
+   * .wav version 1: Read remainder of 256-short new-format header 
+   * into temp[] and ignore... 
+   * edited d. hall changed amount read from 240 to 250
+   * this may have accomodated an old writewave error (256-8bytes instead
+   * of 256 - 4shorts at any rate the record program now writes a 512 header
+   *
+   * .wav version 2: Read sampling rate as a float due to bug of storing 
+   * frequency in usecs as integer format.
+   *
+   * Don't have to swap just check for 1, 2, or 0
+   */
+  
+  if (*version == 1) {
+    if (fread(temp, sizeof(short), 250, fp) != 250) {
+      fprintf(stderr, "\nError: Can't read full 256-word header of input waveform file");
+      return(ERROR);
+    }
+  }
+  else if (*version == 2) {
+    if (fread(&sampRate, sizeof(int), 1, fp) != 1) {
+      fprintf(stderr, "\nError: Can't read numSamples from header of input waveform file (.wav version 2)");
+      return(ERROR);
+    }
+
+    if (swap) *samplingRate = (float) swapInt(sampRate);
+    else *samplingRate = (float) sampRate;
+
+    if (fread(temp, sizeof(short), 248, fp) != 248) {
+      fprintf(stderr, "\nError: Can't read full 256-word header of input waveform file");
+      return(ERROR);
+    }
+  }
+  else {
+    /*
+     *Read remainder of 248-word old-format header into temp[] and ignore...
+     * changed from 232 to 242 d.hall 
+     */
+    *version = 0;
+    if (fread(temp, sizeof(short), 242, fp) != 242) {
+      fprintf(stderr, "\nError: Can't read full 248-word header of input waveform file");
+      return(ERROR);
+    }
+  }
+  return(0);
+}    
+
+/***********************************************************************
+ * 
+ * void readWav(FILE *fp, short *wav, int numSamples, int swap)
+ *
+ * Read next nsam waveform samples into wavarray. e.g. use wav[], 
+ * but can shift 156 points to front, read 100 samples into
+ * wave[] starting at wave[156], i.e. readwave(&wav[156], 100).
+ *
+ ***********************************************************************/
+
+int readWav(FILE *fp, short *wav, int numSamples, int swap)
+{
+  int numsamps = 0, i;
+  short byte1, byte2;
+  
+  numsamps = fread(wav, sizeof(short), numSamples, fp);
+  if (swap)
+    for (i = 0; i < numsamps; i++) {
+      byte1 = (unsigned char) wav[i];
+      byte2 = (unsigned short) wav[i] / 256;
+      wav[i] = byte1 * 256 + byte2;
+    }
+  if (numsamps == 0) return(ERROR);
+  else return(numsamps);
+}
+
+/***********************************************************************
+ * 
+ * void writeWavHeader(FILE *fp, float samplingRate, int numSamples, 
+ *          int swap)
+ *
+ * Write header using samplingRate and numSamples.  If problem, then
+ * returns ERROR.
+ *
+ ***********************************************************************/
+
+int writeWavHeader(FILE *fp, float samplingRate, int numSamples, int swap)
+{
+  int tmpNumSamps;
+  int version = WAVE_VERSION;
+  int i, header[255];
+  int usecSamples, sampRate;
+  
+  /*
+   * Write number of usec between samples at front of header 
+   */
+  
+  
+  usecSamples = (int) (1000000.0/ samplingRate);
+  if (swap) usecSamples = swapInt(usecSamples);
+  if (fwrite(&usecSamples, sizeof(int), 1, fp) != 1) return(ERROR);
+
+  /* 
+   * Write number of samples 
+   */
+  
+  tmpNumSamps = numSamples;
+  if (swap) tmpNumSamps = swapInt(tmpNumSamps);
+  if (fwrite(&tmpNumSamps, sizeof(int), 1, fp) != 1) return(ERROR);
+  
+  /*
+   * version number 
+   */
+  
+  if (swap) version = swapInt(version);
+  if (fwrite(&version, sizeof(int), 1, fp) != 1) return(ERROR);
+  
+  /*
+   * sampling rate in Hz (put in due to bug in integer representation 
+   * of usec: 16000Hz = 62.5 usec).
+   */
+
+  if (swap) sampRate = swapInt((int) samplingRate);
+  else sampRate = (int) samplingRate;
+  if (fwrite(&sampRate, sizeof(int), 1, fp) != 1) return(ERROR);
+
+  /* 
+   * put zeros in remainder of header(512 bytes total,128 ints - 4)
+   */
+  
+  for(i = 0; i < 124; i++) header[i] = 0;
+  if (fwrite(header, sizeof(int), 124, fp) != 124) return(ERROR);
+  return(0);
+}
+
+/***********************************************************************
+ * 
+ * int writeWav(FILE *fp, short *wav, int numSamples, int swap)
+ *
+ * Read next nsam waveform samples into wav.e.g. use wave[], 
+ * but can shift 156 points to front, read 100 samples into
+ * wave[] starting at wave[156], i.e. readwave(&wave[156],100).
+ * 
+ * Returns number of shorts written, or ERROR if none written.
+ *
+ ***********************************************************************/
+
+int writeWav(FILE *fp, short *data, int numSamples, int swap)
+{
+  int i, numWritten = 0;
+  short byte1, byte2;
+  short *swapData = NULL;
+  
+  /*
+   * If swap, swap bytes and then write data.
+   */
+  
+  if (swap) {
+    swapData = (short *) calloc(numSamples, sizeof(short));
+    for (i = 0; i < numSamples; i++) {
+      byte1 = (unsigned char) data[i];
+      byte2 = (unsigned short) data[i] / 256;
+      swapData[i] = byte1 * 256 + byte2 ;
+    }
+    numWritten = fwrite(swapData, sizeof(short), numSamples, fp);
+    if (swapData) free(swapData); 
+  }
+  else { /* don't swap, just write out data */
+    numWritten = fwrite(data, sizeof(short), numSamples, fp);
+  }
+  if (numWritten == 0) numWritten = ERROR;
+  return(numWritten);
+}
+
+/***********************************************************************
+*
+* This routine converts from linear to ulaw
+*
+* Craig Reese: IDA/Supercomputing Research Center
+* Joe Campbell: Department of Defense
+* 29 September 1989
+*
+* References:
+* 1) CCITT Recommendation G.711  (very difficult to follow)
+* 2) "A New Digital Technique for Implementation of Any
+*     Continuous PCM Companding Law," Villeret, Michel,
+*     et al. 1973 IEEE Int. Conf. on Communications, Vol 1,
+*     1973, pg. 11.12-11.17
+* 3) MIL-STD-188-113,"Interoperability and Performance Standards
+*     for Analog-to_Digital Conversion Techniques,"
+*     17 February 1987
+*
+* Input: Signed 16 bit linear sample
+* Output: 8 bit ulaw sample
+*
+************************************************************************/
+
+#define ZEROTRAP    /* turn on the trap as per the MIL-STD */
+#define BIAS 0x84   /* define the add-in bias for 16 bit samples */
+#define CLIP 32635
+
+unsigned char linear2ulaw(int sample)
+{
+  static int exp_lut[256] = {0,0,1,1,2,2,2,2,3,3,3,3,3,3,3,3,
+                             4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+                             5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+                             5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+                             6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+                             6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+                             6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+                             6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,
+                             7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7};
+
+  int sign, exponent, mantissa;
+  unsigned char ulawbyte;
+
+  /* Get the sample into sign-magnitude. */
+
+  sign = (sample >> 8) & 0x80;		/* set aside the sign */
+  if (sign != 0)
+    sample = -sample;		/* get magnitude */
+  if (sample > CLIP)
+    sample = CLIP;		/* clip the magnitude */
+
+  /* Convert from 16 bit linear to ulaw. */
+  sample = sample + BIAS;
+  exponent = exp_lut[(sample >> 7) & 0xFF];
+  mantissa = (sample >> (exponent + 3)) & 0x0F;
+  ulawbyte = ~(sign | (exponent << 4) | mantissa);
+#ifdef ZEROTRAP
+  if (ulawbyte == 0)
+    ulawbyte = 0x02;	/* optional CCITT trap */
+#endif
+  return(ulawbyte);
+}
+
+/*************************************************************************
+* This routine converts from ulaw to 16 bit linear.
+*
+* Craig Reese: IDA/Supercomputing Research Center
+* 29 September 1989
+*
+* References:
+ 1) CCITT Recommendation G.711  (very difficult to follow)
+* 2) MIL-STD-188-113,"Interoperability and Performance Standards
+*     for Analog-to_Digital Conversion Techniques,"
+*     17 February 1987
+*
+* Input: 8 bit ulaw sample
+* Output: signed 16 bit linear sample
+*
+************************************************************************/
+
+int ulaw2linear(unsigned char ulawbyte)
+{
+  static int exp_lut[8] = { 0, 132, 396, 924, 1980, 4092, 8316, 16764 };
+  int sign, exponent, mantissa, sample;
+  
+  ulawbyte = ~ulawbyte;
+  sign = ulawbyte & 0x80;
+  exponent = (ulawbyte >> 4) & 0x07;
+  mantissa = ulawbyte & 0x0F;
+  sample = exp_lut[exponent] + (mantissa << (exponent + 3));
+  if (sign != 0)
+    sample = -sample;
+
+  return sample;
+}
+
+/*************************************************************************
+ * 
+ * int swapInt(int value)
+ *
+ * Return integer as byte-swaped int.
+ *
+ ************************************************************************/
+
+int swapInt(int value) 
+{
+  register int byte1, byte2, byte3, byte4;
+  register int converted;
+  
+  byte1 = (unsigned char) value;
+  byte2 = (unsigned char) (value>>8);
+  byte3 = (unsigned char) (value>>16);
+  byte4 = (unsigned char) (value>>24);
+  converted  =  byte4 + (byte3 << 8) + (byte2 << 16) + (byte1 << 24);
+  return(converted);
+}
+
+/*************************************************************************
+ * 
+ * short swapShort(short value)
+ *
+ * Return short as byte-swaped short.
+ *
+ ************************************************************************/
+
+short swapShort(short value) 
+{
+  short converted;
+  unsigned char *ptr, *convertedPtr;
+
+  ptr = (unsigned char *) &value;
+  convertedPtr = (unsigned char *) &converted;
+    
+  convertedPtr[1] = ptr[0];
+  convertedPtr[0] = ptr[1];
+
+  return(converted);
+}
+@
+
+
+1.9
+log
+@Fixed error in fread's and fwrite's in MS wav and AIFF
+read/write-header functions.
+Fixed error in computation of numSamples and datalength in
+MS wav and read/write-header functions
+Added support for big-endian (i.e. byte swapping) platforms
+to MS wav read/write-header functions (still needs to be
+done for AIFF functions).
+Added error checking for number of channels and bytes-per-
+sample to function MSWavReadHeader.
+@
+text
+@d2 14
+@
+
+
+1.8
+log
+@Added MS wav and AIFF read/write functions.
+@
+text
+@d2 3
+d240 1
+a240 1
+  if (fread(&AIFFheader, 1, sizeof(AIFFheader), fp) != 1) return(ERROR);
+d292 1
+a292 1
+  if (fwrite(&AIFFheader, 1, sizeof(AIFFheader), fp) != 1) return(ERROR);
+d307 1
+a307 1
+int readMSWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+d312 2
+a313 2
+  if (fread(&MSheader, 1, sizeof(MSheader), fp) != 1) return(ERROR);
+
+d319 23
+a341 4
+  *channels = MSheader.numChannels;
+  *samplingRate = (float) MSheader.samplingRate;
+  *bytesPerSample = MSheader.bitsPerSample/8;
+  *numSamples = MSheader.dataLength;
+d350 1
+a350 2
+ * Open a MS wave file and read header, and set samplingRate and numSamples,
+ * and also set version of .wav file.  Returns 0 if no problem, 
+a360 4
+
+  MSheader.riffChunkLength = sizeof(MSheader) - 4 /* "RIFF" */ + 
+    (numSamples * numChannels * bytesPerSample * 8);
+
+a361 1
+
+d363 1
+a363 7
+  MSheader.fmtChunkLength = 16;
+  MSheader.waveFormat = 1;
+  MSheader.numChannels = numChannels;
+  MSheader.samplingRate = samplingRate;
+  MSheader.numBytesPerSecond = samplingRate*numChannels*bytesPerSample;
+  MSheader.blockAlign = bytesPerSample*numChannels;
+  MSheader.bitsPerSample = bytesPerSample*8;
+d365 24
+a388 2
+  strncpy(MSheader.dataString, "data", 4);
+  MSheader.dataLength = numSamples;
+d390 1
+a390 1
+  if (fwrite(&MSheader, 1, sizeof(MSheader), fp) != 1) return(ERROR);
+@
+
+
+1.7
+log
+@Set .wav 'version' to be 0, if very old .wav format.
+@
+text
+@d2 3
+d10 9
+a18 3
+ * */
+
+/**********************************************************************
+a24 4
+ * KKG  10/15/97 Major clean up, and put in prototypes.  Broke up functions 
+ * into header and data for reading and writing.  Incorporated version 2
+ * of .wav format, which adds the floating value for sampling rate.
+ * KKG  4/15/98 Functions return ERROR or NULL if a problem arises.
+a32 3
+
+
+
+d44 1
+a44 1
+void checkWavName(char *filename) 
+d220 144
+d585 102
+d691 1
+a691 1
+ * Return 16 bit integer as byte-swaped int.
+d705 22
+@
+
+
+1.6
+log
+@Put printf statements about reading in a waveform inside ifdef DEBUGs.
+@
+text
+@d2 3
+d306 1
+@
+
+
+1.5
+log
+@Added RCS header.
+@
+text
+@d1 4
+a4 1
+/* $Log$ */
+d119 2
+a120 1
+    fprintf(stderr, "Read '%s' sampled at %d samp/sec\n", fname, (int)
+d124 1
+d128 1
+d131 1
+@
+
+
+1.4
+log
+@Forgot to type in rest of a comment.
+@
+text
+@d1 2
+@
+
+
+1.3
+log
+@Had a typo.
+@
+text
+@d65 1
+a65 1
+ * allocates memory for wave.  If error 
+@
+
+
+1.2
+log
+@Added checkWavName, which checks to see if a file exists, and if the
+file exists, it prompts the user for another filename.
+@
+text
+@d44 1
+a44 1
+    scanf("%s", &answer);
+d48 1
+a48 1
+    if (strcmp(answer, "y") == 0)) break;
+d52 1
+a52 1
+      scanf("%s", &fname);
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d11 1
+d18 4
+a21 1
+#include "waveio.h"
+d25 35
+d65 1
+a65 1
+ * allocates memory for wave.
+d72 1
+a72 2
+  
+  short *wave;	/* Pointer to waveform core array */
+d81 9
+a89 2
+  openWav(fname, &fp, READ);
+  readWavHeader(fp, samplingRate, numSamples, &version, swap);
+d97 2
+a98 1
+    exit(1);
+d107 6
+d135 1
+a135 1
+ * and then write waveform.  Return -1 if error, else return 0.
+d143 7
+a149 2
+  openWav(fname, &fp, WRITE);
+  writeWavHeader(fp, samplingRate, numSamples, swap);
+d151 3
+a153 2
+    fprintf(stderr, "Error writing %s\n", fname); 
+    return(-1);
+d165 1
+a165 1
+ * pointer in fp.
+d169 1
+a169 1
+void openWav(char *fname, FILE **fp, char *readWriteFlag)
+d185 3
+a187 4
+  if ((*fp = fopen(fname, readWriteFlag)) == NULL) {
+    fprintf(stderr, "\nCan't open input file %s.\n", fname);
+    exit(1);
+  }
+d194 1
+a194 1
+ * Close up wave file.
+d198 1
+a198 1
+void closeWav(FILE *fp)
+d200 2
+a201 1
+  fclose(fp);
+d210 2
+a211 1
+ * and also set version of .wav file.
+d215 1
+a215 1
+void readWavHeader(FILE *fp, float *samplingRate, int *numSamples, 
+d227 1
+a227 1
+    exit(1);
+d239 1
+a239 1
+    exit(1);
+d250 1
+a250 1
+    exit(1);
+d272 1
+a272 1
+      exit(1);
+d278 1
+a278 1
+      exit(1);
+d286 1
+a286 1
+      exit(1);
+d296 1
+a296 1
+      exit(1);
+d299 1
+d314 1
+a314 1
+  int numsamps, i;
+d324 2
+a325 1
+  return(numsamps);
+d333 2
+a334 1
+ * Write header using samplingRate and numSamples.
+d338 1
+a338 1
+void writeWavHeader(FILE *fp, float samplingRate, int numSamples, int swap)
+d352 2
+a353 2
+  fwrite(&usecSamples, sizeof(int), 1, fp);
+  
+d360 1
+a360 1
+  fwrite(&tmpNumSamps, sizeof(int), 1, fp);
+d367 1
+a367 1
+  fwrite(&version, sizeof(int), 1, fp);
+d370 2
+a371 2
+   * sampling rate in Hz (put in due to bug in representation of usec: 
+   * 16000Hz = 62.5 usec).
+d376 1
+a376 1
+  fwrite(&sampRate, sizeof(int), 1, fp);
+d383 2
+a384 1
+  fwrite(header, sizeof(int), 124, fp);
+d395 1
+a395 1
+ * Returns number of shorts written.
+d401 1
+a401 1
+  int i, numWritten;
+d422 1
+@

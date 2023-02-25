@@ -1,0 +1,50 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	98.06.06.05.17.26;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.39.15;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@Added prototype for srsolv and RCS header.
+@
+text
+@/* $Log$ */
+
+/*
+ * Find lpc.
+ */
+
+void pcode(float *s,int npts, int p, float *a, float *phi, 
+	   double *pcerror, double *energy, int *ier);
+void srsolv(float *a, float *x, int n, float eps, int *ier);
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 1
+d6 2
+a7 1
+void pcode(float s[], int npts, int p, float a[], float phi[], 
+d9 1
+@

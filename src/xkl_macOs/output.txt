@@ -1,0 +1,54 @@
+for dir in common syn lspecto utils xkl; do \
+	echo "Building in $dir..."; \
+	cd $dir; /Library/Developer/CommandLineTools/usr/bin/make all; cd ..; \
+	done
+Building in common...
+gcc -O  -c -o wavaudio.o wavaudio.c
+gcc -O  -c -o wavio.o wavio.c
+gcc -O  -c -o spectrum.o spectrum.c
+gcc -O  -c -o getargs.o getargs.c
+gcc -O  -c -o wavdata.o wavdata.c
+Building in syn...
+gcc -O -I../common -c -o synmain.o synmain.c
+gcc -DXKLDIR=\"/usr/local/lib/xkl\" -I../common -c -o syn.o syn.c
+gcc -O -I../common -c -o syngrid.o syngrid.c
+gcc -O -I../common -c -o synscrip.o synscrip.c
+gcc -O -I../common -c -o synparwav.o synparwav.c
+gcc -o syn synmain.o syn.o syngrid.o synscrip.o synparwav.o ../common/wavio.o -lm
+Building in lspecto...
+gcc -DXKLDIR=\"/usr/local/lib/xkl\" -I../common -c -o lsp.o lsp.c
+gcc -O -I../common -c -o lspspec.o lspspec.c
+gcc -O -I../common -c -o lspformant.o lspformant.c
+gcc -O -I../common -c -o lspgetf0.o lspgetf0.c
+gcc -O -I../common -c -o lspfbank.o lspfbank.c
+Building in utils...
+gcc -O -I../common -c -o concat.o concat.c
+gcc -O -o concat concat.o ../common/wavio.o ../common/getargs.o -lm
+gcc -O -I../common -c -o kl2raw.o kl2raw.c
+gcc -O -o kl2raw kl2raw.o ../common/wavio.o ../common/getargs.o -lm
+gcc -O -I../common -c -o klinfo.o klinfo.c
+gcc -O -o klinfo klinfo.o ../common/wavio.o ../common/getargs.o \
+		../common/wavdata.o -lm
+gcc -O -I../common -c -o klplay.o klplay.c
+gcc -O -o klplay klplay.o ../common/wavio.o ../common/getargs.o \
+		../common/wavaudio.o -lm
+gcc -O -I../common -c -o klrecord.o klrecord.c
+gcc -O -o klrecord klrecord.o ../common/wavio.o ../common/getargs.o \
+		 ../common/wavaudio.o  -lm
+gcc -O -I../common -c -o raw2kl.o raw2kl.c
+gcc -O -o raw2kl raw2kl.o ../common/wavio.o ../common/getargs.o -lm
+gcc -O -I../common -c -o klgain.o klgain.c
+gcc -O -o klgain klgain.o \
+		../common/wavio.o ../common/getargs.o ../common/wavdata.o -lm
+gcc -O -I../common -c -o ms2kl.o ms2kl.c
+gcc -O -o ms2kl ms2kl.o ../common/wavio.o ../common/getargs.o -lm
+gcc -O -I../common -c -o kl2ms.o kl2ms.c
+gcc -O -o kl2ms kl2ms.o ../common/wavio.o ../common/getargs.o -lm
+Building in xkl...
+gcc -O -I/usr/include  -I../common -I/usr/local/Cellar/openmotif/2.3.8/include -I/usr/local/Cellar/openmotif/2.3.8/include/Xm -I/opt/X11/include  -c -o xkl.o xkl.c
+gcc -O -I/usr/include  -I../common -I/usr/local/Cellar/openmotif/2.3.8/include -I/usr/local/Cellar/openmotif/2.3.8/include/Xm -I/opt/X11/include  -c -o xspec_util.o xspec_util.c
+gcc -O -I/usr/include  -I../common -I/usr/local/Cellar/openmotif/2.3.8/include -I/usr/local/Cellar/openmotif/2.3.8/include/Xm -I/opt/X11/include  -c -o xinfo.o xinfo.c
+gcc -O -I/usr/include  -I../common -I/usr/local/Cellar/openmotif/2.3.8/include -I/usr/local/Cellar/openmotif/2.3.8/include/Xm -I/opt/X11/include  -c -o xklspec.o xklspec.c
+gcc -O -I/usr/include  -I../common -I/usr/local/Cellar/openmotif/2.3.8/include -I/usr/local/Cellar/openmotif/2.3.8/include/Xm -I/opt/X11/include  -c -o xkl_dlog.o xkl_dlog.c
+gcc -O -I/usr/include  -I../common -I/usr/local/Cellar/openmotif/2.3.8/include -I/usr/local/Cellar/openmotif/2.3.8/include/Xm -I/opt/X11/include  -c -o xkl_label.o xkl_label.c
+gcc -o xkl-3.1 xkl.o xspec_util.o xinfo.o xklspec.o xkl_dlog.o xkl_label.o ../syn/syn.o ../syn/synparwav.o ../syn/syngrid.o ../syn/synscrip.o ../common/wavio.o ../common/spectrum.o ../common/wavaudio.o -L/usr/local/Cellar/openmotif/2.3.8/lib -L/opt/X11/lib -lXext -lXp -lXmu /opt/X11/lib/libX11.dylib /usr/X11R6/lib/libXp.dylib /usr/local/Cellar/openmotif/2.3.8/lib/libXm.dylib /opt/X11/lib/libXmu.dylib /opt/X11/lib/libXt.dylib /opt/X11/lib/libICE.dylib /opt/X11/lib/libSM.dylib

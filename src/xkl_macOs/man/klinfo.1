@@ -1,0 +1,60 @@
+.TH KLINFO 1 "XKL Utilities (March 1, 1999)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+klinfo \- print information about one or more Klatt (.wav) audio files
+.SH SYNOPSIS
+.B klinfo [-h | --help] [ -f | -n | -v | -e ] <wav1> [...]
+.SH DESCRIPTION
+.PP
+.B klinfo
+prints out information about one or more Klatt (.wav) audio files. 
+
+The .wav extension is optional on the file names.
+
+With no arguments, the program prints out the usage message.
+
+.SS OPTIONS
+With nod options, the program will print out the sampling rate,
+number of samples, header version, the byte-order (endian) type, and
+some statistics for the wav file.
+
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+
+.TP 
+The following prints only the value for the requested parameter.
+
+.I "\-f"
+Print out only the sampling frequency.
+
+.I "\-n"
+Print out only the number of samples.
+
+.I "\-v"
+Print out only the header version.
+
+.I "\-e"
+Print out only the byte-order (endian format) type.
+
+.SH EXAMPLES
+klinfo -f mj1.wav  (which will print out the frequency)
+klinfo quiet.wav
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR klrecord (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)

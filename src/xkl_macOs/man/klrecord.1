@@ -1,0 +1,46 @@
+.TH KLRECORD 1 "XKL Utilities (3/1/99)" "MIT Speech Group" \" -*- nroff -*-
+.SH NAME
+klrecord \- record a Klatt (.wav) audio file
+.SH SYNOPSIS
+.B klrecord [-h | --help] [-f <rate>] [-d <duration>] <wavfile>
+.SH DESCRIPTION
+.PP
+.B klrecord
+records a Klatt (.wav) audio file.  The .wav extension is optional on
+the file name.
+
+.SS OPTIONS
+With no arguments, the program prints out the usage message, including
+the default values for the sampling rate and duration.
+.TP
+.I "\-\-help or \-h"
+Print a usage message.
+.TP
+.I "\-f <rate> (default is 10000 Hz)"
+Specifies the sampling rate (in Hz) used for recording.
+.TP
+.I "\-d <duration> (default is 5 seconds)"
+Specifies the duration (in seconds) used for recording.
+.SH EXAMPLES
+klrecord word
+.br
+klrecord -f 16000 -d 7.5 we_were_away_a_year_ago.wav
+
+.SH AUTHOR
+Send bugs or comments to xkldev@speech.mit.edu.
+
+.SH SEE ALSO
+.BR concat (1),
+.BR klinfo (1),
+.BR klgain (1),
+.BR klplay (1),
+.BR kl2raw (1),
+.BR raw2kl (1),
+.BR kl2sd (1),
+.BR sd2kl (1),
+.BR kl2mac (1),
+.BR mac2kl (1),
+.BR kl2ms (1),
+.BR ms2kl (1),
+.BR kl2mat (1),
+.BR mat2kl (1)
