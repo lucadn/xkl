@@ -1,0 +1,396 @@
+head	1.8;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.8
+date	98.06.12.04.22.59;	author krishna;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	98.06.06.22.51.22;	author krishna;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	98.05.18.22.14.14;	author krishna;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	98.04.15.21.42.28;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.04.15.19.43.52;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.02.03.07.30.07;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.02.03.07.02.08;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.36.20;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.8
+log
+@Changed argument processing based on changes to functions in
+getargs.c.  Added flags to print out only certain quantities,
+e.g. sampling rate.  Rewrote usage.
+@
+text
+@/*
+ * $Log: klinfo.c,v $
+ * Revision 1.7  1998/06/06 22:51:22  krishna
+ * Added RCS log.
+ *
+ */
+
+/***********************************************************************
+ *
+ * This program prints out info about a .wav file based on the header.
+ * 
+ * KKG 5/18/98, v.1.1
+ * Added max and min waveform value.
+ * KKG 11/04/97, v.1.0
+ *
+ ***********************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> 
+#include "wavio.h"
+#include "getargs.h"
+#include "wavdata.h"
+
+void main(int argc, char **argv);
+void usage(char *name);
+
+void main(int argc, char **argv)
+{
+   FILE *fp;
+   float samplingRate;
+   int numSamples, numsamps;
+   int i, version;
+   char iname[256], progName[256];
+   short max, min;
+   short *wave;
+   char *str;
+   int printFrequency, printVersion, printEndian, printNumSamples;
+   int swap = SWAP;
+
+  /* 
+   * Check for help or ?, and if right number of args
+   */
+   
+   strcpy(progName, argv[0]);
+
+   if (IsArg("-h", &argc, argv) || IsArg("-H", &argc, argv) ||
+       IsArg("-help", &argc, argv) || IsArg("--help", &argc, argv) ||
+       IsArg("-?", &argc, argv))
+     usage(progName);
+
+   printFrequency = IsArg("-f", &argc, argv);
+   printNumSamples = IsArg("-n", &argc, argv);
+   printVersion = IsArg("-v", &argc, argv);
+   printEndian = IsArg("-e", &argc, argv);
+   if ((str = RemainingArgs(argc, argv)) != NULL) {
+     fprintf(stderr, "Unknown or duplicate argument: %s\n", str);
+     usage(progName);
+   }
+   if (argc < 2) usage(progName);
+
+   /*
+    * Loop thru files
+    */
+
+   for (i = 1; i < argc; i++) {
+     strcpy(iname, argv[i]);
+
+     /* Open wave, and get header info */
+
+     if (openWav(iname, &fp, READ) == ERROR) {
+       fprintf(stderr, "No wavefile %s...skipping file\n", iname);
+       continue;
+     }
+     if (readWavHeader(fp, &samplingRate, &numSamples, 
+		       &version, swap) == ERROR) {
+       fprintf(stderr, "Error reading header from %s...skipping file\n", iname);
+       fclose(fp);
+       continue;
+     }
+
+     if (printFrequency || printVersion || printEndian || printNumSamples) {
+       if (printFrequency) fprintf(stdout, "%d\n",(int) samplingRate);
+       else if (printNumSamples) fprintf(stdout, "%d\n", numSamples);
+       else if (printVersion) fprintf(stdout, "%d\n", version);
+       else if (printEndian) fprintf(stdout, "%d\n", swap);
+
+       fclose(fp);
+       continue;
+     }
+
+     /* 
+      * Allocate memory for entire waveform
+      */
+  
+     if ((wave = (short *) calloc(numSamples, sizeof(short))) == NULL) {
+       fprintf(stderr, "Insufficient memory for %d samples\n", numSamples);
+       closeWav(fp);
+       continue;
+     }
+  
+     /* 
+      * Read wave data.  Check if number of samples read equals what is
+      * stated in header, i.e. numSamples, and tell user.
+      */
+
+     numsamps = readWav(fp, wave, numSamples, swap);
+     if (numsamps == ERROR) {
+       fprintf(stderr, "Error reading waveform from %s\n", iname);
+       closeWav(fp);
+       continue;
+     }
+
+     if (numsamps != numSamples) {
+       fprintf(stderr, "Read '%s' sampled at %d samp/sec\n", iname, (int)
+	       samplingRate);
+       fprintf(stderr, "\n\t\tHeader indicates %d samples...", numSamples);
+       fprintf(stderr, "but can only read %d samples.\n", numsamps);
+       numSamples = numsamps;
+     } 
+
+
+     max = findMaxValue(wave, numSamples);
+     min = findMinValue(wave, numSamples);
+
+     /* Write out info */
+
+     fprintf(stdout, "\nWave info for %s:\n\n", iname);
+     fprintf(stdout, "\tSampling rate: %d\n", (int) samplingRate);
+     fprintf(stdout, "\tNumber of samples: %d\n", numSamples);
+     fprintf(stdout, "\tHeader version: %d\n", version);
+     fprintf(stdout, "\tUsing big endian format: %s\n", 
+	     (swap == 1)? "Yes" : "No");
+     fprintf(stdout, "\tMinimum value: %d\n", min);
+     fprintf(stdout, "\tMaximum value: %d\n", max);
+     fprintf(stdout, "\n");
+
+     if (wave != NULL) free(wave);
+     closeWav(fp);
+   }
+}
+
+void usage(char *name)
+{
+  fprintf(stderr, "\nUsage: %s [-h | --help] [-f | -n | -v | -e] <wav1> <wav2> ...\n", 
+	  name);
+  fprintf(stderr, "\t-f prints out only the sampling frequency.\n");
+  fprintf(stderr, "\t-n prints out only the number of samples.\n");
+  fprintf(stderr, "\t-v prints out only the header version number.\n");
+  fprintf(stderr, "\t-e prints out only the endian type.\n");
+  fprintf(stderr, "\t<wav1> <wav2> are the .wav file (.wav not needed).\n");
+  fprintf(stderr, "e.g. %s bad\n", name);
+  exit(1);
+}
+@
+
+
+1.7
+log
+@Added RCS log.
+@
+text
+@d2 4
+a5 1
+ * $Log$
+a13 1
+
+d32 1
+a32 1
+   int numSamples, numsamps, swap;
+d35 1
+a35 1
+   float max, min;
+d37 3
+d47 3
+a49 3
+   if (IsArg("-h", argc, argv) || IsArg("-H", argc, argv) || 
+       IsArg("-help", argc, argv) || IsArg("--help", argc, argv) ||
+       IsArg("-?", argc, argv))
+d52 8
+d76 1
+a76 1
+		       &version, SWAP) == ERROR) {
+d82 10
+a91 1
+  
+d128 1
+a128 1
+     fprintf(stdout, "\n\n\nWave info for %s:\n\n", iname);
+d133 3
+a135 3
+	     (SWAP == 1)? "Yes" : "No");
+     fprintf(stdout, "\tMinimum value: %f\n", min);
+     fprintf(stdout, "\tMaximum value: %f\n", max);
+d145 1
+a145 1
+  fprintf(stderr, "\nUsage: %s [-h | --help] <wavefile> <wavefile2> ...\n", 
+d147 5
+a151 1
+  fprintf(stderr, "\t<wavefile> is the recorded .wav file (.wav not needed).\n");
+@
+
+
+1.6
+log
+@Added print out of max and min value of the waveform.
+@
+text
+@d1 4
+@
+
+
+1.5
+log
+@Added check to see if wavefile can be opened, and read.
+@
+text
+@d5 3
+d17 1
+d26 1
+a26 1
+   int numSamples;
+d29 2
+d59 5
+a63 1
+		       &version, SWAP) != ERROR) {
+d65 22
+a86 1
+       /* Write out info */
+d88 25
+a112 8
+       fprintf(stdout, "\n\nWave info for %s:\n\n", iname);
+       fprintf(stdout, "\tSampling rate: %d\n", (int) samplingRate);
+       fprintf(stdout, "\tNumber of samples: %d\n", numSamples);
+       fprintf(stdout, "\tHeader version: %d\n", version);
+       fprintf(stdout, "\tUsing big endian format: %s\n", 
+	       (SWAP == 1)? "Yes" : "No");
+       fprintf(stdout, "\n");
+     }
+@
+
+
+1.4
+log
+@Changed waveio.h to wavio.h.
+@
+text
+@d40 1
+a40 1
+    * Open wave, and get header info
+a44 3
+     openWav(iname, &fp, READ);
+     readWavHeader(fp, &samplingRate, &numSamples, &version, SWAP);
+     closeWav(fp);
+d46 10
+a55 3
+     /*
+      * Write out info 
+      */
+d57 9
+a65 5
+     fprintf(stdout, "\n\nWave info for %s:\n\n", iname);
+     fprintf(stdout, "\tSampling rate: %d\n", (int) samplingRate);
+     fprintf(stdout, "\tNumber of samples: %d\n", numSamples);
+     fprintf(stdout, "\tHeader version: %d\n", version);
+     fprintf(stdout, "\tUsing big endian format: %s\n", (SWAP == 1)? "Yes" : "No");
+@
+
+
+1.3
+log
+@Pretified usage.
+@
+text
+@d12 1
+a12 1
+#include "waveio.h"
+@
+
+
+1.2
+log
+@Added more informative usage.  Also, modified to take multiple wave
+files.
+@
+text
+@d65 2
+a66 2
+  fprintf(stderr, "\t<wavefile> is the file containing the recording (.wav  not needed).\n");
+  fprintf(stderr, "\te.g. %s bad\n", name);
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d13 1
+d16 1
+a16 1
+void usage(char **argv);
+d24 1
+a24 1
+   char iname[256];
+d29 2
+d32 6
+a37 5
+   if (argc != 2) usage(argv);
+   for (i = 1; i < argc; i++) {
+     if ((strcmp(argv[i], "-h") == 0) ||  (strcmp(argv[i], "-H") == 0)  ||
+     (strcmp(argv[i], "-?") == 0) || (argv[i][0] == '?')) usage(argv);
+   }
+d43 16
+a58 14
+   strcpy(iname, argv[1]);
+   openWav(iname, &fp, READ);
+   readWavHeader(fp, &samplingRate, &numSamples, &version, SWAP);
+   closeWav(fp);
+
+   /*
+    * Write out info 
+    */
+
+   fprintf(stdout, "\nWave info for %s:\n\n", iname);
+   fprintf(stdout, "\tSampling rate: %d\n", (int) samplingRate);
+   fprintf(stdout, "\tNumber of samples: %d\n", numSamples);
+   fprintf(stdout, "\tHeader version: %d\n", version);
+   fprintf(stdout, "\tUsing big endian format: %s\n\n", (SWAP == 1)? "Yes" : "No");
+d61 1
+a61 1
+void usage(char **argv)
+d63 4
+a66 2
+  fprintf(stderr, "\nUsage: %s <wavefile>\n", argv[0]);
+  fprintf(stderr, "\te.g. %s bad\n", argv[0]);
+@

@@ -1,0 +1,244 @@
+head	1.7;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.7
+date	2001.09.14.20.14.12;	author tiede;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	98.06.09.00.48.36;	author krishna;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	98.06.06.22.51.22;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.04.15.19.44.39;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.02.03.08.14.10;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.02.03.07.29.04;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.33.03;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@Programs to play and record .wav files.
+@
+
+
+1.7
+log
+@interface to play() changed (immediate play & return)
+@
+text
+@/*
+ * $Log: klplay.c,v $
+ * Revision 1.6  1998/06/09 00:48:36  krishna
+ * Changed argument processing based on changes to functions in
+ * getargs.c.  Rewrote usage, and added -p argument, which allows for
+ * pausing between playing wavfiles.
+ *
+ * Revision 1.5  1998/06/06 22:51:22  krishna
+ * Added RCS log.
+ *
+ */
+
+#include <stdio.h>
+#include <unistd.h>
+#include "wavio.h"
+#include "wavaudio.h"
+#include "getargs.h"
+
+#define PAUSE_DURATION 2  /* Pause duration in seconds */
+#define IMMEDIATE 1       /* play & return */
+
+void main(int argc, char **argv);
+void usage(char *name);
+
+
+void main(int argc, char **argv)
+{
+   float samplingRate, rate;
+   int numSamples;
+   int i, Pause;
+   short *wave;
+   char fname[256], progName[256], *str;
+   
+   strcpy(progName, argv[0]);
+
+   if (IsArg("-h", &argc, argv) || IsArg("-H", &argc, argv) || 
+       IsArg("-help", &argc, argv) || IsArg("--help", &argc, argv) ||
+       IsArg("-?", &argc, argv))
+     usage(progName);
+
+   Pause = IsArg("-p", &argc, argv);
+
+   if ((str = RemainingArgs(argc, argv)) != NULL) {
+     fprintf(stderr, "Unknown or duplicate argument: %s\n", str);
+     usage(progName);
+   }
+   if (argc < 2) usage(progName);
+
+   /*
+    * For each wavefile to play, read the file, and then play it out.
+    */
+
+   for (i = 1; i < argc; i++) {
+     strcpy(fname, argv[i]);
+     wave = (short *) getWavWaveform(fname, &samplingRate, 
+				     &numSamples, SWAP);
+     rate = samplingRate;
+
+     play(wave, &rate, numSamples, SWAP, IMMEDIATE);
+
+     fprintf(stdout, "Playing %s at %d Hz (requested SR: %d Hz)", 
+	     fname, (int) rate, (int) samplingRate);
+     fprintf(stdout, " for %3.1f sec.\n", (int) numSamples/samplingRate);
+
+     free(wave);
+     if ((i != (argc - 1)) && Pause)  /* If not last file, pause */
+       sleep(PAUSE_DURATION);
+   }
+}
+
+void usage(char *name)
+{
+  fprintf(stderr, "\nUsage: %s [-h | --help] [-p] <wav1> <wav2> ...\n", name);
+  fprintf(stderr, "\t-p specifies that the program should pause %d seconds", 
+	  PAUSE_DURATION);
+  fprintf(stderr, "\n\t  between playing wave files.\n");
+  fprintf(stderr, "\t<wav1>, <wav2> are the Klatt .wav file ");
+  fprintf(stderr, "(.wav not needed).\n");
+  fprintf(stderr, "e.g. %s hello\n", name);
+  exit(1);
+}
+@
+
+
+1.6
+log
+@Changed argument processing based on changes to functions in
+getargs.c.  Rewrote usage, and added -p argument, which allows for
+pausing between playing wavfiles.
+@
+text
+@d3 5
+d20 1
+d59 1
+a59 1
+     play(wave, &rate, numSamples, SWAP);
+@
+
+
+1.5
+log
+@Added RCS log.
+@
+text
+@d2 4
+a5 1
+ * $Log$
+d9 1
+d14 2
+d19 1
+d24 1
+a24 1
+   int i;
+d26 1
+a26 1
+   char fname[256], progName[256];
+d30 3
+a32 3
+   if (IsArg("-h", argc, argv) || IsArg("-H", argc, argv) || 
+       IsArg("-help", argc, argv) || IsArg("--help", argc, argv) ||
+       IsArg("-?", argc, argv))
+d35 6
+d48 14
+a61 7
+
+      strcpy(fname, argv[i]);
+      wave = (short *) getWavWaveform(fname, &samplingRate, &numSamples, SWAP);
+      rate = samplingRate;
+      play(wave, &rate, numSamples, SWAP);
+      fprintf(stdout, "Played %s at %d Hz (requested sampling rate: samplingRate) for %3.2f sec\n", fname, (int) rate, samplingRate, (int) numSamples/samplingRate);
+      free(wave);
+d67 6
+a72 3
+  fprintf(stderr, "\nUsage: %s [-h | --help] <wavefile> <wavefile2> ...\n", 
+	  name);
+  fprintf(stderr, "\t<wavefile> is the Klatt .wav file (.wav not needed).\n");
+@
+
+
+1.4
+log
+@Changed waveio.h to wavio.h.
+@
+text
+@d1 4
+@
+
+
+1.3
+log
+@Told user what the requested and actual sampling rate was.
+@
+text
+@d2 1
+a2 1
+#include "waveio.h"
+@
+
+
+1.2
+log
+@Modified usage.  Added getargs.
+@
+text
+@d36 1
+a36 2
+      fprintf(stdout, "Playing %s at %dHz (%f sec)\n", fname, (int) rate, 
+	   (int) numSamples/samplingRate);
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d4 1
+d6 4
+a9 1
+void main(int argc, char *argv[])
+d15 10
+a24 1
+   char fname[256];
+d27 1
+a27 1
+    * Get the waveform to play
+d31 1
+a32 1
+
+d40 9
+@

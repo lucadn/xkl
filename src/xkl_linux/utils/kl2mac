@@ -1,0 +1,35 @@
+#!/bin/csh
+
+#
+# $Log: kl2mac,v $
+# Revision 1.1  1998/06/12 18:31:46  krishna
+# Initial revision
+#
+#
+
+if($#argv < 1) then
+   echo "Usage: $0 file1.wav file2.wav ..."
+   echo "	.wav extension not required"
+   exit
+endif
+
+
+foreach f ($*)
+   set rt=$f:r    # Get wave name without .wav extension
+
+   # Get sampling rate
+
+   set samplingRate = `klinfo -f $rt.wav`
+   echo "Sampling rate is set to...$samplingRate Hz"
+
+   # Convert from Klatt .wav format to headerless, binary data
+
+   kl2raw $rt.wav $rt.raw >& /dev/null
+
+   # Convert from 16-bit (shorts), to AIFF format
+   
+   sox -r $samplingRate -s -w $rt.raw $rt.aiff
+
+   rm -f $rt.raw
+   echo "AIFF file written to $rt.aiff."
+end

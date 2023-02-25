@@ -1,0 +1,78 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	98.07.16.23.49.04;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.07.14.20.19.12;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@Don't know what I changed.
+@
+text
+@# $Log$
+
+#!/bin/csh
+
+if($#argv < 1) then
+   echo "This program converts one or more Microserf .wav files to Klatt .wav"
+   echo "files.  The MS .wav files are renamed with the .mswav extension."
+   echo "This program requires sox (version 12.14)."
+   echo ""
+   echo "Usage: $0 file1.wav file2.wav ..."
+   echo "	.wav extension not required"
+   echo ""
+   exit
+endif
+
+
+foreach f ($*)
+   set rt=$f:r    # Get wave name without .wav extension
+
+   echo "MS .wav file renamed to $rt.mswav."
+   mv -f $rt.wav $rt.mswav
+   
+   # Get sampling rate
+
+   set samplingRate = `sox -V -t WAV $rt.mswav |& perl -ne 'if (/sample rate (.*)/) { print $1;}' -`
+
+   echo "Sampling rate is $samplingRate."
+
+   # Convert from MS .wav format to 16-bit (shorts)
+   
+   sox -t WAV $rt.mswav -s -w $rt.raw
+
+   # Convert from headerless, binary data to Klatt .wav format
+
+   raw2kl -f $samplingRate $rt.raw $rt.wav >& /dev/null
+
+   echo "Klatt .wav file written to $rt.wav"
+
+   rm -f $rt.raw
+end
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 2
+@

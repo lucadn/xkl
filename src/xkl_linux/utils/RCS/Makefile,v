@@ -1,0 +1,258 @@
+head	1.6;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.6
+date	2001.07.18.16.18.37;	author tiede;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2000.04.20.05.32.38;	author krishna;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	98.07.22.14.31.04;	author krishna;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	98.05.19.00.00.54;	author krishna;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	98.02.03.07.54.46;	author krishna;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	98.02.03.00.35.59;	author krishna;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.6
+log
+@ms2kl, kl2ms now compiled PROGS; added sgisd2kl to SCRIPTS
+@
+text
+@# $Log: Makefile,v $
+# Revision 1.5  2000/04/20 05:32:38  krishna
+# Changed install to copy executables instead of moving them.
+#
+# Revision 1.4  1998/07/22 14:31:04  krishna
+# Added ms2kl and kl2ms.
+#
+
+#######################################################################
+#
+# Makefile for utils.  No need fo user to edit in here.
+#
+#######################################################################
+
+include ../Makefile.vars
+
+PROGS = concat kl2raw klinfo klplay klrecord raw2kl klgain ms2kl kl2ms
+SCRIPTS = kl2sd sd2kl sgikl2sd sgisd2kl mac2kl kl2mac
+MATLAB_SCRIPTS = mat2kl.m kl2mat.m
+
+INCLUDES = -I../common
+
+OBJS = raw2kl.o kl2raw.o klinfo.o klplay.o klrecord.o concat.o klgain.o ms2kl.o kl2ms.o
+
+COMMON_OBJS = ../common/wavio.o ../common/getargs.o
+
+all: $(PROGS) $(SCRIPTS)
+
+install:
+	chmod go+rx $(PROGS) $(SCRIPTS)
+	cp -f $(PROGS) $(SCRIPTS) $(BINDIR)
+	cp -f $(MATLAB_SCRIPTS) $(MATLAB_DIR)
+
+clean:	
+	rm -f *.o core *~ $(PROGS) $(OBJS)
+
+concat: concat.o $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ concat.o $(COMMON_OBJS) -lm
+
+raw2kl: raw2kl.o $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ raw2kl.o $(COMMON_OBJS) -lm
+
+kl2raw: kl2raw.o $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ kl2raw.o $(COMMON_OBJS) -lm
+
+ms2kl: kl2raw.o $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ ms2kl.o $(COMMON_OBJS) -lm
+
+kl2ms: kl2raw.o $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ kl2ms.o $(COMMON_OBJS) -lm
+
+klinfo: klinfo.o $(COMMON_OBJS) ../common/wavdata.o
+	${CC} ${CFLAGS} -o $@@ klinfo.o $(COMMON_OBJS) \
+		../common/wavdata.o -lm
+
+klgain: klgain.o $(COMMON_OBJS) ../common/wavdata.o
+	${CC} ${CFLAGS} -o $@@ klgain.o \
+		$(COMMON_OBJS) ../common/wavdata.o -lm
+
+klplay: klplay.o $(COMMON_OBJS) ../common/wavaudio.o
+	${CC} ${CFLAGS} -o $@@ klplay.o $(COMMON_OBJS) \
+		../common/wavaudio.o -lm
+
+klrecord: klrecord.o $(COMMON_OBJS) ../common/wavaudio.o
+	${CC} ${CFLAGS} -o $@@ klrecord.o $(COMMON_OBJS) \
+		 ../common/wavaudio.o  -lm
+@
+
+
+1.5
+log
+@Changed install to copy executables instead of moving them.
+@
+text
+@d2 3
+d17 2
+a18 2
+PROGS = concat kl2raw klinfo klplay klrecord raw2kl klgain
+SCRIPTS = kl2sd sd2kl sgikl2sd mac2kl kl2mac ms2kl kl2ms
+d23 1
+a23 1
+OBJS = raw2kl.o kl2raw.o klinfo.o klplay.o klrecord.o concat.o klgain.o
+d45 6
+@
+
+
+1.4
+log
+@Added ms2kl and kl2ms.
+@
+text
+@d1 4
+a4 1
+# $Log$
+d28 2
+a29 2
+	mv -i $(PROGS) $(SCRIPTS) $(BINDIR)
+	mv $(MATLAB_SCRIPTS) $(MATLAB_DIR)
+@
+
+
+1.3
+log
+@Added dependencies, renamed 'wav' to 'kl' prefix to prevent confusion
+with MS .wav format.  Added klgain to utilities.
+@
+text
+@d1 2
+d12 1
+a12 1
+SCRIPTS = deckl2sd sgikl2sd
+a19 1
+OTHER_COMMON_OBJS = ../common/wavaudio.o ../common/wavdata.o
+d31 5
+d37 2
+a38 27
+concat: concat.c $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ $(INCLUDES) $@@.c \
+		$(COMMON_OBJS)
+
+raw2kl: raw2kl.c $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ $(INCLUDES) $@@.c \
+		$(COMMON_OBJS)
+
+kl2raw: kl2raw.c $(COMMON_OBJS)
+	${CC} ${CFLAGS} -o $@@ $(INCLUDES) $@@.c \
+		$(COMMON_OBJS)
+
+klinfo: klinfo.c $(COMMON_OBJS) ../common/wavdata.o
+	${CC} ${CFLAGS} -o $@@ $(INCLUDES) $@@.c \
+		$(COMMON_OBJS) ../common/wavdata.o
+
+klgain: klgain.c $(COMMON_OBJS) ../common/wavdata.o
+	${CC} ${CFLAGS} -o $@@ $(INCLUDES) $@@.c \
+		$(COMMON_OBJS) ../common/wavdata.o
+
+klplay: klplay.c $(COMMON_OBJS) ../common/wavaudio.o
+	${CC} ${CFLAGS} -o $@@ $(INCLUDES) $@@.c \
+		$(COMMON_OBJS) ../common/wavaudio.o
+
+klrecord: klrecord.c $(COMMON_OBJS) ../common/wavaudio.o
+	${CC} ${CFLAGS} -o $@@ $(INCLUDES) $@@.c \
+		$(COMMON_OBJS) ../common/wavaudio.o
+d40 15
+@
+
+
+1.2
+log
+@Incorporated ../common/getargs.o for different programs.
+@
+text
+@d1 1
+d3 1
+a3 1
+# Makefile for utils.  Set following three variables
+d5 1
+d7 1
+a7 3
+BINDIR = /usr/local/bin
+LIBDIR = /usr/local/lib/xkl
+MATLAB_DIR = /usr/local/lib/xkl
+d9 3
+a11 4
+
+PROGS = rawtowav wavtoraw wavinfo wavplay wavrecord concat94 
+SCRIPTS = decwav2sd sgiwav2sd
+MATLAB_SCRIPTS = mat2wav.m wav2mat.m
+d15 1
+a15 6
+OBJS = rawtowav.o wavtoraw.o wavinfo.o wavplay.o wavrecord.o concat94.o 
+COMMON_OBJS = ../common/waveio.o ../common/wavaudio.o ../common/getargs.o
+
+CC = cc
+CFLAGS = -O
+SHELL = /bin/sh
+d17 2
+d20 1
+a20 1
+all: $(PROGS)
+a29 6
+concat94: concat94.o $(COMMON_OBJS)
+rawtowav: rawtowav.o $(COMMON_OBJS)
+wavtoraw: wavtoraw.o $(COMMON_OBJS)
+wavinfo: wavinfo.o $(COMMON_OBJS)
+wavplay: wavplay.o $(COMMON_OBJS)
+wavrecord: wavrecord.o $(COMMON_OBJS)
+d31 28
+a58 2
+%.o : %.c
+	${CC} ${CFLAGS} ${INCLUDES} -c -o $@@ $<
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d17 1
+a17 1
+COMMON_OBJS = ../common/waveio.o ../common/waveaudio.o
+d34 6
+a39 6
+concat94: concat94.o ../common/waveio.o
+rawtowav: rawtowav.o ../common/waveio.o
+wavtoraw: wavtoraw.o ../common/waveio.o
+wavinfo: wavinfo.o ../common/waveio.o
+wavplay: wavplay.o ../common/waveio.o ../common/wavaudio.o
+wavrecord: wavrecord.o ../common/waveio.o ../common/wavaudio.o
+@
