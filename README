@@ -10,8 +10,8 @@ More information on the project can be found at http://acts.ing.uniroma1.it/xkl.
 
 For detailed installation instructions please refer to the installation guides for each OS in the docs/ subfolder.
 
-The xkl software is released under a GNU General Public License v3.0 (GPL-3.0). 
+The xkl software is released under a GNU General Public License v3.0 (GPL-3.0); please refer to the LICENSE.txt file.
 Companies interested in commercial use can contact the MIT Technology Licensincing Office for further information: for details please refer to the 
-LICENSE.txt file.
+
 
 For bugs/feedback contact us at sshuf@mit.edu or luca.denardis@uniroma1.it
